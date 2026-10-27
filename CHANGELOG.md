@@ -7,6 +7,20 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add related-content blocks and reusable learning notes with English and German examples.
+- Add browser checks for viewport motion, locale navigation, keyboard access, and responsive screenshots.
+
+### Changed
+
+- Move footer navigation into the localized global config story.
+- Make seed imports draft-first, scoped, and guarded by remote-content snapshots before replacement.
+
+### Fixed
+
+- Start the publishing animation in view and retain progress while offscreen or in a hidden tab.
+
 ## [0.8.2] - 2026-10-22
 
 ### Changed
