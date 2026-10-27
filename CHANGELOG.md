@@ -15,7 +15,7 @@
 ### Changed
 
 - Refine the localized footer and add a documentation index.
-- Make seed imports draft-first, scoped, and guarded by remote-content snapshots before replacement.
+- Make seed imports scoped, draft-first, and compatible with Storyblok-assigned UUIDs.
 
 ### Fixed
 
