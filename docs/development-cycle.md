@@ -20,6 +20,7 @@ npm start -- --port 3502
 # Against that running build, in another terminal:
 npm run smoke -- http://localhost:3502
 npm run verify:agent-readiness -- http://localhost:3502
+npm run verify:browser -- http://localhost:3502
 ```
 
 Check listeners before binding: macOS `lsof -iTCP:3502 -sTCP:LISTEN`; Windows `Get-NetTCPConnection -LocalPort 3502` and `netsh int ipv4 show excludedportrange protocol=tcp`; WSL `ss -ltn`. Stop only the PID started for this review. Stop a dev instance before the production build, then restart it after checks so `.next` output and the final review instance agree.
@@ -49,4 +50,4 @@ The existing `v0.7.0` tag is annotated, points to the production promotion commi
 
 Code deployment and CMS publication are separate operations. Before a live write, snapshot the current schema/stories and compare with the reviewed baseline. Apply backward-compatible schema extensions, save reviewed story changes as drafts, deploy supporting code, then publish only the reviewed stories. Recheck concurrent edits before writing.
 
-`storyblok:push` selects every seed and publishes by default; `--draft` changes publication behavior, not selection. For scoped delivery, reuse `syncSpace` from `scripts/lib/storyblok-sync.mjs` with explicit component/story subsets and `publish: false`. Preview the draft before publication. Verify English/German HTML and Markdown after publication and webhook invalidation. Local seed rendering proves the implementation, not the live CMS state.
+`storyblok:push` requires repeatable `--only-component`/`--only-story` selectors or explicit `--bootstrap`. It saves drafts unless `--publish` is supplied. Export selected remote content with `--snapshot <new-file>`, review it, and pass it through `--baseline <file>` before replacing an existing story. Drift aborts content replacement. Keep local snapshots outside version control. Apply schema changes separately, deploy supporting components, preview drafts, then explicitly publish reviewed stories. Verify English/German HTML and Markdown after webhook invalidation. Local seeds prove implementation, not live CMS publication.
