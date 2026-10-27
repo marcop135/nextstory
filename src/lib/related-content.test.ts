@@ -32,6 +32,13 @@ it("preserves editorial order and omits missing and non-note references", () => 
   expect(relatedUuids(content)).toEqual([page.uuid, note.uuid]);
 });
 
+it("does not duplicate the locale prefix supplied by the delivery API", () => {
+  const note = { ...mockStoryForSlug("content-relationships", "de")!, full_slug: "de/content-relationships" };
+  const content = { body: [{ component: "related_content", stories: [note.uuid] }] };
+  const result = attachRelatedNotes(content, [note], "de");
+  expect((result.body as { resolved_notes: { href: string }[] }[])[0].resolved_notes[0].href).toBe("/de/content-relationships");
+});
+
 it("renders localized references consistently in HTML and Markdown", () => {
   const story = mockStoryForSlug("blocks", "de")!;
   const blok = story.content.body.find((b: { component: string }) => b.component === "related_content");
