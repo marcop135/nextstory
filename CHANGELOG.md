@@ -22,6 +22,7 @@
 ### Fixed
 
 - Start the publishing animation in view and retain progress while offscreen or in a hidden tab.
+- Keep German related-content links on a single locale prefix.
 
 ## [0.8.2] - 2026-10-22
 

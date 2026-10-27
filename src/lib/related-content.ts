@@ -18,7 +18,8 @@ export function attachRelatedNotes(content: Block, stories: ISbStoryData[], lang
   if (!Array.isArray(content.body)) return content;
   const notes = new Map<string, RelatedNote>();
   for (const story of stories) {
-    const slug = normalizeStorySlug(story.full_slug);
+    const fullSlug = normalizeStorySlug(story.full_slug);
+    const slug = language === "de" && fullSlug?.startsWith("de/") ? fullSlug.slice(3) : fullSlug;
     if (story.content.component !== "learning_note" || !slug || !isPageSlug(slug) || typeof story.content.title !== "string") continue;
     notes.set(story.uuid, {
       uuid: story.uuid, title: story.content.title,
