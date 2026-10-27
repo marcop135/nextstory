@@ -5,9 +5,11 @@ Open [Storyblok](https://app.storyblok.com/), sign in, select the project space,
 [`storyblok/components.json`](../storyblok/components.json) defines the content model; [`storyblok/stories/`](../storyblok/stories/) contains the seed stories used by the space, generated types, and offline mode.
 
 ```bash
-npm run storyblok:push -- --dry-run   # list the changes
-npm run storyblok:push                # create or replace components by name, stories by slug, then publish
-npm run storyblok:push -- --draft     # save drafts without publishing
+npm run storyblok:push -- --bootstrap --dry-run   # inspect a new-space import
+npm run storyblok:push -- --bootstrap             # import drafts into a new space
+npm run storyblok:push -- --only-story home --snapshot home-baseline.json
+npm run storyblok:push -- --only-story home --baseline home-baseline.json
+npm run storyblok:push -- --only-story home --publish  # explicit publication after review
 npm run storyblok:types               # regenerate src/types/storyblok.generated.ts
 ```
 
@@ -26,9 +28,11 @@ npm run storyblok:types               # regenerate src/types/storyblok.generated
 | `accordion` / `accordion_item` | nestable | Native expandable sections with rich text; keyboard-operable without client JavaScript |
 | `pull_quote` | nestable | Quotation with optional attribution |
 | `comparison_table` | nestable | Captioned table with column/row headers; native `table` field translates as a whole |
+| `related_content` | nestable | Ordered story references, rendered as localized links and summaries; missing/unpublished targets are omitted publicly |
+| `learning_note` | content type | Reusable title, summary, SEO fields, and rich-text/code-example body; independently previewed and published |
 | `code_example` | nestable | Escaped code, language, translated explanation/caption, and repository-relative source link |
 | `cta_band` | nestable | Full-width call to action |
-| `config` / `nav_link` | content type | Global story `config`: header navigation and footer note; never served as a page |
+| `config` / `nav_link` | content type | Global `config`: header navigation, footer note, and `footer_nav` project links; never served as a page |
 
 ## Stories
 
@@ -39,12 +43,14 @@ npm run storyblok:types               # regenerate src/types/storyblok.generated
 | `blocks` | `page` |
 | `pricing` | `page` |
 | `config` | `config` |
+| `content-relationships` | `learning_note` |
+| `cache-invalidation` | `learning_note` |
 
 ## Languages
 
 The space has `de` enabled under Settings → Internationalization. Reader-facing text fields use `translatable`, so German lives in the same story as `field__i18n__de`. Links translate too, so German links point at `/de/...`. Code, language identifiers, and source paths stay unchanged. The comparison table supplies `table__i18n__de` with translated cells. The app requests `language=de` for `/de`; empty translations fall back to English.
 
-Home uses the animated hero and ownership comparison. How-it-works uses an actual source excerpt; the block library shows both new blocks. The type generator supports the table's `thead`/`tbody` shape. Source-parity tests fail if the displayed excerpt no longer matches its linked file.
+Home uses the viewport-controlled hero and ownership comparison. How-it-works and the block library reference the same two learning notes. Seed UUIDs identify local relationships; imports map them to the UUIDs assigned by each Storyblok space. Notes reuse rich-text/code-example blocks; publishing a note refreshes reference consumers across languages. Source-parity tests keep displayed code excerpts aligned with their linked files.
 
 ## Preview and webhook
 

@@ -20,6 +20,8 @@ function fieldType(field) {
     case "text":
     case "textarea":
       return "string";
+    case "options":
+      return "string[]";
     case "boolean":
       return "boolean";
     case "table":

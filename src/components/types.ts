@@ -1,4 +1,6 @@
 export type {
+  RelatedContentBlok,
+  LearningNoteBlok,
   ComparisonTableBlok,
   CodeExampleBlok,
   AccordionBlok,

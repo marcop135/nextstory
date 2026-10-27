@@ -57,3 +57,12 @@ jobs:
           for i in $(seq 1 30); do curl -sf http://localhost:3000/ > /dev/null && break; sleep 1; done
           npm run smoke -- http://localhost:3000 || { cat next-start.log; exit 1; }
           npm run verify:agent-readiness -- http://localhost:3000 || { cat next-start.log; exit 1; }
+          node scripts/verify-browser.mjs http://localhost:3000 || { cat next-start.log; exit 1; }
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-review
+          path: .next/review/
+          if-no-files-found: ignore

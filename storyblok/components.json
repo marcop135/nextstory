@@ -33,7 +33,8 @@
           "accordion",
           "pull_quote",
           "comparison_table",
-          "code_example"
+          "code_example",
+          "related_content"
         ],
         "pos": 3
       }
@@ -286,6 +287,14 @@
         "type": "text",
         "translatable": true,
         "pos": 1
+      },
+      "footer_nav": {
+        "type": "bloks",
+        "restrict_components": true,
+        "component_whitelist": [
+          "nav_link"
+        ],
+        "pos": 2
       }
     }
   },
@@ -480,6 +489,65 @@
         "type": "text",
         "translatable": false,
         "pos": 5
+      }
+    }
+  },
+  {
+    "name": "related_content",
+    "display_name": "Related content",
+    "is_root": false,
+    "is_nestable": true,
+    "schema": {
+      "headline": {
+        "type": "text",
+        "translatable": true,
+        "pos": 0
+      },
+      "stories": {
+        "type": "options",
+        "source": "internal_stories",
+        "filter_content_type": [
+          "learning_note"
+        ],
+        "pos": 1
+      }
+    }
+  },
+  {
+    "name": "learning_note",
+    "display_name": "Learning note",
+    "is_root": true,
+    "is_nestable": false,
+    "schema": {
+      "seo_title": {
+        "type": "text",
+        "translatable": true,
+        "pos": 0
+      },
+      "seo_description": {
+        "type": "textarea",
+        "translatable": true,
+        "pos": 1
+      },
+      "title": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 2
+      },
+      "summary": {
+        "type": "textarea",
+        "translatable": true,
+        "pos": 3
+      },
+      "body": {
+        "type": "bloks",
+        "restrict_components": true,
+        "component_whitelist": [
+          "rich_text",
+          "code_example"
+        ],
+        "pos": 4
       }
     }
   }

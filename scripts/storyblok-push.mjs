@@ -1,17 +1,43 @@
 /**
  * Push storyblok/components.json and storyblok/stories/*.json to the space.
  *
- *   STORYBLOK_PERSONAL_ACCESS_TOKEN=... STORYBLOK_SPACE_ID=... node scripts/storyblok-push.mjs [--dry-run] [--draft]
+ *   node scripts/storyblok-push.mjs --only-story home --snapshot baseline.json
+ *   node scripts/storyblok-push.mjs --only-story home --baseline baseline.json
+ *   node scripts/storyblok-push.mjs --bootstrap [--dry-run] [--publish]
  *
  * Writes go to the live space: components are created or replaced by name,
- * stories by slug, and published unless --draft is passed.
+ * stories by slug. Publishing requires --publish; overwrites require a baseline.
  */
+import { readFileSync, writeFileSync } from "node:fs";
 import { loadSeed, syncSpace } from "./lib/storyblok-sync.mjs";
 
 const token = process.env.STORYBLOK_PERSONAL_ACCESS_TOKEN?.trim();
 const spaceId = process.env.STORYBLOK_SPACE_ID?.trim();
 const region = (process.env.STORYBLOK_REGION || "eu").trim();
-const dryRun = process.argv.includes("--dry-run");
+const options = { onlyStories: [], onlyComponents: [], publish: false };
+let snapshotPath;
+let baselinePath;
+const args = process.argv.slice(2);
+for (let i = 0; i < args.length; i += 1) {
+  const flag = args[i];
+  if (["--only-story", "--only-component", "--snapshot", "--baseline"].includes(flag)) {
+    const value = args[++i];
+    if (!value || value.startsWith("--")) throw new Error(`Missing value for ${flag}`);
+    if (flag === "--only-story") options.onlyStories.push(value);
+    if (flag === "--only-component") options.onlyComponents.push(value);
+    if (flag === "--snapshot") snapshotPath = value;
+    if (flag === "--baseline") baselinePath = value;
+  } else if (flag === "--publish") options.publish = true;
+  else if (flag === "--draft") options.draft = true;
+  else if (flag === "--dry-run") options.dryRun = true;
+  else if (flag === "--bootstrap") options.bootstrap = true;
+  else throw new Error(`Unknown option: ${flag}`);
+}
+if (options.publish && options.draft) throw new Error("Choose --publish or --draft, not both.");
+if (snapshotPath && (baselinePath || options.publish || options.dryRun || options.bootstrap)) {
+  throw new Error("--snapshot is read-only; do not combine it with --baseline, --publish, --dry-run, or --bootstrap.");
+}
+if (baselinePath) options.baseline = JSON.parse(readFileSync(baselinePath, "utf8"));
 
 if (!token || !spaceId) {
   console.error("Set STORYBLOK_PERSONAL_ACCESS_TOKEN and STORYBLOK_SPACE_ID.");
@@ -38,5 +64,8 @@ async function request(method, path, body) {
   throw new Error(`${method} ${path}: rate limited`);
 }
 
-await syncSpace({ request, ...loadSeed(), dryRun, publish: !process.argv.includes("--draft") });
-console.log(dryRun ? "dry run complete" : "space in sync with storyblok/");
+const result = await syncSpace({ request, ...loadSeed(), ...options, snapshot: Boolean(snapshotPath) });
+if (snapshotPath) {
+  writeFileSync(snapshotPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
+  console.log(`remote story snapshot saved to ${snapshotPath}`);
+} else console.log(options.dryRun ? "dry run complete" : "selected seeds synced");

@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { fetchStory } from "@/lib/fetch-story";
+import { fetchStory, fetchRelatedStories } from "@/lib/fetch-story";
 import { mockHomeStory } from "@/lib/mock-story";
+import { mockStoryForSlug } from "@/lib/mock-story";
 
 const { draftMode } = vi.hoisted(() => ({ draftMode: vi.fn() }));
 vi.mock("next/headers", () => ({ draftMode }));
@@ -19,6 +20,60 @@ beforeEach(() => {
 });
 
 describe("content delivery", () => {
+  it("batches distinct references by input count even when early batches contain missing stories", async () => {
+    const uuids = Array.from({ length: 205 }, (_, i) => `00000000-0000-4000-8000-${String(i + 1).padStart(12, "0")}`);
+    const note = mockStoryForSlug("content-relationships", "de")!;
+    const laterNote = { ...note, uuid: uuids[204] };
+    vi.mocked(fetch).mockResolvedValueOnce(Response.json({ stories: [] }))
+      .mockResolvedValueOnce(Response.json({ stories: [] }))
+      .mockResolvedValueOnce(Response.json({ stories: [laterNote] }));
+    expect(await fetchRelatedStories([...uuids, uuids[0]], "de", "published")).toEqual([laterNote]);
+    const batches = vi.mocked(fetch).mock.calls.map(([url, options]) => {
+      const params = new URL(String(url)).searchParams;
+      expect(params.get("version")).toBe("published");
+      expect(params.get("language")).toBe("de");
+      expect(options?.next?.tags).toContain("storyblok:related-content");
+      return params.get("by_uuids")!.split(",");
+    });
+    expect(batches.map((batch) => batch.length)).toEqual([100, 100, 5]);
+    expect(batches.flat()).toEqual(uuids);
+  });
+
+  it("rejects malformed relation entries rather than failing while rendering", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(Response.json({ stories: [null] }));
+    await expect(fetchRelatedStories(["00000000-0000-4000-8000-000000000001"], undefined, "published")).rejects.toThrow("Invalid Storyblok related-content response");
+  });
+  it("loads published related notes with a separate dependency tag and preserves editorial order", async () => {
+    const story = mockStoryForSlug("blocks")!;
+    const note = mockStoryForSlug("cache-invalidation", "de")!;
+    vi.mocked(fetch).mockResolvedValueOnce(Response.json({ story })).mockResolvedValueOnce(Response.json({ stories: [note] }));
+    const result = await fetchStory("blocks", "de", { version: "published" });
+    const [url, options] = vi.mocked(fetch).mock.calls[1];
+    expect(new URL(String(url)).searchParams.get("by_uuids")).toContain(note.uuid);
+    expect(new URL(String(url)).searchParams.get("version")).toBe("published");
+    expect(new URL(String(url)).searchParams.get("language")).toBe("de");
+    expect(options?.next?.tags).toEqual(["storyblok", "storyblok:related-content"]);
+    expect(vi.mocked(fetch).mock.calls[0][1]?.next?.tags).not.toContain("storyblok:related-content");
+    const blok = result!.story.content.body.find((b: { component: string }) => b.component === "related_content");
+    expect(blok.resolved_notes).toEqual([expect.objectContaining({ href: "/de/cache-invalidation" })]);
+  });
+
+  it("resolves authenticated draft relationships without caching and omits unpublished public references", async () => {
+    const story = mockStoryForSlug("blocks")!;
+    draftMode.mockResolvedValue({ isEnabled: true });
+    vi.mocked(fetch).mockResolvedValueOnce(Response.json({ story })).mockResolvedValueOnce(Response.json({ stories: [] }));
+    const result = await fetchStory("blocks");
+    const [url, options] = vi.mocked(fetch).mock.calls[1];
+    expect(new URL(String(url)).searchParams.get("version")).toBe("draft");
+    expect(options?.cache).toBe("no-store");
+    expect(options?.next).toBeUndefined();
+    expect(result!.story.content.body.find((b: { component: string }) => b.component === "related_content").resolved_notes).toEqual([]);
+  });
+
+  it("does not hide reference outages as empty related content or leak delivery tokens", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(Response.json({ story: mockStoryForSlug("blocks") })).mockRejectedValueOnce(new Error("token=test-token"));
+    await expect(fetchStory("blocks")).rejects.toThrow("Storyblok related-content request failed");
+  });
   it("can explicitly read published content despite preview cookies and draft development settings", async () => {
     vi.stubEnv("NODE_ENV", "development");
     draftMode.mockResolvedValue({ isEnabled: true });

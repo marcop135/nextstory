@@ -175,6 +175,16 @@
         "cta_label__i18n__de": "Block-Bibliothek öffnen",
         "cta_href": "/blocks",
         "cta_href__i18n__de": "/de/blocks"
+      },
+      {
+        "_uid": "how-it-works-related",
+        "component": "related_content",
+        "headline": "Learning notes",
+        "headline__i18n__de": "Notizen zur Umsetzung",
+        "stories": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ]
       }
     ]
   }
