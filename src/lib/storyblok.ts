@@ -14,8 +14,12 @@ import PullQuote from "@/components/PullQuote";
 import RichText from "@/components/RichText";
 import Step from "@/components/Step";
 import Steps from "@/components/Steps";
+import RelatedContent from "@/components/RelatedContent";
+import LearningNote from "@/components/LearningNote";
 
 export const storyblokComponents = {
+  related_content: RelatedContent,
+  learning_note: LearningNote,
   page: Page,
   hero: Hero,
   feature_grid: FeatureGrid,

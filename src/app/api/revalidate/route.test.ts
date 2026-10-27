@@ -54,7 +54,8 @@ it.each(["published", "unpublished", "deleted"])("invalidates all language varia
   expect(response.status).toBe(200);
   expect(revalidatePath).toHaveBeenCalledWith("/pricing");
   expect(revalidatePath).toHaveBeenCalledWith("/de/pricing");
-  expect(revalidateTag).toHaveBeenCalledOnce();
+  expect(revalidateTag).toHaveBeenCalledTimes(2);
+  expect(revalidateTag).toHaveBeenCalledWith("storyblok:related-content", { expire: 0 });
   expect(revalidateTag).not.toHaveBeenCalledWith("storyblok", expect.anything());
 });
 
@@ -62,7 +63,7 @@ it("expires the old and new paths when an editor moves a story", async () => {
   await POST(request({ action: "moved", full_slug: "campaigns/new", old_full_slug: "campaigns/old" }));
   expect(revalidatePath).toHaveBeenCalledWith("/campaigns/old");
   expect(revalidatePath).toHaveBeenCalledWith("/de/campaigns/new");
-  expect(revalidateTag).toHaveBeenCalledTimes(2);
+  expect(revalidateTag).toHaveBeenCalledTimes(3);
 });
 
 it("supports legacy story-id-only publish events with a collection invalidation", async () => {
@@ -90,7 +91,7 @@ it("refreshes the shared layout when the config story is published", async () =>
   const response = await POST(request({ action: "published", story_id: 7, full_slug: "config" }));
   expect(response.status).toBe(200);
   expect(revalidatePath).toHaveBeenCalledWith("/", "layout");
-  expect(revalidateTag).toHaveBeenCalledOnce();
+  expect(revalidateTag).toHaveBeenCalledTimes(2);
 });
 
 it("refreshes the sitemap when a story is published", async () => {

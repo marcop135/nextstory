@@ -61,7 +61,8 @@ The Visual Editor bridge runs in authenticated preview. Public Markdown always r
 | Content schema and generated types | [`storyblok/components.json`](storyblok/components.json), [`scripts/storyblok-types.mjs`](scripts/storyblok-types.mjs) |
 | CMS blocks and React Server Components | [`src/lib/storyblok.ts`](src/lib/storyblok.ts), [`src/components/`](src/components/) |
 | Draft preview and webhook revalidation | [`preview/route.ts`](src/app/api/preview/route.ts), [`revalidate/route.ts`](src/app/api/revalidate/route.ts) |
-| Global navigation and footer | [`src/lib/site-config.ts`](src/lib/site-config.ts) |
+| Global navigation and footer | [`src/lib/site-config.ts`](src/lib/site-config.ts), [`src/components/SiteChrome.tsx`](src/components/SiteChrome.tsx) |
+| Referenced learning notes | [`src/lib/related-content.ts`](src/lib/related-content.ts), [`src/components/RelatedContent.tsx`](src/components/RelatedContent.tsx) |
 | Localization and language routing | [`src/lib/i18n.ts`](src/lib/i18n.ts), [`src/proxy.ts`](src/proxy.ts) |
 | Offline development with seed stories | [`src/lib/mock-story.ts`](src/lib/mock-story.ts) |
 | Published content as Markdown | [`src/lib/story-markdown.ts`](src/lib/story-markdown.ts) |
@@ -81,11 +82,11 @@ npm run dev
 
 Open http://localhost:3000. **Local mode:** leave the delivery token empty to render bundled seed stories in English and German (`source: mock`), without a Storyblok account. **Storyblok mode:** connect your own space using the setup below (`source: storyblok`).
 
-`npm test` covers rendering, translations, delivery, preview, webhooks, Markdown, and tool lifecycle. Against a running build, `npm run smoke` checks page journeys and `npm run verify:agent-readiness` checks public resources.
+`npm test` covers rendering, translations, delivery, preview, webhooks, Markdown, imports, and tool lifecycle. Against a running build, `npm run smoke` checks journeys, `npm run verify:agent-readiness` checks public resources, and `npm run verify:browser` checks motion/navigation in system Chrome and saves responsive screenshots.
 
 ## Storyblok setup
 
-Create a space, enable German (`de`), then import the tracked components and seed stories with `npm run storyblok:push`. The command creates or replaces components by name and stories by slug, and publishes them. Follow [own-space setup](docs/commands.md#storyblok) for tokens, a dry run, Visual Editor configuration, and webhooks.
+Create a space, enable German (`de`), then import tracked components and seed stories with `npm run storyblok:push -- --bootstrap`. Imports save drafts; `--publish` explicitly publishes. Existing content replacements require a reviewed remote snapshot as their baseline. Follow [own-space setup](docs/commands.md#storyblok) for tokens, scoped updates, Visual Editor configuration, and webhooks.
 
 All variables are optional in local mode. Set them in `.env` for CMS mode:
 

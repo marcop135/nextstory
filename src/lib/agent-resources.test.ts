@@ -44,7 +44,7 @@ it.each(mockPageSlugs)("serializes the whole %s seed in both languages", (slug) 
   for (const language of [undefined, "de"]) {
     const story = mockStoryForSlug(slug, language)!;
     const md = storyMarkdown(story.content, "https://example.com/", "mock");
-    expect(md).toContain("# " + story.content.body[0].headline);
+    expect(md).toContain("# " + (story.content.component === "learning_note" ? story.content.title : story.content.body[0].headline));
     expect(md).not.toContain("__i18n__");
     expect(md).not.toContain("publishing-visual__");
   }

@@ -1,8 +1,47 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 type Props = { labels: string[]; caption: string };
 
 export default function PublishingVisual({ labels, caption }: Props) {
+  const figure = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = figure.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
+    let completed = false;
+    const update = () => {
+      element.dataset.motion = motion.matches || completed
+        ? "static"
+        : visible && !document.hidden ? "running" : "paused";
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+      update();
+    }, { threshold: [0, 0.25] });
+    const finish = (event: AnimationEvent) => {
+      if (event.animationName !== "publishing-progress") return;
+      completed = true;
+      update();
+    };
+    update();
+    observer.observe(element);
+    motion.addEventListener("change", update);
+    document.addEventListener("visibilitychange", update);
+    element.addEventListener("animationend", finish);
+    return () => {
+      observer.disconnect();
+      motion.removeEventListener("change", update);
+      document.removeEventListener("visibilitychange", update);
+      element.removeEventListener("animationend", finish);
+    };
+  }, []);
+
   return (
-    <figure className="publishing-visual">
+    <figure ref={figure} className="publishing-visual" data-motion="static">
       <div className="publishing-visual__bar" aria-hidden="true">
         <span>storyblok / home</span><span>EN + DE</span>
       </div>

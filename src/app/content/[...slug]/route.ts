@@ -12,7 +12,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
   if (parsed.portal) return new Response(portalMarkdown(), { headers: { ...headers, Link: `<${SITE_URL}/for-agents>; rel="canonical"` } });
   try {
     const result = await fetchStory(parsed.slug, storyblokLanguage(parsed.locale), { version: "published" });
-    if (!result || result.story.content.component !== "page") return new Response("# Not found\n", { status: 404, headers });
+    if (!result || (result.story.content.component !== "page" && result.story.content.component !== "learning_note")) return new Response("# Not found\n", { status: 404, headers });
     const canonical = SITE_URL + parsed.canonical;
     return new Response(storyMarkdown(result.story.content, canonical, result.source), { headers: { ...headers, Link: `<${canonical}>; rel="canonical"` } });
   } catch {

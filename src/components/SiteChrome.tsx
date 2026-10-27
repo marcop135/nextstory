@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ import { AUTHOR } from "@/lib/site";
 
 export type ChromeCopy = {
   nav: { _uid: string; label: string; href: string }[];
+  footerNav?: { _uid: string; label: string; href: string }[];
   footerNote: string;
 };
 
@@ -90,17 +92,33 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
     <footer className="site-footer">
       <div className="wrap">
         <div>
-          <p>{copy[locale].footerNote}</p>
+          <p className="footer-note">{copy[locale].footerNote}</p>
           <p>
             {locale === "de" ? "Entwickelt und gepflegt von" : "Built and maintained by"}{" "}
             <a href={AUTHOR.url}>{AUTHOR.name}</a>
           </p>
+          <Image className="footer-mark" src="/icon.svg" alt="" width={48} height={48} />
         </div>
-        <nav className="footer-nav" aria-label="Footer">
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/for-agents">For agents</Link>
-          <a href="/llms.txt">llms.txt</a>
-        </nav>
+        <div className="footer-links">
+          <nav className="footer-nav" aria-labelledby="footer-explore">
+            <h2 className="footer-nav__heading" id="footer-explore">
+              {locale === "de" ? "Entdecken" : "Explore"}
+            </h2>
+            {copy[locale].nav.map((link) => (
+              <Link key={link._uid} href={link.href}>{link.label}</Link>
+            ))}
+          </nav>
+          {!!copy[locale].footerNav?.length && (
+            <nav className="footer-nav" aria-labelledby="footer-project">
+              <h2 className="footer-nav__heading" id="footer-project">
+                {locale === "de" ? "Projekt" : "Project"}
+              </h2>
+              {copy[locale].footerNav.map((link) => (
+                <Link key={link._uid} href={link.href}>{link.label}</Link>
+              ))}
+            </nav>
+          )}
+        </div>
       </div>
     </footer>
   );

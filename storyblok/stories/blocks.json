@@ -588,6 +588,16 @@
         "cta_label__i18n__de": "Preise ansehen",
         "cta_href": "/pricing",
         "cta_href__i18n__de": "/de/pricing"
+      },
+      {
+        "_uid": "blocks-related",
+        "component": "related_content",
+        "headline": "Learning notes",
+        "headline__i18n__de": "Notizen zur Umsetzung",
+        "stories": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ]
       }
     ]
   }

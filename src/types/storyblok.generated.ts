@@ -6,7 +6,7 @@ export type PageBlok = SbBlokData & {
   seo_title?: string;
   seo_description?: string;
   show_block_labels?: boolean;
-  body?: (HeroBlok | FeatureGridBlok | StepsBlok | RichTextBlok | CtaBandBlok | ImageTextBlok | AccordionBlok | PullQuoteBlok | ComparisonTableBlok | CodeExampleBlok)[];
+  body?: (HeroBlok | FeatureGridBlok | StepsBlok | RichTextBlok | CtaBandBlok | ImageTextBlok | AccordionBlok | PullQuoteBlok | ComparisonTableBlok | CodeExampleBlok | RelatedContentBlok)[];
 };
 
 export type HeroBlok = SbBlokData & {
@@ -73,6 +73,7 @@ export type ConfigBlok = SbBlokData & {
   component: "config";
   header_nav?: NavLinkBlok[];
   footer_note?: string;
+  footer_nav?: NavLinkBlok[];
 };
 
 export type NavLinkBlok = SbBlokData & {
@@ -128,6 +129,21 @@ export type CodeExampleBlok = SbBlokData & {
   source_path?: string;
 };
 
+export type RelatedContentBlok = SbBlokData & {
+  component: "related_content";
+  headline?: string;
+  stories?: string[];
+};
+
+export type LearningNoteBlok = SbBlokData & {
+  component: "learning_note";
+  seo_title?: string;
+  seo_description?: string;
+  title: string;
+  summary?: string;
+  body?: (RichTextBlok | CodeExampleBlok)[];
+};
+
 export type StoryblokComponentName =
   | "page"
   | "hero"
@@ -144,4 +160,6 @@ export type StoryblokComponentName =
   | "accordion_item"
   | "pull_quote"
   | "comparison_table"
-  | "code_example";
+  | "code_example"
+  | "related_content"
+  | "learning_note";

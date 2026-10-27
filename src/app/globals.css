@@ -304,7 +304,13 @@ a {
   padding: 1rem;
   border: 1px solid var(--line);
   border-radius: 0.25rem;
-  animation: publishing-stage 4s both;
+}
+
+.publishing-visual[data-motion="paused"] .publishing-visual__stage,
+.publishing-visual[data-motion="running"] .publishing-visual__stage {
+  animation-name: publishing-stage;
+  animation-duration: 4s;
+  animation-fill-mode: both;
 }
 
 .publishing-visual__stage--1 { animation-delay: 0.25s; }
@@ -321,7 +327,11 @@ a {
 .publishing-visual__page { flex: 1; border: 1px solid var(--line); padding: 0.5rem; font: 0.7rem monospace; }
 .publishing-visual__page i { margin-top: 0.5rem; }
 .publishing-visual__track { height: 0.2rem; background: var(--line); }
-.publishing-visual__track span { display: block; height: 100%; background: var(--accent); transform-origin: left; animation: publishing-progress 4.75s both; }
+.publishing-visual__track span { display: block; height: 100%; background: var(--accent); transform-origin: left; }
+.publishing-visual[data-motion="paused"] .publishing-visual__track span,
+.publishing-visual[data-motion="running"] .publishing-visual__track span { animation: publishing-progress 4.75s both; }
+.publishing-visual[data-motion="paused"] .publishing-visual__stage,
+.publishing-visual[data-motion="paused"] .publishing-visual__track span { animation-play-state: paused; }
 .publishing-visual figcaption { padding: 1rem 1.5rem; color: var(--muted); font-size: 0.85rem; }
 
 @keyframes publishing-stage {
@@ -707,6 +717,7 @@ a {
 
 .site-footer {
   padding: 2rem 0 3rem;
+  border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.9rem;
 }
@@ -737,25 +748,54 @@ a {
 }
 
 .site-footer .wrap {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  align-items: start;
+  gap: 1.5rem 3rem;
 }
 
 .site-footer p {
   margin: 0;
 }
 
+.site-footer .footer-note {
+  margin-bottom: 0.75rem;
+}
+
+.footer-mark {
+  display: block;
+  margin-top: 1.5rem;
+}
+
 .footer-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 0;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 3rem;
+}
+
+.footer-nav__heading {
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+@media (max-width: 36rem) {
+  .site-footer .wrap { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .footer-links { width: 100%; gap: 1.5rem; }
 }
 
 .footer-nav a {
   display: inline-block;
+  min-height: 2.75rem;
   padding-block: 0.5rem;
   color: var(--muted);
 }
