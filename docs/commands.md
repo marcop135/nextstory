@@ -32,7 +32,7 @@ npm run storyblok:types        # after editing storyblok/components.json
 npm run storyblok:types:check  # CI: fails when the generated types are stale
 ```
 
-`--only-story <slug>` and `--only-component <name>` are repeatable. Without selectors, writes require `--bootstrap`. Snapshot exports perform reads only and refuse to replace an existing file. Baselines protect story content, not developer-owned component schemas. Use component-only selectors for schema migrations; deploy supporting code before publishing selected stories. Learning-note seeds carry stable UUIDs so references work in a new space; a conflicting existing UUID aborts the import.
+`--only-story <slug>` and `--only-component <name>` are repeatable. Without selectors, writes require `--bootstrap`. Snapshot exports perform reads only and refuse to replace an existing file. Baselines protect story content, not developer-owned component schemas. Use component-only selectors for schema migrations; deploy supporting code before publishing selected stories. Storyblok assigns each story's UUID. Imports create referenced notes as drafts, map seed references to the space's UUIDs, and publish targets before consumers. Story-only updates resolve existing targets without writing them.
 
 Set `STORYBLOK_PREVIEW_SECRET` and `STORYBLOK_REVALIDATE_SECRET` to separate random values in `.env` and your deployment environment. Restart the app after changing environment variables. No separate public delivery token is used; the preview token stays on the server and production requests published content.
 

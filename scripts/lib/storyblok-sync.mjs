@@ -58,6 +58,24 @@ function select(items, names, key) {
   return items.filter((item) => names.includes(item[key]));
 }
 
+function references(value) {
+  if (Array.isArray(value)) return value.flatMap(references);
+  if (!value || typeof value !== "object") return [];
+  return value.component === "related_content"
+    ? (value.stories || []).filter((uuid) => typeof uuid === "string")
+    : Object.values(value).flatMap(references);
+}
+
+function remapReferences(value, uuids) {
+  if (Array.isArray(value)) return value.map((item) => remapReferences(item, uuids));
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key,
+    value.component === "related_content" && key === "stories" && Array.isArray(item)
+      ? item.map((uuid) => uuids.get(uuid) || uuid)
+      : remapReferences(item, uuids),
+  ]));
+}
+
 export async function syncSpace({
   request,
   components,
@@ -80,12 +98,14 @@ export async function syncSpace({
   if (baseline && (baseline.version !== 1 || !baseline.stories || typeof baseline.stories !== "object" || Array.isArray(baseline.stories))) {
     throw new Error("Invalid baseline: expected { version: 1, stories: { ... } }.");
   }
+  const seeds = stories;
   const subset = onlyStories.length || onlyComponents.length;
   components = subset ? select(components, onlyComponents, "name") : components;
   stories = subset ? select(stories, onlyStories, "slug") : stories;
 
   // Preflight all content conflicts before changing schemas or content.
   const plans = [];
+  const uuids = new Map();
   const saved = { version: 1, stories: {} };
   for (const story of stories) {
     let existing = await findStory(request, story.slug);
@@ -93,9 +113,7 @@ export async function syncSpace({
       const detail = await request("GET", `/stories/${existing.id}`);
       existing = detail.story;
       if (!existing?.content) throw new Error(`Missing remote content: ${story.slug}`);
-      if (!snapshot && story.uuid && existing.uuid !== story.uuid) {
-        throw new Error(`Remote story UUID differs from seed: ${story.slug}`);
-      }
+      if (story.uuid && existing.uuid) uuids.set(story.uuid, existing.uuid);
     }
     const current = existing ? storyState(existing, true) : null;
     saved.stories[story.slug] = current;
@@ -103,13 +121,25 @@ export async function syncSpace({
     if (!snapshot && hasBaseline && !same(current, baseline.stories[story.slug])) {
       throw new Error(`Remote content changed since baseline: ${story.slug}`);
     }
-    const unchanged = existing && same(storyState(existing), storyState(story));
-    if (!snapshot && existing && !unchanged && !hasBaseline) {
-      throw new Error(`Existing story differs: ${story.slug}. Export --snapshot, review it, then supply --baseline.`);
-    }
-    plans.push({ story, existing, unchanged });
+    plans.push({ story, existing, hasBaseline });
   }
   if (snapshot) return saved;
+
+  // Resolve referenced seeds outside the write selection without modifying them.
+  for (const uuid of new Set(stories.flatMap((story) => references(story.content)))) {
+    if (uuids.has(uuid) || stories.some((story) => story.uuid === uuid)) continue;
+    const seed = seeds.find((story) => story.uuid === uuid);
+    if (!seed) continue;
+    const existing = await findStory(request, seed.slug);
+    if (!existing?.uuid) throw new Error(`Include referenced story in selection: ${seed.slug}`);
+    uuids.set(uuid, existing.uuid);
+  }
+  for (const { story, existing, hasBaseline } of plans) {
+    const desired = { ...story, content: remapReferences(story.content, uuids) };
+    if (existing && !same(storyState(existing), storyState(desired)) && !hasBaseline) {
+      throw new Error(`Existing story differs: ${story.slug}. Export --snapshot, review it, then supply --baseline.`);
+    }
+  }
 
   const { components: remote = [] } = components.length ? await request("GET", "/components") : { components: [] };
   const byName = new Map(remote.map((component) => [component.name, component]));
@@ -124,7 +154,25 @@ export async function syncSpace({
     else await request("POST", "/components", { component });
   }
 
-  for (const { story, existing, unchanged } of plans) {
+  // Storyblok assigns UUIDs. Create reference targets as drafts before consumers.
+  for (const plan of plans.filter(({ story, existing }) => story.uuid && !existing)) {
+    const { story } = plan;
+    log(`${dryRun ? "would " : ""}create draft reference target ${story.slug}`);
+    if (dryRun) continue;
+    if (await findStory(request, story.slug)) throw new Error(`Remote story created during sync: ${story.slug}`);
+    const result = await request("POST", "/stories", {
+      story: { name: story.name, slug: story.slug, content: remapReferences(story.content, uuids) }, publish: 0,
+    });
+    if (!result.story?.id || !result.story.uuid || !result.story.content) throw new Error(`Missing assigned story identity: ${story.slug}`);
+    plan.existing = result.story;
+    uuids.set(story.uuid, result.story.uuid);
+    saved.stories[story.slug] = storyState(result.story, true);
+  }
+
+  const publicationOrder = [...plans].sort((a, b) => Number(Boolean(b.story.uuid)) - Number(Boolean(a.story.uuid)));
+  for (const { story, existing } of publicationOrder) {
+    const content = remapReferences(story.content, uuids);
+    const unchanged = existing && same(storyState(existing), storyState({ ...story, content }));
     if (unchanged && !publish) {
       log(`unchanged story ${story.slug}`);
       continue;
@@ -133,8 +181,7 @@ export async function syncSpace({
       story: {
         name: story.name,
         slug: story.slug,
-        content: story.content,
-        ...(!existing && story.uuid ? { uuid: story.uuid } : {}),
+        content,
       },
       publish: publish ? 1 : 0,
     };

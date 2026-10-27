@@ -5,7 +5,7 @@ const story = { name: "Home", slug: "home", content: { component: "page", title:
 const component = { name: "page", schema: {} };
 const log = () => {};
 
-function transport(remote: typeof story | null = null) {
+function transport(remote: (typeof story & { uuid?: string }) | null = null) {
   return vi.fn(async (method: string, path: string, body?: unknown): Promise<Record<string, unknown>> => {
     if (method !== "GET") return { body };
     if (path.startsWith("/stories?")) return { stories: remote ? [{ ...remote, id: 42 }] : [] };
@@ -16,6 +16,33 @@ function transport(remote: typeof story | null = null) {
 }
 
 describe("Storyblok seed safeguards", () => {
+  it("remaps references to UUIDs assigned by Storyblok before publishing a new page", async () => {
+    const seedUuid = "00000000-0000-4000-8000-000000000001";
+    const assignedUuid = "98471c0a-b9b4-4cde-ad50-bc30e8fac53e";
+    const note = { name: "Note", slug: "note", uuid: seedUuid, content: { component: "learning_note", title: "Note" } };
+    const page = { ...story, content: { component: "page", body: [{ component: "related_content", stories: [seedUuid] }] } };
+    const records = new Map<string, Record<string, unknown>>();
+    const request = vi.fn(async (method: string, route: string, body?: { story: Record<string, unknown>; publish: number }): Promise<Record<string, unknown>> => {
+      if (method === "GET" && route.startsWith("/stories?")) return { stories: [...records.values()].filter((s) => s.slug === new URLSearchParams(route.split("?")[1]).get("with_slug")) };
+      if (method === "GET" && route.startsWith("/stories/")) return { story: [...records.values()].find((s) => String(s.id) === route.split("/").pop()) };
+      if (method === "POST" && route === "/stories") {
+        const saved = { ...body!.story, id: records.size + 1, uuid: body!.story.slug === "note" ? assignedUuid : "page-uuid" };
+        records.set(String(body!.story.slug), saved);
+        return { story: saved };
+      }
+      if (method === "PUT") return { story: body!.story };
+      throw new Error(`Unexpected ${method} ${route}`);
+    });
+    await syncSpace({ request, components: [], stories: [page, note], bootstrap: true, publish: true, log });
+    const pageWrite = request.mock.calls.find(([method, route, body]) => method === "POST" && route === "/stories" && body?.story.slug === "home")!;
+    expect(pageWrite[2]?.story.content).toEqual({ component: "page", body: [{ component: "related_content", stories: [assignedUuid] }] });
+    const noteCreate = request.mock.calls.find(([method, route, body]) => method === "POST" && route === "/stories" && body?.story.slug === "note")!;
+    expect(noteCreate[2]?.publish).toBe(0);
+    const notePublish = request.mock.calls.findIndex(([method, , body]) => method === "PUT" && body?.story.slug === "note" && body.publish === 1);
+    expect(notePublish).toBeGreaterThan(-1);
+    expect(notePublish).toBeLessThan(request.mock.calls.indexOf(pageWrite));
+  });
+
   it("requires an explicit subset or bootstrap before making requests", async () => {
     const request = transport();
     await expect(syncSpace({ request, components: [component], stories: [story], log })).rejects.toThrow("Select");
@@ -94,18 +121,32 @@ describe("Storyblok seed safeguards", () => {
     expect(request.mock.calls.every(([method]) => method === "GET")).toBe(true);
   });
 
-  it("passes a stable relationship UUID only when creating a story", async () => {
+  it("fails closed if creation does not return the assigned identity", async () => {
     const request = transport();
     const seed = { ...story, uuid: "00000000-0000-4000-8000-000000000001" };
-    await syncSpace({ request, components: [], stories: [seed], bootstrap: true, log });
-    expect(request).toHaveBeenCalledWith("POST", "/stories", { story: seed, publish: 0 });
+    await expect(syncSpace({ request, components: [], stories: [seed], bootstrap: true, log })).rejects.toThrow("Missing assigned story identity");
+    expect(request).toHaveBeenCalledWith("POST", "/stories", { story, publish: 0 });
   });
 
-  it("rejects an existing story with a mismatched relationship UUID", async () => {
-    const request = transport(story);
+  it("accepts the existing space identity without rewriting an unchanged story", async () => {
+    const request = transport({ ...story, uuid: "assigned-by-storyblok" });
     const seed = { ...story, uuid: "00000000-0000-4000-8000-000000000001" };
-    await expect(syncSpace({ request, components: [component], stories: [seed], bootstrap: true, log })).rejects.toThrow("UUID differs");
+    await syncSpace({ request, components: [], stories: [seed], bootstrap: true, log });
     expect(request.mock.calls.every(([method]) => method === "GET")).toBe(true);
+  });
+
+  it("resolves an unselected reference target without writing it", async () => {
+    const seedUuid = "00000000-0000-4000-8000-000000000001";
+    const note = { ...story, slug: "note", uuid: seedUuid };
+    const page = { ...story, content: { component: "page", body: [{ component: "related_content", stories: [seedUuid] }], caption: seedUuid } };
+    const request = vi.fn(async (method: string, route: string, body?: unknown): Promise<Record<string, unknown>> => {
+      if (method !== "GET") return { body };
+      const slug = new URLSearchParams(route.split("?")[1]).get("with_slug");
+      return { stories: slug === "note" ? [{ id: 20, slug: "note", uuid: "assigned-note-uuid" }] : [] };
+    });
+    await syncSpace({ request, components: [], stories: [page, note], onlyStories: ["home"], log });
+    expect(request).toHaveBeenCalledWith("POST", "/stories", { story: { ...page, content: { ...page.content, body: [{ component: "related_content", stories: ["assigned-note-uuid"] }] } }, publish: 0 });
+    expect(request.mock.calls.filter(([method]) => method !== "GET")).toHaveLength(1);
   });
 
   it("paginates story matches and ignores prefix matches", async () => {
