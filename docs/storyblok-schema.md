@@ -50,7 +50,7 @@ npm run storyblok:types               # regenerate src/types/storyblok.generated
 
 The space has `de` enabled under Settings → Internationalization. Reader-facing text fields use `translatable`, so German lives in the same story as `field__i18n__de`. Links translate too, so German links point at `/de/...`. Code, language identifiers, and source paths stay unchanged. The comparison table supplies `table__i18n__de` with translated cells. The app requests `language=de` for `/de`; empty translations fall back to English.
 
-Home uses the viewport-controlled hero and ownership comparison. How-it-works and the block library reference the same two learning notes. Their stable seed UUIDs preserve references during new-space imports. Notes reuse rich-text/code-example blocks; publishing a note refreshes reference consumers across languages. Source-parity tests keep displayed code excerpts aligned with their linked files.
+Home uses the viewport-controlled hero and ownership comparison. How-it-works and the block library reference the same two learning notes. Seed UUIDs identify local relationships; imports map them to the UUIDs assigned by each Storyblok space. Notes reuse rich-text/code-example blocks; publishing a note refreshes reference consumers across languages. Source-parity tests keep displayed code excerpts aligned with their linked files.
 
 ## Preview and webhook
 
