@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-10-27
+
 ### Added
 
 - Add related-content blocks and reusable learning notes with English and German examples.
