@@ -14,7 +14,7 @@
 
 ### Changed
 
-- Add a localized, CMS-managed footer with wider columns, the project mark, and a documentation index.
+- Refine the localized footer and add a documentation index.
 - Make seed imports draft-first, scoped, and guarded by remote-content snapshots before replacement.
 
 ### Fixed
