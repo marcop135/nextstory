@@ -31,6 +31,50 @@
       }
     ],
     "footer_note": "Next Story demo · Next.js App Router · Storyblok",
-    "footer_note__i18n__de": "Next-Story-Demo · Next.js App Router · Storyblok"
+    "footer_note__i18n__de": "Next-Story-Demo · Next.js App Router · Storyblok",
+    "footer_nav": [
+      {
+        "_uid": "footer-source",
+        "component": "nav_link",
+        "label": "Source",
+        "label__i18n__de": "Quellcode",
+        "href": "https://github.com/marcop135/nextstory"
+      },
+      {
+        "_uid": "footer-docs",
+        "component": "nav_link",
+        "label": "Documentation",
+        "label__i18n__de": "Dokumentation",
+        "href": "https://github.com/marcop135/nextstory#readme"
+      },
+      {
+        "_uid": "footer-license",
+        "component": "nav_link",
+        "label": "MIT license",
+        "label__i18n__de": "MIT-Lizenz",
+        "href": "https://github.com/marcop135/nextstory/blob/main/LICENSE"
+      },
+      {
+        "_uid": "footer-privacy",
+        "component": "nav_link",
+        "label": "Privacy",
+        "label__i18n__de": "Datenschutz",
+        "href": "/privacy"
+      },
+      {
+        "_uid": "footer-agents",
+        "component": "nav_link",
+        "label": "For agents",
+        "label__i18n__de": "Für Agents",
+        "href": "/for-agents"
+      },
+      {
+        "_uid": "footer-llms",
+        "component": "nav_link",
+        "label": "llms.txt",
+        "label__i18n__de": "llms.txt",
+        "href": "/llms.txt"
+      }
+    ]
   }
 }

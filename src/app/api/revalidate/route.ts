@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 import { CONFIG_SLUG, normalizeStorySlug, publicPathForSlug } from "@/lib/story-path";
 import { locales } from "@/lib/i18n";
-import { storyblokCacheTag, storyCacheTag } from "@/lib/story-cache";
+import { storyblokCacheTag, storyCacheTag, relatedContentCacheTag } from "@/lib/story-cache";
 
 // Expire immediately: a publish must show on the next request, not after a stale serve.
 const expireNow = { expire: 0 };
@@ -62,6 +62,8 @@ export async function POST(request: NextRequest) {
   }
 
   const paths = new Set<string>();
+  // Reference consumers have a separate dependency tag, not a global page flush.
+  revalidateTag(relatedContentCacheTag, expireNow);
   for (const slug of slugs) {
     revalidateTag(storyCacheTag(slug), expireNow);
     for (const locale of locales) paths.add(publicPathForSlug(slug, locale));

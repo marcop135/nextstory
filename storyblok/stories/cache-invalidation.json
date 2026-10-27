@@ -1,0 +1,64 @@
+{
+  "name": "Cache invalidation",
+  "slug": "cache-invalidation",
+  "uuid": "00000000-0000-4000-8000-000000000002",
+  "content": {
+    "_uid": "cache-invalidation",
+    "component": "learning_note",
+    "seo_title": "Cache invalidation | Next Story",
+    "seo_title__i18n__de": "Cache-Invalidierung | Next Story",
+    "seo_description": "Publish once, refresh dependent pages",
+    "seo_description__i18n__de": "Einmal veröffentlichen, abhängige Seiten aktualisieren",
+    "title": "Cache invalidation",
+    "title__i18n__de": "Cache-Invalidierung",
+    "summary": "Publish once, refresh dependent pages",
+    "summary__i18n__de": "Einmal veröffentlichen, abhängige Seiten aktualisieren",
+    "body": [
+      {
+        "_uid": "cache-invalidation-body",
+        "component": "rich_text",
+        "body": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Published references have their own cache tag. The publish webhook expires that tag so dependent pages read the latest published notes. Draft preview bypasses the cache."
+                }
+              ]
+            }
+          ]
+        },
+        "body__i18n__de": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Veröffentlichte Referenzen haben einen eigenen Cache-Tag. Der Publish-Webhook verwirft diesen Tag, damit abhängige Seiten die aktuellen Notizen laden. Die Entwurfsvorschau umgeht den Cache."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "_uid": "cache-invalidation-code",
+        "component": "code_example",
+        "headline": "Expire reference consumers",
+        "headline__i18n__de": "Seiten mit Referenzen aktualisieren",
+        "explanation": "The webhook expires the reference cache separately from individual story caches. Pages without related content keep their cached story data.",
+        "explanation__i18n__de": "Der Webhook verwirft den Referenz-Cache getrennt von den einzelnen Story-Caches. Seiten ohne verwandte Inhalte behalten ihre zwischengespeicherten Story-Daten.",
+        "language": "typescript",
+        "code": "  // Reference consumers have a separate dependency tag, not a global page flush.\n  revalidateTag(relatedContentCacheTag, expireNow);",
+        "caption": "Expire immediately after a valid publish event.",
+        "caption__i18n__de": "Nach einem gültigen Veröffentlichungsereignis sofort verwerfen.",
+        "source_path": "src/app/api/revalidate/route.ts"
+      }
+    ]
+  }
+}

@@ -63,6 +63,10 @@ export function blockMarkdown(value: unknown): string {
   switch (b.component) {
     case "hero": return [`# ${inline(b.headline)}`, inline(b.subheadline), b.animated_visual ? inline(b.visual_caption) : imageMarkdown(b), link(b.cta_label, b.cta_href), link(b.secondary_label, b.secondary_href)].filter(Boolean).join("\n\n");
     case "feature_grid": return section(b.headline, items(b.features).map(blockMarkdown).join("\n\n"));
+    case "related_content": return items(b.resolved_notes).length ? section(b.headline, items(b.resolved_notes).map((value) => {
+      const note = data(value);
+      return [link(note.title, note.href), inline(note.summary)].filter(Boolean).join("\n\n");
+    }).join("\n\n")) : "";
     case "feature": return `### ${inline(b.title)}\n\n${inline(b.text)}${url(b.link_href) ? `\n\n[${inline(b.title)}](${url(b.link_href)})` : ""}`;
     case "steps": return section(b.headline, [inline(b.intro), ...items(b.items).map((v, i) => `${i + 1}. ${blockMarkdown(v).replace(/\n/g, "\n   ")}`)].filter(Boolean).join("\n\n"));
     case "step": return [`**${inline(b.title)}**`, inline(b.text), sourceUrl(text(b.file), REPO_URL) ? `[${inline(b.file)}](${sourceUrl(text(b.file), REPO_URL)})` : ""].filter(Boolean).join("\n\n");
@@ -92,7 +96,7 @@ function imageMarkdown(b: Data) {
 
 export function storyMarkdown(content: unknown, canonical: string, source: string) {
   const page = data(content);
-  if (page.component !== "page") throw new Error("Only page stories are public");
-  const body = items(page.body).map(blockMarkdown).join("\n\n");
+  if (page.component !== "page" && page.component !== "learning_note") throw new Error("Only page stories are public");
+  const body = [page.component === "learning_note" ? `# ${inline(page.title)}\n\n${inline(page.summary)}` : "", ...items(page.body).map(blockMarkdown)].filter(Boolean).join("\n\n");
   return `${body}\n\nCanonical: ${canonical}\nContent source: ${source}; published representation.\n`;
 }

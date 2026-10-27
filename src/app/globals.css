@@ -717,6 +717,7 @@ a {
 
 .site-footer {
   padding: 2rem 0 3rem;
+  border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.9rem;
 }
@@ -749,7 +750,7 @@ a {
 .site-footer .wrap {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem 1.5rem;
 }
@@ -760,12 +761,33 @@ a {
 
 .footer-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 0;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 3rem;
+}
+
+.footer-nav__heading {
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+@media (max-width: 36rem) {
+  .site-footer .wrap { flex-direction: column; gap: 1.5rem; }
+  .footer-links { width: 100%; gap: 1.5rem; }
 }
 
 .footer-nav a {
   display: inline-block;
+  min-height: 2.75rem;
   padding-block: 0.5rem;
   color: var(--muted);
 }

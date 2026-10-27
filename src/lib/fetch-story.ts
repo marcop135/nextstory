@@ -3,7 +3,8 @@ import type { ISbStoryData } from "@storyblok/react";
 
 import { mockStoryForSlug } from "@/lib/mock-story";
 import { hasStoryblokToken } from "@/lib/storyblok";
-import { storyblokCacheTag, storyCacheTag } from "@/lib/story-cache";
+import { storyblokCacheTag, storyCacheTag, relatedContentCacheTag } from "@/lib/story-cache";
+import { attachRelatedNotes, relatedUuids } from "@/lib/related-content";
 import { normalizeStorySlug } from "@/lib/story-path";
 
 export type StoryResult = {
@@ -78,5 +79,40 @@ export async function fetchStory(
   if (!data?.story?.content || typeof data.story.full_slug !== "string") {
     throw new Error("Invalid Storyblok response");
   }
+  const uuids = relatedUuids(data.story.content);
+  if (uuids.length) {
+    const stories = await fetchRelatedStories(uuids, language, version);
+    data.story.content = attachRelatedNotes(data.story.content, stories, language);
+  }
   return { story: data.story, source: "storyblok" };
+}
+
+/** Server-side resolver also used when live-editor input replaces the story payload. */
+export async function fetchRelatedStories(uuids: string[], language?: string, requestedVersion?: "draft" | "published"): Promise<ISbStoryData[]> {
+  if (!uuids.length || !hasStoryblokToken()) return [];
+  const version = requestedVersion ?? await resolveVersion();
+  const distinct = [...new Set(uuids)];
+  const stories: ISbStoryData[] = [];
+  for (let offset = 0; offset < distinct.length; offset += 100) {
+    const relatedParams = new URLSearchParams({ version, token: process.env.STORYBLOK_DELIVERY_API_TOKEN!.trim() });
+    if (language && language !== "default") relatedParams.set("language", language);
+    relatedParams.set("by_uuids", distinct.slice(offset, offset + 100).join(","));
+    relatedParams.set("per_page", "100");
+    let related: Response;
+    try {
+      related = await fetch(`${cdnBaseUrl()}/cdn/stories?${relatedParams}`, {
+        headers: { Accept: "application/json" },
+        cache: version === "draft" ? "no-store" : "force-cache",
+        next: version === "published" ? { revalidate: 60, tags: [storyblokCacheTag, relatedContentCacheTag] } : undefined,
+      });
+    } catch {
+      throw new Error("Storyblok related-content request failed");
+    }
+    if (!related.ok) throw new Error(`Storyblok related-content request failed (${related.status})`);
+    let relations: { stories?: ISbStoryData[] };
+    try { relations = await related.json(); } catch { throw new Error("Invalid Storyblok related-content response"); }
+    if (!relations || !Array.isArray(relations.stories) || relations.stories.some((story) => !story?.content || typeof story.uuid !== "string" || typeof story.full_slug !== "string")) throw new Error("Invalid Storyblok related-content response");
+    stories.push(...relations.stories);
+  }
+  return stories;
 }

@@ -1,0 +1,64 @@
+{
+  "name": "Content relationships",
+  "slug": "content-relationships",
+  "uuid": "00000000-0000-4000-8000-000000000001",
+  "content": {
+    "_uid": "content-relationships",
+    "component": "learning_note",
+    "seo_title": "Content relationships | Next Story",
+    "seo_title__i18n__de": "Inhalte verknüpfen | Next Story",
+    "seo_description": "Reuse one story across pages",
+    "seo_description__i18n__de": "Eine Story auf mehreren Seiten verwenden",
+    "title": "Content relationships",
+    "title__i18n__de": "Inhalte verknüpfen",
+    "summary": "Reuse one story across pages",
+    "summary__i18n__de": "Eine Story auf mehreren Seiten verwenden",
+    "body": [
+      {
+        "_uid": "content-relationships-body",
+        "component": "rich_text",
+        "body": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "A related-content block stores story references, not copied text. Updating a note changes every page that references it."
+                }
+              ]
+            }
+          ]
+        },
+        "body__i18n__de": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Ein Block für verwandte Inhalte speichert Story-Referenzen statt kopierter Texte. Eine Änderung an der Notiz erreicht jede Seite, die darauf verweist."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "_uid": "content-relationships-code",
+        "component": "code_example",
+        "headline": "Resolve references on the server",
+        "headline__i18n__de": "Referenzen auf dem Server auflösen",
+        "explanation": "The page keeps UUIDs in Storyblok. Next.js loads the referenced stories in the same language and publication version.",
+        "explanation__i18n__de": "Die Seite speichert UUIDs in Storyblok. Next.js lädt die referenzierten Storys in derselben Sprache und Veröffentlichungsversion.",
+        "language": "typescript",
+        "code": "  const uuids = relatedUuids(data.story.content);\n  if (uuids.length) {\n    const stories = await fetchRelatedStories(uuids, language, version);\n    data.story.content = attachRelatedNotes(data.story.content, stories, language);\n  }",
+        "caption": "Resolve, then preserve editorial order.",
+        "caption__i18n__de": "Referenzen auflösen und die redaktionelle Reihenfolge beibehalten.",
+        "source_path": "src/lib/fetch-story.ts"
+      }
+    ]
+  }
+}
