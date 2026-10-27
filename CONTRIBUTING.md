@@ -30,6 +30,6 @@ Keep examples connected to source and verify English/German rendering. The [deve
 
 ## Branches
 
-- `develop`: integration
-- `main`: production (Vercel)
+- `develop`: integration; PRs require CI and resolved conversations. Administrators retain the release-only fast-forward exception.
+- `main`: production (Vercel); PR, CI, and conversation requirements apply to administrators too.
 - `feat/*`: work branches; open PRs into `develop`

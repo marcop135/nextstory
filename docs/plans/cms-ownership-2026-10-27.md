@@ -40,4 +40,4 @@ New: related-content and learning-note components/stories, reference/import regr
 - EN/DE footer navigation, related content, mobile menu, and 320/390/768/1440px layouts render without overflow.
 - Desktop/mobile light/dark screenshots match the existing CSS tokens and hierarchy.
 - Import conflicts prevent all writes; snapshots perform reads only; publication requires an explicit flag.
-- GitHub protection reports PR and successful-check requirements for both branches.
+- GitHub protection reports PR/check requirements on both branches, with the documented administrator fast-forward exception on `develop`.
