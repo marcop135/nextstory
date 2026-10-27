@@ -14,7 +14,7 @@
 
 ### Changed
 
-- Move footer navigation into the localized global config story.
+- Add a localized, CMS-managed footer with wider columns, the project mark, and a documentation index.
 - Make seed imports draft-first, scoped, and guarded by remote-content snapshots before replacement.
 
 ### Fixed

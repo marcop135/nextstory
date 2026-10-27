@@ -61,8 +61,8 @@ const fallbackNav = [
 ];
 
 const fallbackFooterNav = [
-  { _uid: "footer-source", label: "Source", de: "Quellcode", href: REPO_URL },
-  { _uid: "footer-docs", label: "Documentation", de: "Dokumentation", href: `${REPO_URL}#readme` },
+  { _uid: "footer-source", label: "View the source", de: "Quellcode ansehen", href: REPO_URL },
+  { _uid: "footer-docs", label: "Documentation", de: "Dokumentation", href: `${REPO_URL}/tree/main/docs` },
   { _uid: "footer-license", label: "MIT license", de: "MIT-Lizenz", href: `${REPO_URL}/blob/main/LICENSE` },
   { _uid: "footer-privacy", label: "Privacy", de: "Datenschutz", href: "/privacy" },
   { _uid: "footer-agents", label: "For agents", de: "Für Agents", href: "/for-agents" },

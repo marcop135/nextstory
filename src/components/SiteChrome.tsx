@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -91,11 +92,12 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
     <footer className="site-footer">
       <div className="wrap">
         <div>
-          <p>{copy[locale].footerNote}</p>
+          <p className="footer-note">{copy[locale].footerNote}</p>
           <p>
             {locale === "de" ? "Entwickelt und gepflegt von" : "Built and maintained by"}{" "}
             <a href={AUTHOR.url}>{AUTHOR.name}</a>
           </p>
+          <Image className="footer-mark" src="/icon.svg" alt="" width={48} height={48} />
         </div>
         <div className="footer-links">
           <nav className="footer-nav" aria-labelledby="footer-explore">

@@ -36,8 +36,8 @@
       {
         "_uid": "footer-source",
         "component": "nav_link",
-        "label": "Source",
-        "label__i18n__de": "Quellcode",
+        "label": "View the source",
+        "label__i18n__de": "Quellcode ansehen",
         "href": "https://github.com/marcop135/nextstory"
       },
       {
@@ -45,7 +45,7 @@
         "component": "nav_link",
         "label": "Documentation",
         "label__i18n__de": "Dokumentation",
-        "href": "https://github.com/marcop135/nextstory#readme"
+        "href": "https://github.com/marcop135/nextstory/tree/main/docs"
       },
       {
         "_uid": "footer-license",

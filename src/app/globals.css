@@ -748,15 +748,23 @@ a {
 }
 
 .site-footer .wrap {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  align-items: start;
+  gap: 1.5rem 3rem;
 }
 
 .site-footer p {
   margin: 0;
+}
+
+.site-footer .footer-note {
+  margin-bottom: 0.75rem;
+}
+
+.footer-mark {
+  display: block;
+  margin-top: 1.5rem;
 }
 
 .footer-nav {
@@ -781,7 +789,7 @@ a {
 }
 
 @media (max-width: 36rem) {
-  .site-footer .wrap { flex-direction: column; gap: 1.5rem; }
+  .site-footer .wrap { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
   .footer-links { width: 100%; gap: 1.5rem; }
 }
 
