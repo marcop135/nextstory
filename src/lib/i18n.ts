@@ -25,7 +25,7 @@ export function hreflangAlternates(path: string): Record<string, string> {
   };
 }
 
-/** Locale from the first path segment: `/de/pricing` → `de`, anything else → default. */
+/** Locale from the first path segment: `/de/blocks` → `de`, anything else → default. */
 export function localeForPathname(pathname: string): Locale {
   const first = pathname.split("/")[1] ?? "";
   return isLocale(first) ? first : defaultLocale;

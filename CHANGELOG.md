@@ -7,12 +7,24 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add distinct demo intro illustrations and slower, reduced-motion-aware copy reveals.
+
+### Removed
+
+- Remove demo Pricing and redirect its English and German URLs to their locale home pages.
+
+### Fixed
+
+- Refine demo hero alignment, buttons, navigation, and footer; fix the README theme images.
+
 ## [0.9.1] - 2026-10-28
 
 ### Changed
 
-- Animate all H1s with a reduced-motion-aware rise and fade, and keep the home closing CTA within the site.
-- Expand setup and content-authoring guides and reorganize the project and documentation READMEs.
+- Animate demo headings with reduced-motion support and keep Home's closing CTA inside the demo.
+- Expand setup and authoring guides; reorganize repository documentation.
 
 ### Removed
 
@@ -22,141 +34,126 @@
 
 ### Added
 
-- Add related-content blocks and reusable learning notes with English and German examples.
-- Add browser checks for viewport motion, locale navigation, keyboard access, and responsive screenshots.
+- Add related-content blocks and reusable English/German learning notes to the demo.
+- Add Chrome checks and screenshots for demo motion, locales, keyboard access, and responsive layouts.
 
 ### Changed
 
-- Refine the localized footer and add a documentation index.
-- Make seed imports scoped, draft-first, and compatible with Storyblok-assigned UUIDs.
+- Refine the demo's localized footer and add a documentation index.
+- Scope seed imports, default to drafts, and support Storyblok-assigned UUIDs.
 
 ### Fixed
 
-- Start the publishing animation in view and retain progress while offscreen or in a hidden tab.
-- Keep German related-content links on a single locale prefix.
+- Start demo publishing motion in view; pause offscreen or in hidden tabs without resetting.
+- Fix duplicate locale prefixes in German demo links.
 
 ## [0.8.2] - 2026-10-22
 
 ### Changed
 
-- Rename the repository to `nextstory` and point every repository link at it.
+- Rename the repository to `nextstory` and update its links.
 
 ## [0.8.1] - 2026-10-22
 
 ### Fixed
 
-- Set the social preview wordmark in Source Sans 3.
-- Stop `next dev` from writing an AGENTS.md file to the repository root.
+- Set the repository's social preview wordmark in Source Sans 3.
+- Stop `next dev` from generating a root AGENTS.md.
 
 ## [0.8.0] - 2026-10-22
 
 ### Added
 
-- Add comparison-table and code-example blocks.
-- Add published Markdown, a block catalog, and read-only WebMCP tools.
+- Add comparison-table and code-example blocks to the demo.
+- Expose the demo's published content as Markdown, a block catalog, and read-only WebMCP tools.
 
 ### Changed
 
-- Replace the home hero photo with an accessible publishing-flow animation.
-- Describe Next Story as a headless CMS demo.
-- Restructure the README and simplify the brand images.
-- Set headings in Source Sans 3 instead of Fraunces.
+- Add an accessible demo Home animation and replace Fraunces headings with Source Sans 3.
+- Clarify the headless CMS demo positioning; simplify the README and brand images.
 - Update Next.js, React, Vitest, and ESLint.
 
 ### Fixed
 
-- Keep seed pages out of the sitemap when Storyblok lists no published pages.
+- Exclude seed pages from the demo sitemap when Storyblok has no published pages.
 
 ### Security
 
-- Patch the transitive markdown-it dependency to 14.3.3.
+- Patch transitive markdown-it to 14.3.3.
 
 ## [0.7.0] - 2026-10-19
 
 ### Added
 
-- Add an editable home hero image with linked photographer credits.
+- Add an editable demo Home hero image with photographer credits.
 
 ### Changed
 
-- Replace the home block graphic with credited Unsplash website wireframes.
+- Replace the demo Home graphic with credited Unsplash wireframes.
 - Clarify the README stack and remove its badges.
 
 ## [0.6.0] - 2026-10-19
 
 ### Added
 
-- Add image-and-text, accordion, and pull-quote blocks with English and German examples in the block library.
-- Introduce the block library on the home page with an editable image-and-text section.
+- Add localized image-and-text, accordion, and pull-quote demo blocks; introduce the library on Home.
 
 ## [0.5.0] - 2026-10-18
 
 ### Added
 
-- Add a [For agents](https://nextstory.marcopontili.com/for-agents) page, linked from the footer, sitemap, and `llms.txt`.
-- Collapse the header navigation into a menu button on small screens.
+- Add the demo [For agents](https://nextstory.marcopontili.com/for-agents) page to its footer, sitemap, and `llms.txt`; add a mobile menu.
 
 ### Changed
 
-- Rename the project and the demo site from Northline to Next Story; the repository stays `next-storyblok`.
-- Load Fraunces with its optical-size axis so headlines use the display cut.
-- Restyle the README, social, and Open Graph images with the demo site fonts and colors.
-- Credit the author in the footer and drop the footer GitHub link, which the home page already carries.
+- Rename Northline to Next Story; retain the `next-storyblok` repository name.
+- Use Fraunces display headlines and align README, social, and Open Graph images with the demo branding.
+- Add demo footer attribution and remove its duplicate GitHub link.
 
 ## [0.4.2] - 2026-10-18
 
 ### Changed
 
-- Simplify the social preview and Open Graph images so they stay readable as small link previews.
-- Simplify the README header images.
+- Simplify repository social, demo Open Graph, and README header images.
 
 ### Fixed
 
-- Keep German navigation, footer, and page language after client-side navigation from `/de`.
+- Preserve the demo's German navigation, footer, and page language during client navigation.
 
 ## [0.4.1] - 2026-10-18
 
 ### Fixed
 
-- Refresh the sitemap when a story is published, unpublished, deleted, or moved.
+- Refresh the demo sitemap on story publication, unpublication, deletion, or moves.
 
 ## [0.4.0] - 2026-10-18
 
 ### Added
 
-- Add [How it works](https://nextstory.marcopontili.com/how-it-works) and [Blocks](https://nextstory.marcopontili.com/blocks) pages.
-- Add `steps`, `step`, and `rich_text` blocks, plus a page toggle that labels each section with its block name.
-- Serve German copy on `/de` routes from Storyblok field-level translations, with a language switch.
-- Edit the header navigation and footer note in a global Storyblok `config` story.
-- Keep the content model and seed stories in `storyblok/`, with `npm run storyblok:push` to sync the space.
-- Generate block types from the content model and fail CI when they are stale.
-- Add a dark theme that follows the system setting.
-- Smoke-test every route, link, and the sitemap of the built site in CI.
-- Add a security policy, issue forms, and a pull request template.
+- Add demo [How it works](https://nextstory.marcopontili.com/how-it-works) and [Blocks](https://nextstory.marcopontili.com/blocks) pages, new blocks, labels, German routes, and language switching.
+- Add CMS-managed demo navigation/footer, schema and seed syncing, and CI-checked generated block types.
+- Add system-aware demo dark mode and CI smoke tests for routes, links, and sitemap entries.
+- Add security, issue, and PR templates.
 
 ### Changed
 
-- Upgrade to Next.js 16: the middleware becomes `src/proxy.ts` and linting runs on the ESLint CLI.
-- Expire story cache tags immediately on publish, so the next request serves the new content.
-- Redesign the README, social preview, and Open Graph images on the shared repo-brand kit.
-- Build the sitemap from the Storyblok Links API instead of a fixed path list.
-- Render offline pages from the same seed stories the space uses.
-- Set `<html lang>` and JSON-LD language per request.
-- Allow the Visual Editor bridge script in the Content-Security-Policy.
+- Upgrade to Next.js 16 with `src/proxy.ts` and ESLint CLI linting.
+- Invalidate demo caches on publish and build its sitemap from Storyblok links.
+- Share offline/CMS seeds, localize demo HTML/JSON-LD per request, and permit the Visual Editor bridge in CSP.
+- Redesign README, social, and Open Graph images with the shared brand kit.
 
 ## [0.3.1] - 2026-10-16
 
 ### Fixed
 
-- Report page views and AI-assistant fetches to this site's own Matomo property.
+- Send demo page views and AI-assistant fetches to its own Matomo property.
 
 ## [0.3.0] - 2026-10-16
 
 ### Added
 
-- Add cookieless self-hosted Matomo, a [privacy page](https://nextstory.marcopontili.com/privacy), and security headers with CSP.
-- Report AI-assistant page fetches to Matomo from middleware.
-- Add sitemap, robots.txt, llms.txt, security.txt, web manifest, icon, and JSON-LD.
+- Add cookieless Matomo, AI-fetch tracking, a demo [privacy page](https://nextstory.marcopontili.com/privacy), and CSP security headers.
+- Add demo discovery files, sitemap, web manifest, icon, and JSON-LD.
 
 ### Changed
 
@@ -166,7 +163,7 @@
 
 ### Added
 
-- Add offline regression tests for server-rendered CMS blocks, draft preview, delivery, and publish webhooks.
+- Test CMS block rendering, draft preview, delivery, and publish webhooks offline.
 
 ### Changed
 
@@ -174,18 +171,13 @@
 
 ### Fixed
 
-- Restore server rendering for CMS-owned pages.
-- Isolate published content from the Visual Editor's shared draft cache.
-- Verify draft stories before enabling authenticated preview.
-- Refresh localized caches across the story lifecycle.
-- Reject malformed webhooks without cache changes.
-- Keep preview exit redirects on-site.
-- Surface CMS outages as errors instead of missing pages.
+- Restore demo server rendering and isolate published content from the editor's draft cache.
+- Validate preview stories, keep exit redirects on-site, and refresh localized caches on story changes.
+- Reject malformed webhooks without cache changes; surface CMS outages as errors.
 
 ## [0.1.0] - 2026-10-13
 
 ### Added
 
-- Next.js App Router marketing demo wired to Storyblok blocks, draft preview, and publish revalidation.
-- Public docs for architecture, commands, and Storyblok component schema.
-- CI for lint, changelog checks, and production build.
+- Add the Next.js App Router demo with Storyblok blocks, draft preview, and publish revalidation.
+- Document architecture, commands, and schema; add CI for lint, changelog checks, and builds.

@@ -4,12 +4,12 @@ import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 export const CONFIG_SLUG = "config";
 
 export function isPageSlug(slug: string): boolean {
-  return slug !== CONFIG_SLUG;
+  return slug !== CONFIG_SLUG && slug !== "pricing";
 }
 
 export type ParsedStoryPath = {
   locale: Locale;
-  /** Storyblok story slug, e.g. `home` or `pricing`. */
+  /** Storyblok story slug, e.g. `home` or `blocks`. */
   slug: string;
   /** Public pathname without leading slash (`""` for home). */
   pathname: string;
@@ -28,7 +28,7 @@ export function normalizeStorySlug(value: unknown): string | null {
 
 /**
  * Parse optional catch-all segments.
- * `/` → home · `/pricing` → pricing · `/de` → home (de) · `/de/pricing` → pricing (de)
+ * `/` → home · `/blocks` → blocks · `/de` → home (de) · `/de/blocks` → blocks (de)
  */
 export function parseStorySegments(
   segments: string[] | undefined,

@@ -65,8 +65,7 @@ export default async function StoryPage({ params }: PageProps) {
 
   return (
     <>
-      <div className="wrap toolbar">
-        <span className="source-badge">source: {result.source}</span>
+      {preview || locale !== "en" ? <div className="wrap toolbar">
         {preview ? (
           <Link className="source-badge" href="/api/exit-preview">
             exit preview
@@ -75,7 +74,7 @@ export default async function StoryPage({ params }: PageProps) {
         {locale !== "en" ? (
           <span className="source-badge">locale: {locale}</span>
         ) : null}
-      </div>
+      </div> : null}
       <StoryRenderer story={result.story} source={result.source} preview={preview} />
     </>
   );

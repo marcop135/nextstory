@@ -52,6 +52,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/pricing", destination: "/", permanent: true },
+      { source: "/de/pricing", destination: "/de", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

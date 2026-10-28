@@ -16,7 +16,7 @@ flowchart TB
 ## Request path
 
 1. [`src/proxy.ts`](../src/proxy.ts) sets an `x-site-locale` request header from the first path segment. The root layout reads it for `<html lang>`, the German navigation, and JSON-LD.
-2. [`src/app/[[...slug]]/page.tsx`](../src/app/[[...slug]]/page.tsx) parses locale and slug (`/`, `/pricing`, `/de`, `/de/pricing`). The `config` story returns 404 as a page.
+2. [`src/app/[[...slug]]/page.tsx`](../src/app/[[...slug]]/page.tsx) parses locale and slug (`/`, `/blocks`, `/de`, `/de/blocks`). The `config` story returns 404 as a page.
 3. [`src/lib/fetch-story.ts`](../src/lib/fetch-story.ts) loads from the CDN when a token is configured; otherwise the seed stories in `storyblok/stories/` render, translated by [`src/lib/localize.ts`](../src/lib/localize.ts) the same way the CDN resolves `language=de`. Production always requests published content unless draft mode is enabled. Drafts bypass the cache; published fetches share collection and per-story tags across languages, with a 60-second fallback expiry. Missing stories return 404; upstream failures surface as errors, not missing pages.
 4. [`src/components/StoryRenderer.tsx`](../src/components/StoryRenderer.tsx) registers blocks on the server. Public stories render through `StoryblokServerComponent`, bypassing the SDK's process-wide editor cache. Authenticated preview uses `StoryblokStory`, which mounts the Visual Editor bridge once. The delivery token stays on the server. The hero's HTML/SVG illustration uses a small client boundary to start CSS motion at 25% viewport intersection, pause offscreen or on tab-visibility events, and finish once. Reduced motion and JavaScript-disabled requests retain the static final state.
 5. [`src/lib/site-config.ts`](../src/lib/site-config.ts) loads the `config` story for header navigation, the footer note, and footer project links. The footer's Explore group reuses header navigation. Missing config uses localized built-in links.
@@ -37,10 +37,10 @@ flowchart TB
 
 | Request | Content source | Behavior |
 | --- | --- | --- |
-| `/`, `/pricing`, `/de/pricing` | CMS with a delivery token; seeds without one | Development defaults to drafts; production defaults to published content |
+| `/`, `/blocks`, `/de/blocks` | CMS with a delivery token; seeds without one | Development defaults to drafts; production defaults to published content |
 | Authenticated preview | Draft delivery | Uncached, with the Visual Editor bridge enabled |
 | `/config`, `/de/config` | None | Always 404; global configuration is loaded by the layout |
-| `/content/index.md`, `/content/de/pricing.md` | Published delivery, or seeds in local mode | Preview cookies cannot expose drafts |
+| `/content/index.md`, `/content/de/blocks.md` | Published delivery, or seeds in local mode | Preview cookies cannot expose drafts |
 | `/content/blocks.json` | Tracked component schema | Block catalog independent of the current CMS content |
 | `/privacy`, `/for-agents` | Application code | Fixed routes, not editable Storyblok stories |
 

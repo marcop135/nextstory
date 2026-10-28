@@ -30,7 +30,6 @@ Open [Storyblok](https://app.storyblok.com/), sign in, select the project space,
 | `home` | `page` | Landing page, publishing illustration, ownership comparison, and closing CTA |
 | `how-it-works` | `page` | Delivery workflow with source links and related notes |
 | `blocks` | `page` | Block catalog with component-name labels |
-| `pricing` | `page` | Example page composed from the same blocks |
 | `config` | `config` | Shared header navigation, footer note, and footer project links |
 | `content-relationships` | `learning_note` | Reusable explanation of referenced content |
 | `cache-invalidation` | `learning_note` | Reusable explanation of publication-driven caching |

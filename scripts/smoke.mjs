@@ -10,11 +10,9 @@ const pages = [
   ["/", "en", "Ship every market from one content model"],
   ["/how-it-works", "en", "From draft to live in four steps"],
   ["/blocks", "en", "Every block on this site"],
-  ["/pricing", "en", "One content model. Every locale."],
   ["/de", "de", "Jeden Markt aus einem Content-Modell bedienen"],
   ["/de/how-it-works", "de", "In vier Schritten vom Entwurf zur Live-Seite"],
   ["/de/blocks", "de", "Jeder Block dieser Site"],
-  ["/de/pricing", "de", "Ein Content-Modell. Jede Sprache."],
   ["/privacy", "en", "Privacy"],
   ["/for-agents", "en", "For agents"],
 ];
@@ -48,6 +46,12 @@ for (const path of ["/how-it-works", "/de/blocks"]) {
   check(sitemap.includes(`${path}</loc>`), `sitemap.xml: missing ${path}`);
 }
 check(!sitemap.includes("/config<"), "sitemap.xml: lists the config story");
+check(!sitemap.includes("/pricing<"), "sitemap.xml: lists the removed Pricing page");
+for (const [path, destination] of [["/pricing", "/"], ["/de/pricing", "/de"]]) {
+  const res = await fetch(base + path, { redirect: "manual" });
+  check(res.status === 308, `${path}: expected permanent redirect`);
+  check(new URL(res.headers.get("location"), base).pathname === destination, `${path}: incorrect home destination`);
+}
 
 if (failures.length) {
   console.error(`FAIL ${failures.length} problem(s) against ${base}:`);

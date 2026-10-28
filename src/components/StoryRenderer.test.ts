@@ -8,7 +8,11 @@ import type { HeroBlok } from "@/components/types";
 import StoryRenderer from "@/components/StoryRenderer";
 import { mockHomeStory, mockPageSlugs, mockStoryForSlug } from "@/lib/mock-story";
 
+const { usePathname } = vi.hoisted(() => ({ usePathname: vi.fn(() => "/") }));
+vi.mock("next/navigation", () => ({ usePathname }));
+
 function render(slug: string, language?: string) {
+  usePathname.mockReturnValue(`${language === "de" ? "/de" : ""}/${slug === "home" ? "" : slug}`);
   return renderToStaticMarkup(createElement(StoryRenderer, {
     story: mockStoryForSlug(slug, language)!,
     source: "mock",
@@ -40,11 +44,18 @@ it.each(mockPageSlugs)("renders the %s seed story in both languages", (slug) => 
   expect(de).toContain("<h1>");
   expect(de).not.toBe(en);
   expect(de).not.toContain("__i18n__");
+  expect(en).toContain('class="publishing-visual"');
+  expect(de).toContain('class="publishing-visual"');
+  if (slug !== "home") {
+    expect(en).toContain(`nextstory / ${slug}`);
+    expect(de).not.toContain("An edit becomes a preview");
+  }
 });
 
 it("renders steps, rich text, and block labels from the seed content", () => {
   const html = render("blocks");
-  for (const name of ["hero", "feature_grid", "steps", "rich_text", "image_text", "accordion", "pull_quote", "cta_band", "comparison_table", "code_example"]) {
+  expect(html).not.toContain('<p class="block-label">hero</p>');
+  for (const name of ["feature_grid", "steps", "rich_text", "image_text", "accordion", "pull_quote", "cta_band", "comparison_table", "code_example"]) {
     expect(html).toContain(`<p class="block-label">${name}</p>`);
   }
   expect(html).toContain('<ol class="steps__list">');
