@@ -14,5 +14,5 @@ it.each(["//example.com", "/\\example.com", "https://example.com", "javascript:a
 });
 
 it("preserves a local return path", async () => {
-  await expect(GET(new NextRequest("https://northline.test/api/exit-preview?next=/de/pricing"))).rejects.toThrow("redirect:/de/pricing");
+  await expect(GET(new NextRequest("https://northline.test/api/exit-preview?next=/de/blocks"))).rejects.toThrow("redirect:/de/blocks");
 });

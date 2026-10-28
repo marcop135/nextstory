@@ -1,8 +1,8 @@
 # Brand images
 
 `readme-light.svg` and `readme-dark.svg` are the README header sources
-(`readme-light.png` / `readme-dark.png`, 2560x1280), switched on GitHub via
-`#gh-light-mode-only` / `#gh-dark-mode-only`. `social.svg` → `social.png`
+(`readme-light.png` / `readme-dark.png`, 2560x1280), selected by a single
+`<picture>` element using `prefers-color-scheme`. `social.svg` → `social.png`
 (1280x640, GitHub Settings > Social preview). `og.svg` → `public/og.png`
 (1200x630, the site's Open Graph image). All outputs are listed in
 `brand.config.json`. All four share one layout: wordmark and tagline beside a

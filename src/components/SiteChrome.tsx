@@ -15,6 +15,8 @@ export type ChromeCopy = {
   footerNote: string;
 };
 
+const SITE_INFO_PATHS = new Set(["/privacy", "/for-agents", "/llms.txt"]);
+
 /**
  * Header and footer pick their language from the current path on every
  * navigation. The root layout is not re-rendered on client-side navigation,
@@ -74,7 +76,7 @@ export function SiteHeader({ copy }: { copy: Record<Locale, ChromeCopy> }) {
             aria-label={locale === "de" ? "Hauptnavigation" : "Primary"}
           >
             {copy[locale].nav.map((link) => (
-              <Link key={link._uid} href={link.href}>
+              <Link key={link._uid} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
                 {link.label}
               </Link>
             ))}
@@ -88,6 +90,8 @@ export function SiteHeader({ copy }: { copy: Record<Locale, ChromeCopy> }) {
 
 export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
   const locale = useLocale();
+  const projectLinks = copy[locale].footerNav?.filter((link) => !SITE_INFO_PATHS.has(link.href));
+  const siteInfoLinks = copy[locale].footerNav?.filter((link) => SITE_INFO_PATHS.has(link.href));
   return (
     <footer className="site-footer">
       <div className="wrap">
@@ -97,7 +101,9 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
             {locale === "de" ? "Entwickelt und gepflegt von" : "Built and maintained by"}{" "}
             <a href={AUTHOR.url}>{AUTHOR.name}</a>
           </p>
-          <Image className="footer-mark" src="/icon.svg" alt="" width={48} height={48} />
+          <Link className="footer-mark" href={locale === "de" ? "/de" : "/"} aria-label={locale === "de" ? "Next Story Startseite" : "Next Story home"}>
+            <Image src="/icon.svg" alt="" width={48} height={48} />
+          </Link>
         </div>
         <div className="footer-links">
           <nav className="footer-nav" aria-labelledby="footer-explore">
@@ -108,14 +114,20 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
               <Link key={link._uid} href={link.href}>{link.label}</Link>
             ))}
           </nav>
-          {!!copy[locale].footerNav?.length && (
+          {!!projectLinks?.length && (
             <nav className="footer-nav" aria-labelledby="footer-project">
               <h2 className="footer-nav__heading" id="footer-project">
                 {locale === "de" ? "Projekt" : "Project"}
               </h2>
-              {copy[locale].footerNav.map((link) => (
+              {projectLinks.map((link) => (
                 <Link key={link._uid} href={link.href}>{link.label}</Link>
               ))}
+            </nav>
+          )}
+          {!!siteInfoLinks?.length && (
+            <nav className="footer-nav" aria-labelledby="footer-site-info">
+              <h2 className="footer-nav__heading" id="footer-site-info">{locale === "de" ? "Website-Infos" : "Site Info"}</h2>
+              {siteInfoLinks.map((link) => <Link key={link._uid} href={link.href}>{link.label}</Link>)}
             </nav>
           )}
         </div>

@@ -20,18 +20,10 @@
         "label__i18n__de": "Blöcke",
         "href": "/blocks",
         "href__i18n__de": "/de/blocks"
-      },
-      {
-        "_uid": "nav-pricing",
-        "component": "nav_link",
-        "label": "Pricing",
-        "label__i18n__de": "Preise",
-        "href": "/pricing",
-        "href__i18n__de": "/de/pricing"
       }
     ],
-    "footer_note": "Next Story demo · Next.js App Router · Storyblok",
-    "footer_note__i18n__de": "Next-Story-Demo · Next.js App Router · Storyblok",
+    "footer_note": "Next.js App + Storyblok CMS",
+    "footer_note__i18n__de": "Next.js App + Storyblok CMS",
     "footer_nav": [
       {
         "_uid": "footer-source",

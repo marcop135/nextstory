@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 
 import MatomoRouteTracker from "@/components/MatomoRouteTracker";
 import AgentTools from "@/components/AgentTools";
+import CopyMotion from "@/components/CopyMotion";
 import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/SiteChrome";
 import StoryblokProvider from "@/components/StoryblokProvider";
 import {
@@ -57,7 +58,6 @@ export const metadata: Metadata = {
 const fallbackNav = [
   { _uid: "nav-how", label: "How it works", de: "So funktioniert es", href: "/how-it-works" },
   { _uid: "nav-blocks", label: "Blocks", de: "Blöcke", href: "/blocks" },
-  { _uid: "nav-pricing", label: "Pricing", de: "Preise", href: "/pricing" },
 ];
 
 const fallbackFooterNav = [
@@ -85,8 +85,8 @@ async function chromeCopy(): Promise<Record<Locale, ChromeCopy>> {
         : fallbackFooterNav.map(({ _uid, label, de, href }) => ({
             _uid, label: locale === "de" ? de : label, href,
           }));
-      const footerNote = config?.footer_note || "Next Story demo · Next.js App Router · Storyblok";
-      return [locale, { nav, footerNote, footerNav }] as const;
+      const footerNote = config?.footer_note || "Next.js App + Storyblok CMS";
+      return [locale, { nav: nav.filter(({ href }) => !["/pricing", "/de/pricing"].includes(href)), footerNote, footerNav }] as const;
     }),
   );
   return Object.fromEntries(entries) as Record<Locale, ChromeCopy>;
@@ -101,6 +101,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <body>
           <SiteHeader copy={copy} />
           {children}
+          <CopyMotion />
           <SiteFooter copy={copy} />
           <script
             type="application/ld+json"
