@@ -13,13 +13,14 @@ it("lists published page stories and skips folders, drafts, and the config story
   vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({
     links: {
       a: { slug: "home", is_folder: false, published: true },
-      b: { slug: "pricing", is_folder: false, published: true },
+      b: { slug: "blocks", is_folder: false, published: true },
       c: { slug: "config", is_folder: false, published: true },
       d: { slug: "docs", is_folder: true, published: true },
       e: { slug: "draft-only", is_folder: false, published: false },
+      f: { slug: "pricing", is_folder: false, published: true },
     },
   })));
-  expect(await publishedPageSlugs()).toEqual(["home", "pricing"]);
+  expect(await publishedPageSlugs()).toEqual(["home", "blocks"]);
   const [url] = vi.mocked(fetch).mock.calls[0];
   expect(new URL(String(url)).searchParams.get("version")).toBe("published");
 });

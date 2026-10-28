@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import PageVisual from "@/components/PageVisual";
+import PageContinue from "@/components/PageContinue";
 
 import { OG_IMAGE, REPO_URL, SITE_NAME, SITE_URL } from "@/lib/site";
 import { agentResources, agentTasks } from "@/lib/agent-resources";
@@ -31,7 +33,9 @@ export default function ForAgentsPage() {
         a Next.js App Router demo whose pages come from Storyblok blocks.
       </p>
 
-      <h2>Reading workflows</h2>
+      <PageContinue />
+      <PageVisual />
+      <h2 id="page-content" tabIndex={-1}>Reading workflows</h2>
       <ol>
         {agentTasks.map((task) => <li key={task.name}><strong>{task.name}.</strong> {task.instruction}<pre className="agent-request" tabIndex={0} aria-label={task.name}><code>curl {SITE_URL}{task.request}</code></pre></li>)}
       </ol>

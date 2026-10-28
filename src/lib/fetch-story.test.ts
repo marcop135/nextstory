@@ -92,7 +92,7 @@ describe("content delivery", () => {
 
   it("bypasses the cache for authenticated preview and preserves the locale", async () => {
     draftMode.mockResolvedValue({ isEnabled: true });
-    await fetchStory("pricing", "de");
+    await fetchStory("blocks", "de");
     const [url, options] = vi.mocked(fetch).mock.calls[0];
     expect(new URL(String(url)).searchParams.get("version")).toBe("draft");
     expect(new URL(String(url)).searchParams.get("language")).toBe("de");
@@ -108,7 +108,7 @@ describe("content delivery", () => {
   it("uses the same story tag for every language and a different tag for another story", async () => {
     await fetchStory("home");
     await fetchStory("home", "de");
-    await fetchStory("pricing");
+    await fetchStory("blocks");
     const tags = vi.mocked(fetch).mock.calls.map(([, options]) => options?.next?.tags);
     expect(tags[0]).toEqual(tags[1]);
     expect(tags[0]).not.toEqual(tags[2]);

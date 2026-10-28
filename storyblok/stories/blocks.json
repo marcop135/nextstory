@@ -45,8 +45,8 @@
             "title__i18n__de": "Optionaler Link",
             "text": "Add a path and the whole card becomes a link.",
             "text__i18n__de": "Mit einem Pfad wird die ganze Karte zum Link.",
-            "link_href": "/pricing",
-            "link_href__i18n__de": "/de/pricing"
+            "link_href": "/how-it-works",
+            "link_href__i18n__de": "/de/how-it-works"
           }
         ]
       },
@@ -580,14 +580,14 @@
       {
         "_uid": "blocks-cta",
         "component": "cta_band",
-        "headline": "Call to action band",
-        "headline__i18n__de": "Call-to-Action-Band",
-        "text": "One headline, one sentence, one link.",
-        "text__i18n__de": "Eine Überschrift, ein Satz, ein Link.",
-        "cta_label": "See pricing",
-        "cta_label__i18n__de": "Preise ansehen",
-        "cta_href": "/pricing",
-        "cta_href__i18n__de": "/de/pricing"
+        "headline": "View the source",
+        "headline__i18n__de": "Quellcode ansehen",
+        "text": "The components and content models behind this page are on GitHub.",
+        "text__i18n__de": "Die Komponenten und Content-Modelle hinter dieser Seite stehen auf GitHub.",
+        "cta_label": "View on GitHub",
+        "cta_label__i18n__de": "Auf GitHub ansehen",
+        "cta_href": "https://github.com/marcop135/nextstory",
+        "cta_href__i18n__de": "https://github.com/marcop135/nextstory"
       },
       {
         "_uid": "blocks-related",

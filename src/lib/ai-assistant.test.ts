@@ -30,7 +30,7 @@ describe("uaIsAiAssistant", () => {
 });
 
 describe("shouldSkipPath", () => {
-  it.each(["/", "/pricing", "/de/pricing", "/privacy", "/llms.txt", "/robots.txt", "/sitemap.xml", "/.well-known/security.txt"])(
+  it.each(["/", "/blocks", "/de/blocks", "/privacy", "/llms.txt", "/robots.txt", "/sitemap.xml", "/.well-known/security.txt"])(
     "keeps %s",
     (path) => {
       expect(shouldSkipPath(path)).toBe(false);
@@ -54,14 +54,14 @@ describe("shouldSkipPath", () => {
 describe("matomoTrackingUrl", () => {
   it("builds the recMode=1 tracking request", () => {
     const url = new URL(
-      matomoTrackingUrl("https://nextstory.marcopontili.com/pricing?a=1", "ChatGPT-User/1.0"),
+      matomoTrackingUrl("https://nextstory.marcopontili.com/blocks?a=1", "ChatGPT-User/1.0"),
     );
     expect(url.origin + url.pathname).toBe("https://mt.marcopontili.com/m/matomo.php");
     expect(Object.fromEntries(url.searchParams)).toEqual({
       idsite: "5",
       rec: "1",
       recMode: "1",
-      url: "https://nextstory.marcopontili.com/pricing?a=1",
+      url: "https://nextstory.marcopontili.com/blocks?a=1",
       ua: "ChatGPT-User/1.0",
       source: "vercel-middleware",
     });
@@ -84,7 +84,7 @@ describe("proxy", () => {
   }
 
   it("reports AI-assistant page hits without touching the response", async () => {
-    const { result, fetchMock, waitUntil } = await run("Claude-User/1.0", "/pricing");
+    const { result, fetchMock, waitUntil } = await run("Claude-User/1.0", "/blocks");
     expect(result.headers.get("x-middleware-next")).toBe("1");
     expect(result.headers.get("x-middleware-rewrite")).toBeNull();
     expect(result.status).toBe(200);
@@ -111,7 +111,7 @@ describe("proxy", () => {
   });
 
   it("passes the path locale to the root layout as a request header", async () => {
-    const german = await run("Mozilla/5.0 Chrome/141.0", "/de/pricing");
+    const german = await run("Mozilla/5.0 Chrome/141.0", "/de/blocks");
     expect(german.result.headers.get("x-middleware-request-x-site-locale")).toBe("de");
     const english = await run("Mozilla/5.0 Chrome/141.0", "/denmark");
     expect(english.result.headers.get("x-middleware-request-x-site-locale")).toBe("en");

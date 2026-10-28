@@ -17,7 +17,7 @@ function request(body: unknown, secret = "webhook-secret") {
 beforeEach(() => { vi.stubEnv("STORYBLOK_REVALIDATE_SECRET", "webhook-secret"); });
 
 it("rejects unauthenticated webhooks without touching the cache", async () => {
-  expect((await POST(request({ full_slug: "pricing" }, "wrong"))).status).toBe(401);
+  expect((await POST(request({ full_slug: "blocks" }, "wrong"))).status).toBe(401);
   expect(revalidatePath).not.toHaveBeenCalled();
   expect(revalidateTag).not.toHaveBeenCalled();
 });
@@ -28,7 +28,7 @@ it.each([
   { body: {} },
   { body: { full_slug: 42 } },
   { body: { full_slug: null, story_id: 123 } },
-  { body: { full_slug: "../pricing" } },
+  { body: { full_slug: "../blocks" } },
   { body: { old_full_slug: "old", story_id: 123 } },
   { body: { story_id: -1 } },
 ])("rejects invalid payloads without invalidating content: $body", async ({ body }) => {
@@ -39,7 +39,7 @@ it.each([
 
 it("fails closed when no webhook secret is configured", async () => {
   vi.stubEnv("STORYBLOK_REVALIDATE_SECRET", "");
-  expect((await POST(request({ full_slug: "pricing" }))).status).toBe(401);
+  expect((await POST(request({ full_slug: "blocks" }))).status).toBe(401);
   expect(revalidateTag).not.toHaveBeenCalled();
 });
 
@@ -50,10 +50,10 @@ it("rejects malformed JSON", async () => {
 });
 
 it.each(["published", "unpublished", "deleted"])("invalidates all language variants on %s", async (action) => {
-  const response = await POST(request({ action, story_id: 123, full_slug: "pricing" }));
+  const response = await POST(request({ action, story_id: 123, full_slug: "blocks" }));
   expect(response.status).toBe(200);
-  expect(revalidatePath).toHaveBeenCalledWith("/pricing");
-  expect(revalidatePath).toHaveBeenCalledWith("/de/pricing");
+  expect(revalidatePath).toHaveBeenCalledWith("/blocks");
+  expect(revalidatePath).toHaveBeenCalledWith("/de/blocks");
   expect(revalidateTag).toHaveBeenCalledTimes(2);
   expect(revalidateTag).toHaveBeenCalledWith("storyblok:related-content", { expire: 0 });
   expect(revalidateTag).not.toHaveBeenCalledWith("storyblok", expect.anything());

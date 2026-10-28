@@ -30,7 +30,7 @@ it("fails closed when the preview secret is unconfigured", async () => {
   expect(enable).not.toHaveBeenCalled();
 });
 
-it.each(["//example.com", "../pricing", "pricing?token=x", "pricing#test", "\\example.com", "%2f%2fexample.com"])("rejects unsafe story slug %s", async (slug) => {
+it.each(["//example.com", "../blocks", "blocks?token=x", "blocks#test", "\\example.com", "%2f%2fexample.com"])("rejects unsafe story slug %s", async (slug) => {
   expect((await GET(request(slug))).status).toBe(400);
   expect(enable).not.toHaveBeenCalled();
 });

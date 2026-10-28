@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import PageVisual from "@/components/PageVisual";
+import PageContinue from "@/components/PageContinue";
 
 import { AUTHOR, OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -31,7 +33,9 @@ export default function PrivacyPage() {
         The source code is public; running it yourself is outside this notice.
       </p>
 
-      <h2>Controller</h2>
+      <PageContinue />
+      <PageVisual />
+      <h2 id="page-content" tabIndex={-1}>Controller</h2>
       <p>
         <a href="https://marcopontili.com">{AUTHOR.name}</a>
         <br />

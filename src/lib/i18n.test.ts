@@ -7,7 +7,7 @@ import { isPageSlug, publicPathForSlug } from "@/lib/story-path";
 describe("locale routing", () => {
   it.each([
     ["/", "en"],
-    ["/pricing", "en"],
+    ["/blocks", "en"],
     ["/de", "de"],
     ["/de/blocks", "de"],
     ["/design", "en"],
@@ -17,7 +17,7 @@ describe("locale routing", () => {
 
   it.each([
     ["/", "de", "/de"],
-    ["/pricing", "de", "/de/pricing"],
+    ["/blocks", "de", "/de/blocks"],
     ["/de", "en", "/"],
     ["/de/how-it-works", "en", "/how-it-works"],
     ["/privacy", "de", "/de"],
@@ -28,7 +28,8 @@ describe("locale routing", () => {
 
   it("keeps the config story off the public routes", () => {
     expect(isPageSlug("config")).toBe(false);
-    expect(isPageSlug("pricing")).toBe(true);
+    expect(isPageSlug("blocks")).toBe(true);
+    expect(isPageSlug("pricing")).toBe(false);
     expect(publicPathForSlug("config", "de")).toBe("/de");
   });
 });

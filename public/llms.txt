@@ -11,7 +11,6 @@
 - [Home](https://nextstory.marcopontili.com/): publishing-flow illustration and editable content/code ownership comparison
 - [How it works](https://nextstory.marcopontili.com/how-it-works): content model, draft preview, publish webhook, and cache tags, step by step
 - [Blocks](https://nextstory.marcopontili.com/blocks): every Storyblok block on the site, labelled with its component name
-- [Pricing](https://nextstory.marcopontili.com/pricing): demo pricing page from the same block contract
 - [German home](https://nextstory.marcopontili.com/de): German routes served from Storyblok field-level translations
 - [Privacy](https://nextstory.marcopontili.com/privacy): cookieless self-hosted Matomo, Vercel hosting
 - [For agents](https://nextstory.marcopontili.com/for-agents): copyable reading workflows, resource inventory, and read-only browser tools
