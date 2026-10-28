@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-10-28
+
 ### Added
 
 - Add distinct demo intro illustrations and slower, reduced-motion-aware copy reveals.
