@@ -23,7 +23,7 @@ it("renders CMS blocks on the server without a client provider or delivery token
   }));
   expect(html).toContain("<h1>Ship every market from one content model</h1>");
   expect(html).toContain("Editors own the page");
-  expect(html).toContain("Read the code behind this page");
+  expect(html).toContain("See how this page is built");
   expect(html).toContain('class="wrap hero__layout"');
   expect(html).toContain('class="publishing-visual"');
   expect(html).not.toContain("Domenico Loia / Unsplash");

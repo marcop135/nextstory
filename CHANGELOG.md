@@ -7,6 +7,15 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Animate all H1s with a reduced-motion-aware rise and fade, and keep the home closing CTA within the site.
+- Expand setup and content-authoring guides and reorganize the project and documentation READMEs.
+
+### Removed
+
+- Remove implementation plans from the documentation.
+
 ## [0.9.0] - 2026-10-27
 
 ### Added

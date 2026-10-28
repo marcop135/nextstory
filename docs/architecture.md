@@ -33,18 +33,20 @@ flowchart TB
 
 [`AgentTools`](../src/components/AgentTools.tsx) mounts once and feature-detects native WebMCP. [`agent-tools.ts`](../src/lib/agent-tools.ts) wraps the same HTTP resources with `get_page_markdown` and `list_blocks`, caps response bytes, forwards cancellation, and aborts registration on unmount. The current pathname is resolved at execution rather than captured before client navigation. Browsers without the API use the public resources directly. Native support and stubbed lifecycle verification are distinct checks.
 
-## Env
+## Route and delivery boundaries
 
-| Variable | Role |
-| --- | --- |
-| `STORYBLOK_DELIVERY_API_TOKEN` | Preview/delivery token (draft + published) |
-| `STORYBLOK_REGION` | `eu` for this space |
-| `STORYBLOK_VERSION` | Local default (`draft` or `published`); production enforces `published` outside draft mode |
-| `STORYBLOK_PREVIEW_SECRET` | Gates `/api/preview` |
-| `STORYBLOK_REVALIDATE_SECRET` | Gates `/api/revalidate` |
-| `STORYBLOK_PERSONAL_ACCESS_TOKEN`, `STORYBLOK_SPACE_ID` | `npm run storyblok:push` only; never read by the app |
+| Request | Content source | Behavior |
+| --- | --- | --- |
+| `/`, `/pricing`, `/de/pricing` | CMS with a delivery token; seeds without one | Development defaults to drafts; production defaults to published content |
+| Authenticated preview | Draft delivery | Uncached, with the Visual Editor bridge enabled |
+| `/config`, `/de/config` | None | Always 404; global configuration is loaded by the layout |
+| `/content/index.md`, `/content/de/pricing.md` | Published delivery, or seeds in local mode | Preview cookies cannot expose drafts |
+| `/content/blocks.json` | Tracked component schema | Block catalog independent of the current CMS content |
+| `/privacy`, `/for-agents` | Application code | Fixed routes, not editable Storyblok stories |
 
-Production: Vercel + custom domain `https://nextstory.marcopontili.com`. DNS CNAME via Cloudflare. Not a static FTP deploy.
+Missing CMS stories do not fall back to seeds. Page delivery errors surface as errors; Markdown returns 503. Global configuration failures retain the built-in shell. The sitemap uses seed slugs on delivery failure, but a successful empty published inventory stays empty.
+
+Production runs on Vercel at `https://nextstory.marcopontili.com`. [Environment configuration](commands.md#environment) separates delivery, import, preview, and webhook credentials; [the development cycle](development-cycle.md#coordinate-storyblok-content) coordinates code deployment with CMS publication.
 
 ## Analytics and headers
 
