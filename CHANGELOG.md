@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-10-28
+
 ### Changed
 
 - Animate all H1s with a reduced-motion-aware rise and fade, and keep the home closing CTA within the site.
