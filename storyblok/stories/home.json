@@ -303,14 +303,14 @@
       {
         "_uid": "home-cta",
         "component": "cta_band",
-        "headline": "Read the code behind this page",
-        "headline__i18n__de": "Den Code hinter dieser Seite lesen",
-        "text": "The repository maps every claim on this site to a file. MIT licensed.",
-        "text__i18n__de": "Das Repository ordnet jede Aussage dieser Site einer Datei zu. MIT-Lizenz.",
-        "cta_label": "Source on GitHub",
-        "cta_label__i18n__de": "Quellcode auf GitHub",
-        "cta_href": "https://github.com/marcop135/nextstory",
-        "cta_href__i18n__de": "https://github.com/marcop135/nextstory"
+        "headline": "See how this page is built",
+        "headline__i18n__de": "So entsteht diese Seite",
+        "text": "Follow a Storyblok block from the content model to the published page.",
+        "text__i18n__de": "Verfolge einen Storyblok-Block vom Content-Modell bis zur veröffentlichten Seite.",
+        "cta_label": "How it works",
+        "cta_label__i18n__de": "So funktioniert es",
+        "cta_href": "/how-it-works",
+        "cta_href__i18n__de": "/de/how-it-works"
       }
     ]
   }

@@ -2,18 +2,7 @@
 
 Open [Storyblok](https://app.storyblok.com/), sign in, select the project space, then open **Content** and a story such as `home`. The Visual Editor edits copy, blocks, and translations; `config` holds navigation and the footer. Save keeps a draft; Publish updates the live content through the configured webhook.
 
-[`storyblok/components.json`](../storyblok/components.json) defines the content model; [`storyblok/stories/`](../storyblok/stories/) contains the seed stories used by the space, generated types, and offline mode.
-
-```bash
-npm run storyblok:push -- --bootstrap --dry-run   # inspect a new-space import
-npm run storyblok:push -- --bootstrap             # import drafts into a new space
-npm run storyblok:push -- --only-story home --snapshot home-baseline.json
-npm run storyblok:push -- --only-story home --baseline home-baseline.json
-npm run storyblok:push -- --only-story home --publish  # explicit publication after review
-npm run storyblok:types               # regenerate src/types/storyblok.generated.ts
-```
-
-`storyblok:push` needs `STORYBLOK_PERSONAL_ACCESS_TOKEN` and `STORYBLOK_SPACE_ID` in `.env`. It writes to the live space.
+[`storyblok/components.json`](../storyblok/components.json) defines the model and generates [`src/types/storyblok.generated.ts`](../src/types/storyblok.generated.ts). [`storyblok/stories/`](../storyblok/stories/) contains localized seed content for imports and offline rendering. [Setup and imports](commands.md#storyblok) covers connecting a space and replacing existing content.
 
 ## Blocks
 
@@ -36,24 +25,37 @@ npm run storyblok:types               # regenerate src/types/storyblok.generated
 
 ## Stories
 
-| Slug | Content type |
-| --- | --- |
-| `home` | `page` |
-| `how-it-works` | `page` |
-| `blocks` | `page` |
-| `pricing` | `page` |
-| `config` | `config` |
-| `content-relationships` | `learning_note` |
-| `cache-invalidation` | `learning_note` |
+| Slug | Content type | Purpose |
+| --- | --- | --- |
+| `home` | `page` | Landing page, publishing illustration, ownership comparison, and closing CTA |
+| `how-it-works` | `page` | Delivery workflow with source links and related notes |
+| `blocks` | `page` | Block catalog with component-name labels |
+| `pricing` | `page` | Example page composed from the same blocks |
+| `config` | `config` | Shared header navigation, footer note, and footer project links |
+| `content-relationships` | `learning_note` | Reusable explanation of referenced content |
+| `cache-invalidation` | `learning_note` | Reusable explanation of publication-driven caching |
+
+## Edit a page
+
+1. Open a `page` story and edit its `body` blocks. Keep one hero headline per page; use section headings inside subsequent blocks.
+2. Edit `seo_title` and `seo_description` independently of visible copy. The app uses them for page metadata and language alternates.
+3. Switch to German and translate reader-facing fields, image alt text, and internal links. Preserve the original story slug.
+4. Save the draft and review both languages through [authenticated preview](commands.md#draft-preview). Publish after review; check the public page and its Markdown representation.
+
+The closing home CTA belongs to the `home` story's `cta_band`, not global configuration. Header links and the footer's Explore group share `config.header_nav`; footer project links use `config.footer_nav`. The `config` story is never a public page.
 
 ## Languages
 
-The space has `de` enabled under Settings → Internationalization. Reader-facing text fields use `translatable`, so German lives in the same story as `field__i18n__de`. Links translate too, so German links point at `/de/...`. Code, language identifiers, and source paths stay unchanged. The comparison table supplies `table__i18n__de` with translated cells. The app requests `language=de` for `/de`; empty translations fall back to English.
+Enable `de` under Settings > Internationalization. Reader-facing text fields use `translatable`, so German lives in the same story as `field__i18n__de`. Links translate too, so German links point at `/de/...`. Code, language identifiers, and source paths stay unchanged. The comparison table supplies `table__i18n__de` with translated cells. The app requests `language=de` for `/de`; empty translations fall back to English.
 
 Home uses the viewport-controlled hero and ownership comparison. How-it-works and the block library reference the same two learning notes. Seed UUIDs identify local relationships; imports map them to the UUIDs assigned by each Storyblok space. Notes reuse rich-text/code-example blocks; publishing a note refreshes reference consumers across languages. Source-parity tests keep displayed code excerpts aligned with their linked files.
 
-## Preview and webhook
+## Add a block
 
-1. Visual Editor default environment: `https://nextstory.marcopontili.com/` (local: `https://localhost:3000/`). Home real path: `/`.
-2. Preview entry: `https://nextstory.marcopontili.com/api/preview?secret=<STORYBLOK_PREVIEW_SECRET>&slug=home&lang=en`. The route verifies the draft before enabling preview; use `lang=de` for German. Previewing `config` opens the home page.
-3. Webhook: `POST https://nextstory.marcopontili.com/api/revalidate?secret=<STORYBLOK_REVALIDATE_SECRET>`. Subscribe to story published, unpublished, deleted, and moved events. Include `old_full_slug` on moves to expire both routes. See the [Storyblok webhook payloads](https://www.storyblok.com/docs/concepts/webhooks) and [Next.js cache tags](https://nextjs.org/docs/app/api-reference/functions/revalidateTag).
+1. Define fields in `storyblok/components.json`; mark reader-facing fields translatable and include the component in its parent's block whitelist.
+2. Run `npm run storyblok:types`. Implement the component in `src/components/` and register its schema name in `src/lib/storyblok.ts`.
+3. Add an English/German example to the block-library seed. New offline stories must also be registered in `src/lib/mock-story.ts`.
+4. Check server rendering and Markdown output. Update `src/lib/story-markdown.ts` if the new block needs serialization, then run the [verification gates](development-cycle.md#implement-and-review).
+5. Import the selected schema changes, deploy the renderer, then preview and publish reviewed content using the new block.
+
+Use `related_content.stories` for ordered links to shared `learning_note` stories rather than duplicating their text. Targets must be published to appear in public related-content lists; drafts remain available in authenticated preview.
