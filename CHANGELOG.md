@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-11-02
+
 ### Changed
 
 - Update Next.js and its ESLint config to 16.4.3 ([#51](https://github.com/marcop135/nextstory/pull/51)).
