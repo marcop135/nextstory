@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main id="main" className="wrap not-found">
+    <main id="main" tabIndex={-1} className="wrap not-found">
       <h1>Page not found</h1>
       <p>
         No story for this path

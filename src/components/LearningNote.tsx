@@ -5,7 +5,7 @@ import PageContinue from "@/components/PageContinue";
 
 export default function LearningNote({ blok }: { blok: LearningNoteBlok }) {
   return (
-    <main id="main" {...storyblokEditable(blok)}>
+    <main id="main" tabIndex={-1} {...storyblokEditable(blok)}>
       <section className="hero">
         <div className="wrap hero__layout">
           <div>

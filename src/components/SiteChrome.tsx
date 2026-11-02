@@ -99,7 +99,7 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
           <p className="footer-note">{copy[locale].footerNote}</p>
           <p>
             {locale === "de" ? "Entwickelt und gepflegt von" : "Built and maintained by"}{" "}
-            <a href={AUTHOR.url}>{AUTHOR.name}</a>
+            <a href={AUTHOR.url} title={AUTHOR.name}>{AUTHOR.name}</a>
           </p>
           <Link className="footer-mark" href={locale === "de" ? "/de" : "/"} aria-label={locale === "de" ? "Next Story Startseite" : "Next Story home"}>
             <Image src="/icon.svg" alt="" width={48} height={48} />
@@ -127,7 +127,9 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
           {!!siteInfoLinks?.length && (
             <nav className="footer-nav" aria-labelledby="footer-site-info">
               <h2 className="footer-nav__heading" id="footer-site-info">{locale === "de" ? "Website-Infos" : "Site Info"}</h2>
-              {siteInfoLinks.map((link) => <Link key={link._uid} href={link.href}>{link.label}</Link>)}
+              {siteInfoLinks.map((link) => link.href === "/llms.txt"
+                ? <a key={link._uid} href={link.href}>{link.label}</a>
+                : <Link key={link._uid} href={link.href}>{link.label}</Link>)}
             </nav>
           )}
         </div>
