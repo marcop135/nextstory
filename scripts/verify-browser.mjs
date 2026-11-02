@@ -63,6 +63,11 @@ try {
   assert.equal(await visual.getAttribute("data-motion"), "static", "Completed sequence must not replay");
 
   await page.goto(`${base}/de`, { waitUntil: "networkidle" });
+  await page.keyboard.press("Tab");
+  assert.equal(await page.locator(".skip-link").evaluate((el) => el === document.activeElement), true);
+  await page.keyboard.press("Enter");
+  await page.waitForFunction(() => document.activeElement?.id === "main");
+  assert.equal(await page.getByRole("complementary", { name: "Seiteninformationen", exact: true }).count(), 1);
   const menu = page.getByRole("button", { name: "Menü" });
   await menu.focus();
   await page.keyboard.press("Space");
@@ -88,12 +93,25 @@ try {
   await page.waitForFunction(() => document.documentElement.lang === "en");
   assert.equal(await page.locator("main h1").innerText(), "Content relationships");
   assert.match(await page.locator("footer").innerText(), /Explore[\s\S]*Project[\s\S]*Privacy/);
+  assert.equal(await page.locator("footer").getByRole("link", { name: "Marco Pontili", exact: true }).getAttribute("title"), "Marco Pontili");
   await mobile.close();
 
   const animated = await context({ viewport: { width: 1440, height: 1000 }, reducedMotion: "no-preference" });
   const sequencePage = await animated.newPage();
   for (const route of ["how-it-works", "blocks", "content-relationships", "cache-invalidation", "for-agents", "privacy"]) {
     await sequencePage.goto(`${base}/${route}`, { waitUntil: "networkidle" });
+    if (route === "for-agents" || route === "privacy") {
+      assert.equal(await sequencePage.locator("[data-copy-motion]").count(), 0, `${route}: copy stays static`);
+      assert.equal(await sequencePage.locator(".publishing-visual, main .actions").count(), 0, `${route}: text only`);
+      assert.equal(await sequencePage.locator("main").evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
+      const resource = sequencePage.waitForResponse((response) => new URL(response.url()).pathname === "/llms.txt" && response.request().isNavigationRequest());
+      await sequencePage.locator("footer").getByRole("link", { name: "llms.txt", exact: true }).click();
+      const response = await resource;
+      assert.equal(response.status(), 200);
+      assert.match(response.headers()["content-type"], /text\/plain/);
+      assert.match(await sequencePage.locator("body").innerText(), /^# Next Story/);
+      continue;
+    }
     await sequencePage.locator('h1[data-copy-motion="visible"]').waitFor();
     const illustration = sequencePage.locator(".publishing-visual");
     assert.equal(await illustration.count(), 1, `${route}: one illustration`);
@@ -188,7 +206,7 @@ try {
         for (const route of ["blocks", "content-relationships", "cache-invalidation", "for-agents", "privacy"]) {
           await screen.goto(`${base}/${route}`, { waitUntil: "networkidle" });
           assert.ok(await screen.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${route} ${width}px: overflow`);
-          assert.equal(await screen.locator(".publishing-visual").evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
+          assert.equal(await screen.locator("main").evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
           await screen.screenshot({ path: `${output}/${route}-${width}-${colorScheme}.png`, fullPage: true });
         }
       }

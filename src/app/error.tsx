@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Error({ reset }: { reset: () => void }) {
   return (
-    <main id="main" className="wrap not-found">
+    <main id="main" tabIndex={-1} className="wrap not-found">
       <h1>Something went wrong</h1>
       <p>The page could not load its content. Try again in a moment.</p>
       <p>

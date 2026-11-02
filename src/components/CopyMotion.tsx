@@ -7,6 +7,7 @@ export default function CopyMotion() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (pathname === "/for-agents" || pathname === "/privacy") return;
     const main = document.querySelector("main");
     if (!main || typeof IntersectionObserver === "undefined") return;
     const preference = matchMedia("(prefers-reduced-motion: reduce)");

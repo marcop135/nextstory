@@ -7,6 +7,17 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Update Next.js and its ESLint config to 16.4.3 ([#51](https://github.com/marcop135/nextstory/pull/51)).
+
+### Fixed
+
+- Restore text-only For Agents and Privacy pages ([#71](https://github.com/marcop135/nextstory/pull/71)) ([#70](https://github.com/marcop135/nextstory/issues/70)).
+- Improve accessibility by opening the footer's llms.txt link as a plain-text document ([#71](https://github.com/marcop135/nextstory/pull/71)).
+- Improve screen-reader navigation with a named landmark for locale and preview information ([#71](https://github.com/marcop135/nextstory/pull/71)).
+- Fix keyboard accessibility by focusing the main content when activating the skip link ([#71](https://github.com/marcop135/nextstory/pull/71)).
+
 ## [0.10.0] - 2026-10-28
 
 ### Added

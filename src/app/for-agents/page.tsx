@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import PageVisual from "@/components/PageVisual";
-import PageContinue from "@/components/PageContinue";
 
 import { OG_IMAGE, REPO_URL, SITE_NAME, SITE_URL } from "@/lib/site";
 import { agentResources, agentTasks } from "@/lib/agent-resources";
@@ -26,15 +24,13 @@ export const metadata: Metadata = {
 
 export default function ForAgentsPage() {
   return (
-    <main id="main" className="wrap prose">
+    <main id="main" tabIndex={-1} className="wrap prose">
       <h1>For agents</h1>
       <p>
         Discovery notes for {SITE_NAME} at {SITE_URL.replace("https://", "")},
         a Next.js App Router demo whose pages come from Storyblok blocks.
       </p>
 
-      <PageContinue />
-      <PageVisual />
       <h2 id="page-content" tabIndex={-1}>Reading workflows</h2>
       <ol>
         {agentTasks.map((task) => <li key={task.name}><strong>{task.name}.</strong> {task.instruction}<pre className="agent-request" tabIndex={0} aria-label={task.name}><code>curl {SITE_URL}{task.request}</code></pre></li>)}
