@@ -40,7 +40,10 @@ Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
 
 ## How content flows
 
-![Content flow from Storyblok through cache and preview to English/German pages and read-only agent tools](docs/content-flow.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/content-flow-dark.svg" />
+  <img src="docs/content-flow-light.svg" alt="Content flow from Storyblok through cache and preview to English/German pages and read-only agent tools" width="100%" />
+</picture>
 
 The Visual Editor bridge runs in authenticated preview. Public Markdown always reads published content. See [Architecture](docs/architecture.md) for request flows.
 
