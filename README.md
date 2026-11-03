@@ -9,7 +9,7 @@
 
 # Next Story
 
-Next Story is a headless CMS demo built with [Next.js](https://nextjs.org/) App Router and [Storyblok](https://www.storyblok.com/). I keep it as a public learning project: each feature on the live site links back to the code behind it, from content modeling and draft preview to German routes, cache invalidation, and read-only access for agents.
+A [Next.js](https://nextjs.org/) App Router and [Storyblok](https://www.storyblok.com/) learning project. Explore content modeling, draft preview, localization, caching, and read-only agent access, with each feature linked to its source.
 
 [![CI](https://img.shields.io/github/actions/workflow/status/marcop135/nextstory/ci.yml?branch=develop&label=CI)](https://github.com/marcop135/nextstory/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/marcop135/nextstory?label=Release)](https://github.com/marcop135/nextstory/releases/latest)
@@ -26,17 +26,11 @@ Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
 
 | Page | What it shows |
 | --- | --- |
-| [Home](https://nextstory.marcopontili.com/) | How a page goes from edit to publish, and which parts editors and developers own |
-| [How it works](https://nextstory.marcopontili.com/how-it-works) | The path from a Storyblok edit to the live page, each step linked to its source |
-| [Blocks](https://nextstory.marcopontili.com/blocks) | Every block once; a toggle labels each one with its component name |
-| [Deutsch](https://nextstory.marcopontili.com/de) | The same stories in German through field-level translations |
-| [For agents](https://nextstory.marcopontili.com/for-agents) | Published pages as Markdown, the block catalog, and read-only tools |
-
-## Tech stack
-
-- Next.js 16 App Router, React 19 Server Components, and TypeScript
-- Storyblok headless CMS with `@storyblok/react`
-- CSS custom properties with system light and dark themes
+| [Home](https://nextstory.marcopontili.com/) | Editor and developer responsibilities |
+| [How it works](https://nextstory.marcopontili.com/how-it-works) | Edit-to-publish workflow linked to source |
+| [Blocks](https://nextstory.marcopontili.com/blocks) | Block examples with component labels |
+| [Deutsch](https://nextstory.marcopontili.com/de) | Field-level German translations |
+| [For agents](https://nextstory.marcopontili.com/for-agents) | Published Markdown, block catalog, read-only tools |
 
 ## How content flows
 
@@ -45,27 +39,27 @@ Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
   <img src="docs/content-flow-light.svg" alt="Content flow from Storyblok through cache and preview to English/German pages and read-only agent tools" width="720" />
 </picture>
 
-The Visual Editor bridge runs in authenticated preview. Public Markdown always reads published content. See [Architecture](docs/architecture.md) for request flows.
+See [Architecture](docs/architecture.md) for request flows.
 
 ## Source files by feature
 
 | Feature | Source |
 | --- | --- |
-| Content schema and generated types | [`storyblok/components.json`](storyblok/components.json), [`scripts/storyblok-types.mjs`](scripts/storyblok-types.mjs) |
-| CMS blocks and React Server Components | [`src/lib/storyblok.ts`](src/lib/storyblok.ts), [`src/components/`](src/components/) |
-| Draft preview and webhook revalidation | [`preview/route.ts`](src/app/api/preview/route.ts), [`revalidate/route.ts`](src/app/api/revalidate/route.ts) |
-| Global navigation and footer | [`src/lib/site-config.ts`](src/lib/site-config.ts), [`src/components/SiteChrome.tsx`](src/components/SiteChrome.tsx) |
-| Referenced learning notes | [`src/lib/related-content.ts`](src/lib/related-content.ts), [`src/components/RelatedContent.tsx`](src/components/RelatedContent.tsx) |
-| Localization and language routing | [`src/lib/i18n.ts`](src/lib/i18n.ts), [`src/proxy.ts`](src/proxy.ts) |
-| Offline development with seed stories | [`src/lib/mock-story.ts`](src/lib/mock-story.ts) |
-| Published content as Markdown | [`src/lib/story-markdown.ts`](src/lib/story-markdown.ts) |
-| Read-only agent resources and tools | [`src/lib/agent-resources.ts`](src/lib/agent-resources.ts), [`src/lib/agent-tools.ts`](src/lib/agent-tools.ts) |
+| Schema and types | [`storyblok/components.json`](storyblok/components.json), [`scripts/storyblok-types.mjs`](scripts/storyblok-types.mjs) |
+| CMS blocks | [`src/lib/storyblok.ts`](src/lib/storyblok.ts), [`src/components/`](src/components/) |
+| Preview and revalidation | [`preview/route.ts`](src/app/api/preview/route.ts), [`revalidate/route.ts`](src/app/api/revalidate/route.ts) |
+| Navigation and footer | [`src/lib/site-config.ts`](src/lib/site-config.ts), [`src/components/SiteChrome.tsx`](src/components/SiteChrome.tsx) |
+| Related notes | [`src/lib/related-content.ts`](src/lib/related-content.ts), [`src/components/RelatedContent.tsx`](src/components/RelatedContent.tsx) |
+| Localization | [`src/lib/i18n.ts`](src/lib/i18n.ts), [`src/proxy.ts`](src/proxy.ts) |
+| Seed stories | [`src/lib/mock-story.ts`](src/lib/mock-story.ts) |
+| Published Markdown | [`src/lib/story-markdown.ts`](src/lib/story-markdown.ts) |
+| Read-only agent access | [`src/lib/agent-resources.ts`](src/lib/agent-resources.ts), [`src/lib/agent-tools.ts`](src/lib/agent-tools.ts) |
 
-Further documentation: [Architecture](docs/architecture.md) · [Content schema](docs/storyblok-schema.md) · [Commands](docs/commands.md) · [Development cycle](docs/development-cycle.md)
+[Content schema](docs/storyblok-schema.md) · [Commands](docs/commands.md) · [Development cycle](docs/development-cycle.md)
 
 ## Quick start
 
-Requires Node.js 22+ and npm.
+Requires Node.js 22+.
 
 ```bash
 npm install
@@ -73,13 +67,19 @@ cp .env.example .env
 npm run dev
 ```
 
-Open http://localhost:3000. **Local mode:** leave the delivery token empty to render bundled seed stories in English and German (`source: mock`), without a Storyblok account. **Storyblok mode:** connect your own space using the setup below (`source: storyblok`).
+Open http://localhost:3000. Without a Storyblok delivery token, bundled English/German stories run locally.
 
-`npm test` covers rendering, translations, delivery, preview, webhooks, Markdown, imports, and tool lifecycle. Against a running build, `npm run smoke` checks journeys, `npm run verify:agent-readiness` checks public resources, and `npm run verify:browser` checks motion/navigation in system Chrome and saves responsive screenshots.
+Run `npm test` for CMS workflows.
+
+Against a running build:
+
+- `npm run smoke`: page journeys, links, and sitemap.
+- `npm run verify:agent-readiness`: public resources and read-only tools.
+- `npm run verify:browser`: motion, navigation, and responsive screenshots.
 
 ## Storyblok setup
 
-Create a space, enable German (`de`), then import tracked components and seed stories with `npm run storyblok:push -- --bootstrap`. Imports save drafts; `--publish` explicitly publishes. Existing content replacements require a reviewed remote snapshot as their baseline. Follow [own-space setup](docs/commands.md#storyblok) for tokens, scoped updates, Visual Editor configuration, and webhooks.
+Create a space, enable German (`de`), and follow [own-space setup](docs/commands.md#storyblok) for imports, preview, and webhooks. Imports save drafts; replacements require a reviewed snapshot.
 
 All variables are optional in local mode. Set them in `.env` for CMS mode:
 
