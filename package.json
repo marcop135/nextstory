@@ -4,7 +4,6 @@
   "private": false,
   "description": "Next.js App Router + Storyblok headless CMS demo",
   "scripts": {
-    "postinstall": "node scripts/patch-eslint-minimatch.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -18,7 +17,8 @@
     "storyblok:push": "node --env-file-if-exists=.env scripts/storyblok-push.mjs",
     "smoke": "node scripts/smoke.mjs",
     "verify:agent-readiness": "node scripts/verify-agent-readiness.mjs",
-    "verify:browser": "node scripts/verify-browser.mjs"
+    "verify:browser": "node scripts/verify-browser.mjs",
+    "postinstall": "node scripts/patch-eslint-minimatch.mjs"
   },
   "dependencies": {
     "@storyblok/react": "^7.4.0",
@@ -36,11 +36,11 @@
     "typescript": "^5.9.3",
     "vitest": "^5.1.0"
   },
+  "engines": {
+    "node": "^22.13.0 || >=24"
+  },
   "overrides": {
     "happy-dom": "^21.0.4",
     "minimatch": "^11.0.1"
-  },
-  "engines": {
-    "node": "^22.13.0 || >=24"
   }
 }
