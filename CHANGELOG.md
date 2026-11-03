@@ -9,7 +9,7 @@
 
 ### Changed
 
-- Animate the README content-flow diagram with a GitHub-compatible SVG and reduced-motion support.
+- Animate the README content-flow diagram with a GitHub-compatible SVG and reduced-motion support ([#78](https://github.com/marcop135/nextstory/pull/78)).
 
 ## [0.10.1] - 2026-11-02
 
