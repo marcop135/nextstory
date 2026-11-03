@@ -40,21 +40,10 @@ Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
 
 ## How content flows
 
-```mermaid
-flowchart TB
-  CMS[Storyblok]
-  CMS -->|published content| Cache[Tagged Next.js cache]
-  CMS -->|drafts, uncached| Preview[Authenticated preview]
-  CMS -->|publish webhook| Revalidate[Cache invalidation]
-  Revalidate --> Cache
-  Cache --> RSC[React Server Components]
-  Preview --> RSC
-  RSC --> Pages[English / German pages]
-  Cache --> Markdown[Published Markdown]
-  Schema[Block schema] --> Catalog[JSON catalog]
-  Markdown --> Tools[Read-only agent tools]
-  Catalog --> Tools
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/content-flow-dark.svg" />
+  <img src="docs/content-flow-light.svg" alt="Content flow from Storyblok through cache and preview to English/German pages and read-only agent tools" width="100%" />
+</picture>
 
 The Visual Editor bridge runs in authenticated preview. Public Markdown always reads published content. See [Architecture](docs/architecture.md) for request flows.
 
