@@ -9,8 +9,11 @@
 
 ### Changed
 
-- Match the README diagram to light and dark themes using the header image's theme selection ([#79](https://github.com/marcop135/nextstory/pull/79)).
-- Animate the README content-flow diagram with a GitHub-compatible SVG and reduced-motion support ([#78](https://github.com/marcop135/nextstory/pull/78)).
+- Animate and refine the content-flow diagram with light/dark themes and reduced-motion support ([#78](https://github.com/marcop135/nextstory/pull/78)) ([#79](https://github.com/marcop135/nextstory/pull/79)).
+
+### Security
+
+- Update dependencies and replace vulnerable happy-dom and minimatch versions ([#80](https://github.com/marcop135/nextstory/issues/80)).
 
 ## [0.10.1] - 2026-11-02
 
