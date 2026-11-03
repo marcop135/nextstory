@@ -3,7 +3,14 @@ import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 
 const require = createRequire(import.meta.url);
-const nextRequire = createRequire(require.resolve("eslint-config-next"));
+let nextConfig;
+try {
+  nextConfig = require.resolve("eslint-config-next");
+} catch (error) {
+  const omitDev = process.env.NODE_ENV === "production"
+    || process.env.npm_config_omit?.split(/[,\s]+/).includes("dev");
+  if (error.code !== "MODULE_NOT_FOUND" || !omitDev) throw error;
+}
 
 // Older plugins expect the callable export; patched minimatch exposes it by name.
 function patchImports(directory) {
@@ -19,6 +26,9 @@ function patchImports(directory) {
   }
 }
 
-for (const plugin of ["eslint-plugin-import", "eslint-plugin-jsx-a11y", "eslint-plugin-react"]) {
-  patchImports(join(dirname(nextRequire.resolve(`${plugin}/package.json`)), "lib"));
+if (nextConfig) {
+  const nextRequire = createRequire(nextConfig);
+  for (const plugin of ["eslint-plugin-import", "eslint-plugin-jsx-a11y", "eslint-plugin-react"]) {
+    patchImports(join(dirname(nextRequire.resolve(`${plugin}/package.json`)), "lib"));
+  }
 }
