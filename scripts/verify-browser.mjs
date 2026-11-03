@@ -186,7 +186,7 @@ try {
     await readme.setContent(`<base href="http://readme.test/"><style>body{margin:0}</style>${banner}`);
     await readme.locator("img").evaluate((el) => el.decode());
     assert.equal(await readme.locator("img").count(), 1, "README must render one banner");
-    assert.ok((await readme.locator("img").evaluate((el) => el.currentSrc)).endsWith(`readme-${colorScheme}.png`));
+    assert.ok((await readme.locator("img").evaluate((el) => el.currentSrc)).endsWith(`readme-${colorScheme}-rounded.svg`));
     await readme.screenshot({ path: `${output}/readme-${colorScheme}.png` });
     await instance.close();
   }
