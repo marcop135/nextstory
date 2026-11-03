@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.10.2] - 2026-11-03
+
 ### Changed
 
 - Animate and refine the content-flow diagram with light/dark themes and reduced-motion support ([#78](https://github.com/marcop135/nextstory/pull/78)) ([#79](https://github.com/marcop135/nextstory/pull/79)) ([#81](https://github.com/marcop135/nextstory/pull/81)).
