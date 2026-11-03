@@ -4,11 +4,13 @@ config:
   htmlLabels: false
   fontFamily: 'Segoe UI, Arial, sans-serif'
   flowchart:
+    diagramPadding: 24
     nodeSpacing: 24
     rankSpacing: 50
     padding: 16
   themeCSS: |
     .node rect { rx: 8px; ry: 8px; }
+    [data-look="neo"].node rect { filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18)); }
     .edgePath path { stroke-width: 2px; }
     @media (prefers-reduced-motion: reduce) {
       .edge-animation-slow { animation: none !important; stroke-dasharray: none !important; }
@@ -17,6 +19,7 @@ config:
 %% Regenerate from the repository root with Mermaid CLI 12:
 %% mmdc -i docs/content-flow.mmd -c docs/content-flow-light.json -o docs/content-flow-light.svg -b '#EFF7FB' -I content-flow-light
 %% mmdc -i docs/content-flow.mmd -c docs/content-flow-dark.json -o docs/content-flow-dark.svg -b '#091018' -I content-flow-dark
+%% node scripts/round-readme-images.mjs
 flowchart TB
   accTitle: How content flows
   accDescr: Storyblok sends published content to the tagged Next.js cache, drafts to authenticated preview, and publish webhooks to cache invalidation. Cache and preview feed React Server Components for English and German pages. Published Markdown and the block schema JSON catalog feed read-only agent tools.

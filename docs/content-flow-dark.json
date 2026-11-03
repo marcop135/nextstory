@@ -1,5 +1,6 @@
 {
   "themeVariables": {
+    "fontSize": "14px",
     "darkMode": true,
     "primaryColor": "#141E28",
     "primaryTextColor": "#E8F0F4",

@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://nextstory.marcopontili.com">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark.png" />
-      <img src=".github/brand/readme-light.png" alt="Next Story: editors own the content, developers own the components" width="100%" />
+      <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark-rounded.svg" />
+      <img src=".github/brand/readme-light-rounded.svg" alt="Next Story: editors own the content, developers own the components" width="100%" />
     </picture>
   </a>
 </p>
@@ -42,7 +42,7 @@ Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/content-flow-dark.svg" />
-  <img src="docs/content-flow-light.svg" alt="Content flow from Storyblok through cache and preview to English/German pages and read-only agent tools" width="100%" />
+  <img src="docs/content-flow-light.svg" alt="Content flow from Storyblok through cache and preview to English/German pages and read-only agent tools" width="720" />
 </picture>
 
 The Visual Editor bridge runs in authenticated preview. Public Markdown always reads published content. See [Architecture](docs/architecture.md) for request flows.
