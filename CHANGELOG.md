@@ -9,11 +9,11 @@
 
 ### Changed
 
-- Animate and refine the content-flow diagram with light/dark themes and reduced-motion support ([#78](https://github.com/marcop135/nextstory/pull/78)) ([#79](https://github.com/marcop135/nextstory/pull/79)).
+- Animate and refine the content-flow diagram with light/dark themes and reduced-motion support ([#78](https://github.com/marcop135/nextstory/pull/78)) ([#79](https://github.com/marcop135/nextstory/pull/79)) ([#81](https://github.com/marcop135/nextstory/pull/81)).
 
 ### Security
 
-- Update dependencies and replace vulnerable happy-dom and minimatch versions ([#80](https://github.com/marcop135/nextstory/issues/80)).
+- Update dependencies and replace vulnerable happy-dom and minimatch versions ([#81](https://github.com/marcop135/nextstory/pull/81)) ([#80](https://github.com/marcop135/nextstory/issues/80)).
 
 ## [0.10.1] - 2026-11-02
 
