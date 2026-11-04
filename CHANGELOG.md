@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add a localized workshop campaign with reusable blocks, a campaign brief, and a demo interest form ([#84](https://github.com/marcop135/nextstory/issues/84)).
+
 ## [0.10.2] - 2026-11-03
 
 ### Changed

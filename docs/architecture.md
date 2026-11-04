@@ -1,6 +1,6 @@
 # Architecture
 
-Next Story is a headless CMS demo built with Next.js and Storyblok. Storyblok owns page content; React Server Components define how blocks render.
+Next Story is a headless CMS demo built with Next.js and Storyblok. Storyblok owns page content; React Server Components define how blocks render. The workshop campaign reuses the shared block model. Its client-side action block validates a demo email form, resets it, and announces confirmation without a network submission.
 
 ```mermaid
 flowchart TB
