@@ -34,7 +34,9 @@
           "pull_quote",
           "comparison_table",
           "code_example",
-          "related_content"
+          "related_content",
+          "campaign_brief",
+          "campaign_action"
         ],
         "pos": 3
       }
@@ -548,6 +550,130 @@
           "code_example"
         ],
         "pos": 4
+      }
+    }
+  },
+  {
+    "name": "campaign_brief",
+    "display_name": "Campaign brief",
+    "is_root": false,
+    "is_nestable": true,
+    "schema": {
+      "eyebrow": {
+        "type": "text",
+        "translatable": true,
+        "required": false,
+        "pos": 0
+      },
+      "headline": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 1
+      },
+      "text": {
+        "type": "textarea",
+        "translatable": true,
+        "required": true,
+        "pos": 2
+      },
+      "audience_label": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 3
+      },
+      "audience": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 4
+      },
+      "goal_label": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 5
+      },
+      "goal": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 6
+      },
+      "measure_label": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 7
+      },
+      "measure": {
+        "type": "textarea",
+        "translatable": true,
+        "required": true,
+        "pos": 8
+      },
+      "link_label": {
+        "type": "text",
+        "translatable": true,
+        "required": false,
+        "pos": 9
+      },
+      "link_href": {
+        "type": "text",
+        "translatable": true,
+        "required": false,
+        "pos": 10
+      }
+    }
+  },
+  {
+    "name": "campaign_action",
+    "display_name": "Campaign action",
+    "is_root": false,
+    "is_nestable": true,
+    "schema": {
+      "eyebrow": {
+        "type": "text",
+        "translatable": true,
+        "required": false,
+        "pos": 0
+      },
+      "headline": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 1
+      },
+      "text": {
+        "type": "textarea",
+        "translatable": true,
+        "required": true,
+        "pos": 2
+      },
+      "demo_note": {
+        "type": "textarea",
+        "translatable": true,
+        "required": true,
+        "pos": 3
+      },
+      "email_label": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 4
+      },
+      "button_label": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 5
+      },
+      "success_message": {
+        "type": "textarea",
+        "translatable": true,
+        "required": true,
+        "pos": 6
       }
     }
   }

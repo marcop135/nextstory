@@ -6,7 +6,7 @@ export type PageBlok = SbBlokData & {
   seo_title?: string;
   seo_description?: string;
   show_block_labels?: boolean;
-  body?: (HeroBlok | FeatureGridBlok | StepsBlok | RichTextBlok | CtaBandBlok | ImageTextBlok | AccordionBlok | PullQuoteBlok | ComparisonTableBlok | CodeExampleBlok | RelatedContentBlok)[];
+  body?: (HeroBlok | FeatureGridBlok | StepsBlok | RichTextBlok | CtaBandBlok | ImageTextBlok | AccordionBlok | PullQuoteBlok | ComparisonTableBlok | CodeExampleBlok | RelatedContentBlok | CampaignBriefBlok | CampaignActionBlok)[];
 };
 
 export type HeroBlok = SbBlokData & {
@@ -144,6 +144,32 @@ export type LearningNoteBlok = SbBlokData & {
   body?: (RichTextBlok | CodeExampleBlok)[];
 };
 
+export type CampaignBriefBlok = SbBlokData & {
+  component: "campaign_brief";
+  eyebrow?: string;
+  headline: string;
+  text: string;
+  audience_label: string;
+  audience: string;
+  goal_label: string;
+  goal: string;
+  measure_label: string;
+  measure: string;
+  link_label?: string;
+  link_href?: string;
+};
+
+export type CampaignActionBlok = SbBlokData & {
+  component: "campaign_action";
+  eyebrow?: string;
+  headline: string;
+  text: string;
+  demo_note: string;
+  email_label: string;
+  button_label: string;
+  success_message: string;
+};
+
 export type StoryblokComponentName =
   | "page"
   | "hero"
@@ -162,4 +188,6 @@ export type StoryblokComponentName =
   | "comparison_table"
   | "code_example"
   | "related_content"
-  | "learning_note";
+  | "learning_note"
+  | "campaign_brief"
+  | "campaign_action";

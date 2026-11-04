@@ -3,6 +3,7 @@ import type { ISbStoryData } from "@storyblok/react";
 import { localizeContent } from "@/lib/localize";
 import blocks from "../../storyblok/stories/blocks.json";
 import config from "../../storyblok/stories/config.json";
+import workshop from "../../storyblok/stories/campaign-workshop.json";
 import home from "../../storyblok/stories/home.json";
 import howItWorks from "../../storyblok/stories/how-it-works.json";
 import relationships from "../../storyblok/stories/content-relationships.json";
@@ -15,7 +16,7 @@ type SeedStory = { name: string; slug: string; uuid?: string; content: Record<st
  * Offline stories so `npm run dev` works before a Storyblok space exists.
  * They are the same seed files `npm run storyblok:push` sends to the space.
  */
-const seeds: SeedStory[] = [home, howItWorks, blocks, config, relationships, invalidation];
+const seeds: SeedStory[] = [home, howItWorks, blocks, config, relationships, invalidation, workshop];
 
 function toStory(seed: SeedStory, index: number, language?: string): ISbStoryData {
   const id = index + 1;

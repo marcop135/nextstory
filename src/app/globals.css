@@ -1,3 +1,54 @@
+.campaign-brief,
+.campaign-action {
+  padding-block: 3rem;
+  border-top: 1px solid var(--line);
+}
+.campaign-brief { background: var(--surface); }
+.hero:has(a[href="#campaign-action"]) h1 {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.campaign-brief h2,
+.campaign-action h2 { margin-top: 0; font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.campaign-brief__facts {
+  display: grid;
+  gap: 1.5rem;
+  margin-block: 2rem;
+}
+.campaign-brief__facts div {
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+}
+.campaign-brief dt { font-weight: 700; }
+.campaign-brief dd { margin: 0.5rem 0 0; color: var(--muted); }
+.campaign-action__layout { display: grid; gap: 2rem; align-items: start; }
+.campaign-action__form {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--surface);
+}
+.campaign-action__note { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.9rem; }
+.campaign-action label { font-weight: 600; }
+.campaign-action input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem;
+  font: inherit;
+  border: 1px solid var(--muted);
+  border-radius: 0.35rem;
+  color: var(--ink);
+  background: var(--bg);
+}
+.campaign-action button { font: inherit; font-weight: 650; cursor: pointer; margin-top: 0.5rem; }
+.campaign-action__status { min-height: 3rem; margin: 0; }
+@media (min-width: 48rem) {
+  .campaign-brief__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .campaign-action__layout { grid-template-columns: 1fr 1fr; }
+}
+
 :root {
   --bg: oklch(0.97 0.01 230);
   --ink: oklch(0.22 0.03 250);
@@ -921,6 +972,11 @@ a {
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
   line-height: 1.45;
+}
+
+.site-footer .footer-version {
+  font-size: 0.8em;
+  white-space: nowrap;
 }
 
 .footer-mark {

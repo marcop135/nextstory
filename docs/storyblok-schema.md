@@ -21,6 +21,8 @@ Open [Storyblok](https://app.storyblok.com/), sign in, select the project space,
 | `learning_note` | content type | Reusable title, summary, SEO fields, and rich-text/code-example body; independently previewed and published |
 | `code_example` | nestable | Escaped code, language, translated explanation/caption, and repository-relative source link |
 | `cta_band` | nestable | Full-width call to action |
+| `campaign_brief` | nestable | Audience, conversion goal, measurement plan, and explanation of the page structure |
+| `campaign_action` | nestable | Local demo email form with native validation and confirmation; no submission or storage |
 | `config` / `nav_link` | content type | Global `config`: header navigation, footer note, and `footer_nav` project links; never served as a page |
 
 ## Stories
@@ -30,6 +32,7 @@ Open [Storyblok](https://app.storyblok.com/), sign in, select the project space,
 | `home` | `page` | Landing page, publishing illustration, ownership comparison, and closing CTA |
 | `how-it-works` | `page` | Delivery workflow with source links and related notes |
 | `blocks` | `page` | Block catalog with component-name labels |
+| `campaign-workshop` | `page` | Workshop campaign: agenda before benefits, a campaign brief, and a demo interest form |
 | `config` | `config` | Shared header navigation, footer note, and footer project links |
 | `content-relationships` | `learning_note` | Reusable explanation of referenced content |
 | `cache-invalidation` | `learning_note` | Reusable explanation of publication-driven caching |
@@ -47,7 +50,7 @@ The closing home CTA belongs to the `home` story's `cta_band`, not global config
 
 Enable `de` under Settings > Internationalization. Reader-facing text fields use `translatable`, so German lives in the same story as `field__i18n__de`. Links translate too, so German links point at `/de/...`. Code, language identifiers, and source paths stay unchanged. The comparison table supplies `table__i18n__de` with translated cells. The app requests `language=de` for `/de`; empty translations fall back to English.
 
-Home uses the viewport-controlled hero and ownership comparison. How-it-works and the block library reference the same two learning notes. Seed UUIDs identify local relationships; imports map them to the UUIDs assigned by each Storyblok space. Notes reuse rich-text/code-example blocks; publishing a note refreshes reference consumers across languages. Source-parity tests keep displayed code excerpts aligned with their linked files.
+Home uses the viewport-controlled hero and ownership comparison. How-it-works and the block library reference shared learning notes; seed UUIDs map to each space during import. The workshop uses hero, brief, steps, feature-grid, and action blocks. Its form demonstrates validation and confirmation without sending or retaining email addresses. Source-parity tests keep displayed code aligned with its linked files.
 
 ## Add a block
 

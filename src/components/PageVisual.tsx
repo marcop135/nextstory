@@ -11,6 +11,12 @@ type Sequence = {
 };
 
 const sequences: Record<string, Sequence> = {
+  "campaign-workshop": {
+    en: ["Audience", "Offer", "Compose", "Action"],
+    de: ["Zielgruppe", "Angebot", "Aufbau", "Aktion"],
+    sketches: [["marketing teams", "campaign publishing"], ["editor workshop", "guided practice"], ["hero + agenda", "benefits + form"], ["register interest", "demo confirmation"]],
+    caption: ["A workshop campaign assembled from reusable content blocks.", "Eine Workshop-Kampagne aus wiederverwendbaren Inhaltsblöcken."],
+  },
   "how-it-works": {
     en: ["Edit", "Preview", "Publish", "Render"],
     de: ["Bearbeiten", "Vorschau", "Veröffentlichen", "Rendern"],

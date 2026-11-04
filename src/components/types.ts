@@ -1,4 +1,6 @@
 export type {
+  CampaignBriefBlok,
+  CampaignActionBlok,
   RelatedContentBlok,
   LearningNoteBlok,
   ComparisonTableBlok,

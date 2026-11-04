@@ -1,6 +1,8 @@
 import { setComponents } from "@storyblok/react/rsc";
 
 import Accordion from "@/components/Accordion";
+import CampaignBrief from "@/components/CampaignBrief";
+import CampaignAction from "@/components/CampaignAction";
 import AccordionItem from "@/components/AccordionItem";
 import ComparisonTable from "@/components/ComparisonTable";
 import CodeExample from "@/components/CodeExample";
@@ -18,6 +20,8 @@ import RelatedContent from "@/components/RelatedContent";
 import LearningNote from "@/components/LearningNote";
 
 export const storyblokComponents = {
+  campaign_brief: CampaignBrief,
+  campaign_action: CampaignAction,
   related_content: RelatedContent,
   learning_note: LearningNote,
   page: Page,
