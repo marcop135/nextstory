@@ -16,6 +16,7 @@
 
 ### Fixed
 
+- Include newly published pages in the sitemap without rebuilding ([#91](https://github.com/marcop135/nextstory/pull/91)) ([#90](https://github.com/marcop135/nextstory/issues/90)).
 - Prevent duplicated locale prefixes in draft-preview redirects ([#88](https://github.com/marcop135/nextstory/pull/88)) ([#87](https://github.com/marcop135/nextstory/issues/87)).
 
 ## [0.10.2] - 2026-11-03
