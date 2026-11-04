@@ -65,3 +65,13 @@ it("verifies draft content and redirects to the localized CMS story path", async
   expect(fetchStory).toHaveBeenCalledWith("campaigns/launch", "de", { version: "draft" });
   expect(enable).toHaveBeenCalledOnce();
 });
+
+it.each([
+  ["de/campaign-workshop", "de", "/de/campaign-workshop"],
+  ["de/home", "de", "/de"],
+  ["en/campaign-workshop", "en", "/campaign-workshop"],
+])("normalizes the locale in CMS full slug %s", async (fullSlug, language, destination) => {
+  fetchStory.mockResolvedValue({ story: { full_slug: fullSlug }, source: "storyblok" });
+  await expect(GET(request("campaign-workshop", "preview-secret", language))).rejects.toMatchObject({ message: `redirect:${destination}` });
+  expect(enable).toHaveBeenCalledOnce();
+});

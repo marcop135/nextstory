@@ -14,6 +14,10 @@
 - Add a localized workshop campaign with a brief and demo interest form ([#85](https://github.com/marcop135/nextstory/pull/85)) ([#84](https://github.com/marcop135/nextstory/issues/84)).
 - Show the codebase version in the footer ([#85](https://github.com/marcop135/nextstory/pull/85)).
 
+### Fixed
+
+- Prevent duplicated locale prefixes in draft-preview redirects ([#87](https://github.com/marcop135/nextstory/issues/87)).
+
 ## [0.10.2] - 2026-11-03
 
 ### Changed
