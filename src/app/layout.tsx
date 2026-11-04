@@ -85,7 +85,7 @@ async function chromeCopy(): Promise<Record<Locale, ChromeCopy>> {
         : fallbackFooterNav.map(({ _uid, label, de, href }) => ({
             _uid, label: locale === "de" ? de : label, href,
           }));
-      const footerNote = config?.footer_note || "Next.js App + Storyblok CMS";
+      const footerNote = config?.footer_note || "Next Story Headless CMS";
       return [locale, { nav: nav.filter(({ href }) => !["/pricing", "/de/pricing"].includes(href)), footerNote, footerNav }] as const;
     }),
   );

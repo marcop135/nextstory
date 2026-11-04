@@ -30,8 +30,8 @@
         "href__i18n__de": "/de/campaign-workshop"
       }
     ],
-    "footer_note": "Next.js App + Storyblok CMS",
-    "footer_note__i18n__de": "Next.js App + Storyblok CMS",
+    "footer_note": "Next Story Headless CMS",
+    "footer_note__i18n__de": "Next Story Headless CMS",
     "footer_nav": [
       {
         "_uid": "footer-source",

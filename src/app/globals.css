@@ -974,6 +974,11 @@ a {
   line-height: 1.45;
 }
 
+.site-footer .footer-version {
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
 .footer-mark {
   display: inline-flex;
   margin-top: 1.5rem;
