@@ -2,7 +2,7 @@ import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 import type { NextRequest } from "next/server";
 
-import { normalizeStorySlug, publicPathForSlug } from "@/lib/story-path";
+import { normalizeStorySlug, parseStorySegments, publicPathForSlug } from "@/lib/story-path";
 import { defaultLocale, isLocale, storyblokLanguage } from "@/lib/i18n";
 import { fetchStory, type StoryResult } from "@/lib/fetch-story";
 
@@ -33,5 +33,6 @@ export async function GET(request: NextRequest) {
   const draft = await draftMode();
   draft.enable();
 
-  redirect(publicPathForSlug(targetSlug, locale));
+  const { slug: canonicalSlug } = parseStorySegments(targetSlug.split("/"));
+  redirect(publicPathForSlug(canonicalSlug, locale));
 }
