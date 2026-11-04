@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function PageContinue({ children }: { children?: ReactNode }) {
   const pathname = usePathname() ?? "/";
-  if (pathname === "/" || pathname === "/de") return children;
+  if (pathname === "/" || pathname === "/de" || pathname === "/campaign-workshop" || pathname === "/de/campaign-workshop") return children;
   return (
     <p className="actions">
       <a className="btn btn--secondary" href="#page-content">

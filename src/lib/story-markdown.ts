@@ -61,6 +61,8 @@ export function blockMarkdown(value: unknown): string {
   const section = (title: unknown, body: string) => [title ? `## ${inline(title)}` : "", body].filter(Boolean).join("\n\n");
   const link = (label: unknown, hrefValue: unknown) => { const href = url(hrefValue); return label && href ? `[${inline(label)}](${href})` : ""; };
   switch (b.component) {
+    case "campaign_brief": return section(b.headline, [inline(b.text), `${inline(b.audience_label)}: ${inline(b.audience)}`, `${inline(b.goal_label)}: ${inline(b.goal)}`, `${inline(b.measure_label)}: ${inline(b.measure)}`, link(b.link_label, b.link_href)].filter(Boolean).join("\n\n"));
+    case "campaign_action": return section(b.headline, [inline(b.text), inline(b.demo_note), inline(b.email_label), inline(b.button_label)].filter(Boolean).join("\n\n"));
     case "hero": return [`# ${inline(b.headline)}`, inline(b.subheadline), b.animated_visual ? inline(b.visual_caption) : imageMarkdown(b), link(b.cta_label, b.cta_href), link(b.secondary_label, b.secondary_href)].filter(Boolean).join("\n\n");
     case "feature_grid": return section(b.headline, items(b.features).map(blockMarkdown).join("\n\n"));
     case "related_content": return items(b.resolved_notes).length ? section(b.headline, items(b.resolved_notes).map((value) => {

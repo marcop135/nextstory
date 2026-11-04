@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import { defaultLocale, localeForPathname, type Locale } from "@/lib/i18n";
 import { AUTHOR } from "@/lib/site";
+import { version } from "../../package.json";
 
 export type ChromeCopy = {
   nav: { _uid: string; label: string; href: string }[];
@@ -96,7 +97,7 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
     <footer className="site-footer">
       <div className="wrap">
         <div>
-          <p className="footer-note">{copy[locale].footerNote}</p>
+          <p className="footer-note">{copy[locale].footerNote} <span className="footer-version">v{version}</span></p>
           <p>
             {locale === "de" ? "Entwickelt und gepflegt von" : "Built and maintained by"}{" "}
             <a href={AUTHOR.url} title={AUTHOR.name}>{AUTHOR.name}</a>
