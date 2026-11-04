@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-04
+
 ### Added
 
 - Add a localized workshop campaign with a brief and demo interest form ([#85](https://github.com/marcop135/nextstory/pull/85)) ([#84](https://github.com/marcop135/nextstory/issues/84)).
