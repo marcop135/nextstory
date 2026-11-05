@@ -25,7 +25,7 @@ export default function PrivacyPage() {
   return (
     <main id="main" tabIndex={-1} className="wrap prose">
       <h1>Privacy</h1>
-      <p className="meta">Last updated: 2026-10-15</p>
+      <p className="meta">Last updated: 2026-11-05</p>
       <p>
         This notice covers the demo site at {SITE_URL.replace("https://", "")}.
         The source code is public; running it yourself is outside this notice.
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
       </p>
       <p>
         Data processed: anonymised IP address, pages visited, referrer, browser
-        and device type, and link clicks. Place of processing: European Union
+        and device type, time on page, and anonymous interaction events such as clicks, copies, form and app use, and errors. Typed text, form values and file contents are never recorded. Which interactions count is set in a Matomo Tag Manager container on the same self-hosted server; it stores nothing on your device. Place of processing: European Union
         (the owner&apos;s Matomo server, hosted by Netsons S.r.l., Italy).
       </p>
       <h3>Hosting: Vercel</h3>
