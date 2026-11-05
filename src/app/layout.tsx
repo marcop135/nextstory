@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
@@ -53,6 +53,10 @@ export const metadata: Metadata = {
     images: [OG_IMAGE],
   },
   twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light dark",
 };
 
 const fallbackNav = [
