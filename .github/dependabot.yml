@@ -17,12 +17,12 @@ updates:
           - eslint-config-next
           - "@next/*"
     schedule:
-      interval: weekly
+      interval: monthly
     open-pull-requests-limit: 5
 
   - package-ecosystem: github-actions
     directory: /
     target-branch: develop
     schedule:
-      interval: weekly
+      interval: monthly
     open-pull-requests-limit: 5
