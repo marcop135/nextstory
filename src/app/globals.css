@@ -61,7 +61,7 @@
   --band-ink: var(--accent-ink);
   --label: oklch(0.5 0.1 185);
   --measure: 68rem;
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {

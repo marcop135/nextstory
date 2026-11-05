@@ -11,6 +11,10 @@
 
 - Check for npm and GitHub Actions updates monthly instead of weekly.
 
+### Fixed
+
+- Declare light and dark support in the page head, so Safari's Adaptive Dark Mode leaves the site alone ([#94](https://github.com/marcop135/nextstory/pull/94)) ([#93](https://github.com/marcop135/nextstory/issues/93)).
+
 ## [0.11.0] - 2026-11-04
 
 ### Added
