@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-05
+
 ### Changed
 
 - Check for npm and GitHub Actions updates monthly instead of weekly.
