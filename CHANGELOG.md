@@ -10,6 +10,8 @@
 ### Changed
 
 - Check for npm and GitHub Actions updates monthly instead of weekly.
+- Load analytics through a cookieless Matomo Tag Manager container, adding time on page and script errors ([#96](https://github.com/marcop135/nextstory/pull/96)) ([#95](https://github.com/marcop135/nextstory/issues/95)).
+- List the anonymous interaction events in the privacy page ([#96](https://github.com/marcop135/nextstory/pull/96)).
 
 ### Fixed
 
