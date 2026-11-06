@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Unfreeze the campaign form when its bot check times out or the browser is unsupported ([#108](https://github.com/marcop135/nextstory/pull/108)) ([#107](https://github.com/marcop135/nextstory/issues/107)).
+
 ## [0.13.1] - 2026-11-06
 
 ### Fixed
