@@ -157,6 +157,7 @@ export type CampaignBriefBlok = SbBlokData & {
   measure: string;
   link_label?: string;
   link_href?: string;
+  campaign_id: string;
 };
 
 export type CampaignActionBlok = SbBlokData & {
@@ -168,6 +169,11 @@ export type CampaignActionBlok = SbBlokData & {
   email_label: string;
   button_label: string;
   success_message: string;
+  consent_label: string;
+  error_message: string;
+  campaign_id: string;
+  privacy_link_label: string;
+  privacy_link_href: string;
 };
 
 export type StoryblokComponentName =
