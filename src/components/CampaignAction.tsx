@@ -51,6 +51,8 @@ export default function CampaignAction({ blok }: { blok: CampaignActionBlok }) {
     if (!SITE_KEY || widget.current || !container.current) return widget.current;
     const api = await loadTurnstile();
     if (widget.current || !container.current) return widget.current;
+    // Every terminal outcome must settle the pending submit, or the button stays disabled.
+    const fail = (reason: string) => () => { pending.current?.reject(new Error(reason)); pending.current = null; return true; };
     const id = api.render(container.current, {
       sitekey: SITE_KEY,
       action: TURNSTILE_ACTION,
@@ -60,7 +62,9 @@ export default function CampaignAction({ blok }: { blok: CampaignActionBlok }) {
       theme: "auto",
       "response-field": false,
       callback: (token: string) => { pending.current?.resolve(token); pending.current = null; },
-      "error-callback": () => { pending.current?.reject(new Error("Turnstile error")); pending.current = null; },
+      "error-callback": fail("Turnstile error"),
+      "timeout-callback": fail("Turnstile timeout"),
+      "unsupported-callback": fail("Turnstile unsupported"),
       "expired-callback": () => api.reset(id),
     });
     widget.current = { id, api };
