@@ -9,7 +9,7 @@
 
 ### Fixed
 
-- Record campaign leads in HubSpot, which silently dropped submissions that included the page URL.
+- Record campaign leads in HubSpot, which silently dropped submissions that included the page URL ([#103](https://github.com/marcop135/nextstory/pull/103)) ([#102](https://github.com/marcop135/nextstory/issues/102)).
 
 ## [0.13.0] - 2026-11-06
 
