@@ -70,9 +70,10 @@ export function hubspotSubmission(lead: Lead, hutk?: string) {
   return {
     submittedAt: Date.now(),
     fields: values.filter(([, value]) => value).map(([name, value]) => ({ objectTypeId: "0-1", name, value })),
+    // HubSpot accepts but silently drops submissions whose context carries a pageUri
+    // (verified 2026-11-06), so the page is identified by pageName and the UTM fields.
     context: {
       ...(hutk ? { hutk } : {}),
-      pageUri: lead.page_uri,
       ...(lead.page_name ? { pageName: lead.page_name } : {}),
     },
     legalConsentOptions: { consent: { consentToProcess: true, text: lead.consent_text } },
