@@ -9,7 +9,7 @@
 
 ### Added
 
-- Send workshop interest to HubSpot with consent, UTM parameters, and a Storyblok campaign ID; log a Matomo lead event ([#99](https://github.com/marcop135/nextstory/pull/99)) ([#98](https://github.com/marcop135/nextstory/issues/98)).
+- Send workshop interest to HubSpot with consent, UTMs, and a campaign ID; log a Matomo lead event ([#99](https://github.com/marcop135/nextstory/pull/99)) ([#98](https://github.com/marcop135/nextstory/issues/98)).
 - Protect the campaign form with Cloudflare Turnstile, same-origin checks, and consent text taken from the CMS ([#99](https://github.com/marcop135/nextstory/pull/99)).
 - Add a `get_campaign_brief` agent tool and `/content/campaigns.json` for published campaign goals and measures ([#99](https://github.com/marcop135/nextstory/pull/99)).
 
