@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Record campaign leads in HubSpot, which silently dropped submissions that included the page URL.
+
 ## [0.13.0] - 2026-11-06
 
 ### Added

@@ -56,7 +56,7 @@ it("verifies Turnstile and forwards the lead with server-side consent text and l
     email: "reader@example.com", campaign_id: "publishing-workshop", page_language: "de", referrer: "https://news.example/",
     utm_source: "test", utm_medium: "demo", utm_campaign: "alvenmoor",
   });
-  expect(sent.context).toEqual({ hutk: "abc123", pageUri: valid.page_uri, pageName: valid.page_name });
+  expect(sent.context).toEqual({ hutk: "abc123", pageName: valid.page_name });
   expect(sent.legalConsentOptions).toEqual({ consent: { consentToProcess: true, text: DE_CONSENT } });
 });
 
