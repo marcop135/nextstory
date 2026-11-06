@@ -4,7 +4,7 @@ import { AUTHOR, OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const title = "Privacy notice for nextstory.marcopontili.com";
 const description =
-  "How nextstory.marcopontili.com processes data: cookieless self-hosted Matomo, Vercel hosting, no cookie banner.";
+  "How nextstory.marcopontili.com processes data: cookieless self-hosted Matomo, Vercel hosting, consent-based HubSpot campaign form, no cookie banner.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
   return (
     <main id="main" tabIndex={-1} className="wrap prose">
       <h1>Privacy</h1>
-      <p className="meta">Last updated: 2026-11-05</p>
+      <p className="meta">Last updated: 2026-11-06</p>
       <p>
         This notice covers the demo site at {SITE_URL.replace("https://", "")}.
         The source code is public; running it yourself is outside this notice.
@@ -64,6 +64,29 @@ export default function PrivacyPage() {
         States rely on Vercel&apos;s Data Processing Addendum, which
         incorporates the EU Standard Contractual Clauses.
       </p>
+      <h3 id="campaign-form">Campaign form: HubSpot and Cloudflare Turnstile</h3>
+      <p>
+        The interest form on campaign pages sends data only after you tick its
+        consent box and submit. Data processed: email address, campaign ID, UTM
+        parameters, page address, title, and language, the referring page, and
+        the consent text with its time. The site&apos;s server checks the request
+        and forwards it to HubSpot, Inc. (United States), acting as processor,
+        which stores it as a contact record. No marketing email is sent and no
+        HubSpot script or cookie is loaded on this site.
+      </p>
+      <p>
+        To keep automated submissions out, the form uses Cloudflare Turnstile
+        from Cloudflare, Inc. (United States), acting as processor. Its script
+        loads only after you start using the form; Cloudflare evaluates your IP
+        address and browser signals to tell people from bots and returns a
+        one-time token that the server verifies. Cloudflare states that
+        Turnstile does not use cookies to collect this information.
+      </p>
+      <p>
+        Transfers to the United States rely on the processors&apos; data
+        processing agreements, which incorporate the EU Standard Contractual
+        Clauses.
+      </p>
       <h3>Content and fonts</h3>
       <p>
         Page content is loaded from Storyblok on the server; your browser does
@@ -75,7 +98,12 @@ export default function PrivacyPage() {
       <p>
         Hosting data is processed to operate and secure the site. Analytics
         data is processed for aggregate, privacy-friendly traffic measurement.
-        Both rely on legitimate interests under Art. 6(1)(f) GDPR. No marketing
+        Both rely on legitimate interests under Art. 6(1)(f) GDPR. Campaign
+        form data is processed to record your registration of interest, based
+        on your consent under Art. 6(1)(a) GDPR; you can withdraw it at any
+        time through the contact page, without affecting earlier processing.
+        The Turnstile check protects the form from abuse, based on legitimate
+        interests under Art. 6(1)(f) GDPR. No marketing
         profiles are built and no data is sold or shared for advertising.
       </p>
 
@@ -89,7 +117,8 @@ export default function PrivacyPage() {
       <h2>Retention</h2>
       <p>
         Data is kept only as long as the purposes above require. Analytics
-        reports hold aggregate data only.
+        reports hold aggregate data only. Campaign form contacts are deleted
+        when you withdraw consent or the demo campaign ends.
       </p>
 
       <h2>Your rights</h2>

@@ -54,6 +54,13 @@ export function registerAgentTools(context: ModelContext, pathname: () => string
       annotations: { readOnlyHint: true, untrustedContentHint: true },
       execute: async (_input, execution) => JSON.parse(await readResource("/content/blocks.json", "application/json", fetcher, execution?.signal)),
     },
+    {
+      name: "get_campaign_brief",
+      description: "List each campaign on published pages with its campaign_id, page URL, audience, conversion goal, and measurement plan. Editor drafts are never returned.",
+      inputSchema: { type: "object", properties: {}, additionalProperties: false },
+      annotations: { readOnlyHint: true, untrustedContentHint: true },
+      execute: async (_input, execution) => JSON.parse(await readResource("/content/campaigns.json", "application/json", fetcher, execution?.signal)),
+    },
   ];
   const ready = (async () => {
     try {

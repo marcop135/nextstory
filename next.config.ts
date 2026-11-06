@@ -2,20 +2,23 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
 const matomo = "https://mt.marcopontili.com";
+const turnstile = "https://challenges.cloudflare.com";
 
 /**
  * App Router streams inline RSC payload scripts, so script-src keeps
  * 'unsafe-inline'. 'unsafe-eval' and the HMR socket are dev-only.
  * frame-ancestors lets the Storyblok Visual Editor embed preview pages, and
  * script-src admits its bridge script, which preview pages load from app.storyblok.com.
+ * Cloudflare Turnstile on campaign forms needs its script and challenge iframe.
  */
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' ${matomo} https://app.storyblok.com${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' ${matomo} ${turnstile} https://app.storyblok.com${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob: https://a.storyblok.com https://images.unsplash.com ${matomo}`,
   "font-src 'self'",
   `connect-src 'self' ${matomo}${isDev ? " ws: wss:" : ""}`,
+  `frame-src 'self' ${turnstile}`,
   "frame-ancestors 'self' https://app.storyblok.com",
   "base-uri 'self'",
   "form-action 'self'",

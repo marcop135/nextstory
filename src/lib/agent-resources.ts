@@ -7,6 +7,7 @@ export const agentResources = [
   { path: "/content/how-it-works.md", type: "text/markdown", purpose: "Follow content modelling, preview, publishing, and serving to their source files." },
   { path: "/content/blocks.md", type: "text/markdown", purpose: "Read every page-block example." },
   { path: "/content/blocks.json", type: "application/json", purpose: "Inspect block fields, translation flags, and schema/component source paths." },
+  { path: "/content/campaigns.json", type: "application/json", purpose: "List published campaigns with campaign ID, audience, conversion goal, and measurement plan." },
   { path: "/content/for-agents.md", type: "text/markdown", purpose: "Read this resource inventory and the supported workflows." },
   { path: "/llms.txt", type: "text/plain", purpose: "Find the site, repository, and reading entry points." },
   { path: "/sitemap.xml", type: "application/xml", purpose: "Discover published English and German page URLs." },
@@ -46,7 +47,7 @@ export function blockCatalog() {
 }
 
 export function portalMarkdown() {
-  return ["# For agents", "Public reading and block-inspection resources for Next Story.", "## Workflows", ...agentTasks.map((task) => `### ${task.name}\n\nGET ${SITE_URL}${task.request}\n\n${task.instruction}`), "## Resources", ...agentResources.map((r) => `- [${r.path}](${SITE_URL}${r.path}): ${r.purpose}`), "## Browser tools", "Supporting browsers expose get_page_markdown for the current published page and list_blocks for the public block catalog. Native WebMCP is feature-detected; other browsers use these HTTP resources directly.", "## Access", authMarkdown.replace("# Public resource access\n\n", ""), `Source: ${REPO_URL}`].join("\n\n") + "\n";
+  return ["# For agents", "Public reading and block-inspection resources for Next Story.", "## Workflows", ...agentTasks.map((task) => `### ${task.name}\n\nGET ${SITE_URL}${task.request}\n\n${task.instruction}`), "## Resources", ...agentResources.map((r) => `- [${r.path}](${SITE_URL}${r.path}): ${r.purpose}`), "## Browser tools", "Supporting browsers expose get_page_markdown for the current published page, list_blocks for the public block catalog, and get_campaign_brief for published campaign goals and measures. Native WebMCP is feature-detected; other browsers use these HTTP resources directly.", "## Access", authMarkdown.replace("# Public resource access\n\n", ""), `Source: ${REPO_URL}`].join("\n\n") + "\n";
 }
 
 export function apiCatalog() {

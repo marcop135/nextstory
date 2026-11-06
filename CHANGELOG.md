@@ -7,17 +7,29 @@
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-06
+
+### Added
+
+- Send workshop interest to HubSpot with consent, UTMs, and a campaign ID; log a Matomo lead event ([#99](https://github.com/marcop135/nextstory/pull/99)) ([#98](https://github.com/marcop135/nextstory/issues/98)).
+- Protect the campaign form with Cloudflare Turnstile, same-origin checks, and consent text taken from the CMS ([#99](https://github.com/marcop135/nextstory/pull/99)).
+- Add a `get_campaign_brief` agent tool and `/content/campaigns.json` for published campaign goals and measures ([#99](https://github.com/marcop135/nextstory/pull/99)).
+
+### Changed
+
+- Describe HubSpot and Cloudflare Turnstile processing for the campaign form in the site's privacy page ([#99](https://github.com/marcop135/nextstory/pull/99)).
+
 ## [0.12.0] - 2026-11-05
 
 ### Changed
 
 - Check for npm and GitHub Actions updates monthly instead of weekly.
-- Load analytics through a cookieless Matomo Tag Manager container, adding time on page and script errors ([#96](https://github.com/marcop135/nextstory/pull/96)) ([#95](https://github.com/marcop135/nextstory/issues/95)).
-- List the anonymous interaction events in the privacy page ([#96](https://github.com/marcop135/nextstory/pull/96)).
+- Move site analytics to a cookieless Matomo Tag Manager container, adding time on page and errors ([#96](https://github.com/marcop135/nextstory/pull/96)) ([#95](https://github.com/marcop135/nextstory/issues/95)).
+- List anonymous interaction events in the site's privacy page ([#96](https://github.com/marcop135/nextstory/pull/96)).
 
 ### Fixed
 
-- Declare light and dark support in the page head, so Safari's Adaptive Dark Mode leaves the site alone ([#94](https://github.com/marcop135/nextstory/pull/94)) ([#93](https://github.com/marcop135/nextstory/issues/93)).
+- Declare light and dark support in the site head, so Safari's Adaptive Dark Mode leaves it alone ([#94](https://github.com/marcop135/nextstory/pull/94)) ([#93](https://github.com/marcop135/nextstory/issues/93)).
 
 ## [0.11.0] - 2026-11-04
 

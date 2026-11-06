@@ -590,6 +590,16 @@
         "cta_href__i18n__de": "https://github.com/marcop135/nextstory"
       },
       {
+        "_uid": "blocks-related",
+        "component": "related_content",
+        "headline": "Learning notes",
+        "headline__i18n__de": "Notizen zur Umsetzung",
+        "stories": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ]
+      },
+      {
         "_uid": "library-workshop-campaign_brief",
         "component": "campaign_brief",
         "eyebrow": "Behind the campaign",
@@ -608,12 +618,13 @@
         "goal__i18n__de": "Eine Interessenbekundung nach dem Lesen der Workshop-Agenda.",
         "measure_label": "Measurement plan",
         "measure_label__i18n__de": "Messplan",
-        "measure": "Proposed metric: completed interest forms / landing-page visits. No workshop is scheduled in this demo.",
-        "measure__i18n__de": "Geplante Kennzahl: abgeschlossene Interessenformulare / Landingpage-Besuche. In dieser Demo ist kein Workshop geplant.",
+        "measure": "HubSpot contacts with this campaign ID / landing-page visits, cross-checked with the Matomo campaign lead event. No workshop is scheduled in this demo.",
+        "measure__i18n__de": "HubSpot-Kontakte mit dieser Kampagnen-ID / Landingpage-Besuche, abgeglichen mit dem Matomo-Ereignis campaign lead. In dieser Demo ist kein Workshop geplant.",
         "link_label": "Inspect the shared content model",
         "link_label__i18n__de": "Gemeinsames Content-Modell ansehen",
         "link_href": "/content/blocks.json",
-        "link_href__i18n__de": "/content/blocks.json"
+        "link_href__i18n__de": "/content/blocks.json",
+        "campaign_id": "publishing-workshop"
       },
       {
         "_uid": "library-workshop-campaign_action",
@@ -622,26 +633,25 @@
         "eyebrow__i18n__de": "Demo-Aktion",
         "headline": "Try registering workshop interest",
         "headline__i18n__de": "Workshop-Interesse vormerken",
-        "text": "Try the form validation and confirmation. This example has no date, booking, or mailing list.",
-        "text__i18n__de": "Formularvalidierung und Bestätigung ausprobieren. Dieses Beispiel hat keinen Termin, keine Buchung und keinen Verteiler.",
-        "demo_note": "Local demo only. Nothing is sent or stored, and no resource or booking is provided.",
-        "demo_note__i18n__de": "Nur lokale Demo. Es wird nichts gesendet oder gespeichert. Es erfolgt kein Download und keine Buchung.",
+        "text": "Register interest to follow the whole campaign path: the form sends your email with the campaign ID and UTM parameters to HubSpot.",
+        "text__i18n__de": "Interesse vormerken und den ganzen Kampagnenweg verfolgen: Das Formular sendet die E-Mail-Adresse mit Kampagnen-ID und UTM-Parametern an HubSpot.",
+        "demo_note": "Demo campaign. Your email creates a HubSpot contact for this demo only; no workshop, booking, or mailing list follows.",
+        "demo_note__i18n__de": "Demo-Kampagne. Die E-Mail-Adresse legt nur für diese Demo einen HubSpot-Kontakt an; es folgen kein Workshop, keine Buchung und kein Verteiler.",
         "email_label": "Email address",
         "email_label__i18n__de": "E-Mail-Adresse",
         "button_label": "Register interest",
         "button_label__i18n__de": "Interesse vormerken",
-        "success_message": "Demo complete. The form was validated; no request was sent.",
-        "success_message__i18n__de": "Demo abgeschlossen. Das Formular wurde validiert; es wurde keine Anfrage gesendet."
-      },
-      {
-        "_uid": "blocks-related",
-        "component": "related_content",
-        "headline": "Learning notes",
-        "headline__i18n__de": "Notizen zur Umsetzung",
-        "stories": [
-          "00000000-0000-4000-8000-000000000001",
-          "00000000-0000-4000-8000-000000000002"
-        ]
+        "success_message": "Thanks. Your interest is registered for this demo campaign.",
+        "success_message__i18n__de": "Danke. Ihr Interesse ist für diese Demo-Kampagne vorgemerkt.",
+        "consent_label": "I agree that Next Story stores my email address and campaign source in HubSpot (USA) to record this demo registration. I can withdraw consent at any time.",
+        "consent_label__i18n__de": "Ich bin einverstanden, dass Next Story meine E-Mail-Adresse und Kampagnenquelle in HubSpot (USA) speichert, um diese Demo-Anmeldung zu erfassen. Ich kann die Einwilligung jederzeit widerrufen.",
+        "error_message": "The registration could not be sent. Check the email address and consent, then try again.",
+        "error_message__i18n__de": "Die Anmeldung konnte nicht gesendet werden. E-Mail-Adresse und Einwilligung prüfen und erneut versuchen.",
+        "campaign_id": "publishing-workshop",
+        "privacy_link_label": "How this data is processed",
+        "privacy_link_label__i18n__de": "Wie diese Daten verarbeitet werden (Englisch)",
+        "privacy_link_href": "/privacy#campaign-form",
+        "privacy_link_href__i18n__de": "/privacy#campaign-form"
       }
     ]
   }

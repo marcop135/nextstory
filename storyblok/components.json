@@ -624,6 +624,13 @@
         "translatable": true,
         "required": false,
         "pos": 10
+      },
+      "campaign_id": {
+        "type": "text",
+        "translatable": false,
+        "required": true,
+        "description": "Stable campaign key shared with campaign_action, HubSpot campaign_id, and the Matomo event name; lowercase letters, digits, hyphens",
+        "pos": 11
       }
     }
   },
@@ -674,6 +681,39 @@
         "translatable": true,
         "required": true,
         "pos": 6
+      },
+      "consent_label": {
+        "type": "textarea",
+        "translatable": true,
+        "required": true,
+        "description": "Consent checkbox text; sent to HubSpot as the consent record",
+        "pos": 7
+      },
+      "error_message": {
+        "type": "textarea",
+        "translatable": true,
+        "required": true,
+        "pos": 8
+      },
+      "campaign_id": {
+        "type": "text",
+        "translatable": false,
+        "required": true,
+        "description": "Same value as the page's campaign_brief campaign_id",
+        "pos": 9
+      },
+      "privacy_link_label": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 10
+      },
+      "privacy_link_href": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "description": "Privacy notice section for this form, e.g. /privacy#campaign-form",
+        "pos": 11
       }
     }
   }
