@@ -49,7 +49,7 @@ export default function ForAgentsPage() {
       </ul>
 
       <h2>Browser tools</h2>
-      <p>Supporting browsers expose <code>get_page_markdown</code> for the current published page and <code>list_blocks</code> for the block model. Native WebMCP is feature-detected. Other browsers can use the HTTP resources directly.</p>
+      <p>Supporting browsers expose <code>get_page_markdown</code> for the current published page and <code>list_blocks</code> for the block model, and <code>get_campaign_brief</code> for each published campaign&apos;s ID, audience, goal, and measure. Native WebMCP is feature-detected. Other browsers can use the HTTP resources directly.</p>
       <h2>Access and source</h2>
       <p>Public reading resources require no login or API key and return published content. Storyblok preview and revalidation remain authenticated CMS operations. <a href="/auth.md">Access rules</a>.</p>
       <p>The <a href={REPO_URL}>source repository</a> connects these examples to their implementation. Start with <code>docs/architecture.md</code>.</p>

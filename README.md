@@ -53,6 +53,7 @@ See [Architecture](docs/architecture.md) for request flows.
 | Localization | [`src/lib/i18n.ts`](src/lib/i18n.ts), [`src/proxy.ts`](src/proxy.ts) |
 | Seed stories | [`src/lib/mock-story.ts`](src/lib/mock-story.ts) |
 | Published Markdown | [`src/lib/story-markdown.ts`](src/lib/story-markdown.ts) |
+| Campaign to lead | [`lead/route.ts`](src/app/api/lead/route.ts), [`CampaignAction.tsx`](src/components/CampaignAction.tsx), [`agent-tools.ts`](src/lib/agent-tools.ts) (`get_campaign_brief`), [flow](docs/architecture.md#campaign-to-lead) |
 | Read-only agent access | [`src/lib/agent-resources.ts`](src/lib/agent-resources.ts), [`src/lib/agent-tools.ts`](src/lib/agent-tools.ts) |
 
 [Content schema](docs/storyblok-schema.md) · [Commands](docs/commands.md) · [Development cycle](docs/development-cycle.md)

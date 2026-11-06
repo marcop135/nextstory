@@ -48,8 +48,12 @@ Root `.env` configures local development; deployment variables must also be set 
 | `STORYBLOK_REVALIDATE_SECRET` | `/api/revalidate` | Separate random shared secret for publication events |
 | `STORYBLOK_PERSONAL_ACCESS_TOKEN` | Import script only | Personal access token from My account > Personal access tokens |
 | `STORYBLOK_SPACE_ID` | Import script only | Target space ID from space settings |
+| `HUBSPOT_PORTAL_ID` | `/api/lead` | HubSpot Hub ID; empty keeps the campaign form in demo mode |
+| `HUBSPOT_FORM_ID` | `/api/lead` | GUID of a HubSpot form with fields `email`, `campaign_id`, `page_language`, `referrer`, and `utm_source` to `utm_term` |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Campaign form | Cloudflare Turnstile site key, inlined at build; empty skips the challenge |
+| `TURNSTILE_SECRET_KEY` | `/api/lead` | Turnstile secret; required before leads are forwarded to HubSpot |
 
-Management authentication does not establish page delivery: the personal access token and space ID cannot replace the delivery token. All tokens stay server-side; these variables do not use a `NEXT_PUBLIC_` prefix.
+Management authentication does not establish page delivery: the personal access token and space ID cannot replace the delivery token. Tokens and secrets stay server-side; only the public Turnstile site key uses the `NEXT_PUBLIC_` prefix.
 
 ## Storyblok
 

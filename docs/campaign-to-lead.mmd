@@ -1,0 +1,36 @@
+---
+config:
+  theme: base
+  htmlLabels: false
+  fontFamily: 'Segoe UI, Arial, sans-serif'
+  flowchart:
+    diagramPadding: 24
+    nodeSpacing: 24
+    rankSpacing: 50
+    padding: 16
+  themeCSS: |
+    .node rect { rx: 8px; ry: 8px; }
+    [data-look="neo"].node rect { filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18)); }
+    .edgePath path { stroke-width: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      .edge-animation-slow { animation: none !important; stroke-dasharray: none !important; }
+    }
+---
+%% Regenerate from the repository root with Mermaid CLI 12:
+%% mmdc -i docs/campaign-to-lead.mmd -c docs/content-flow-light.json -o docs/campaign-to-lead-light.svg -b '#EFF7FB' -I campaign-to-lead-light
+%% mmdc -i docs/campaign-to-lead.mmd -c docs/content-flow-dark.json -o docs/campaign-to-lead-dark.svg -b '#091018' -I campaign-to-lead-dark
+%% node scripts/round-readme-images.mjs
+flowchart TB
+  accTitle: Campaign to lead
+  accDescr: A campaign_id set in Storyblok renders on the campaign page and its form. The form posts to /api/lead, which creates a HubSpot contact with the campaign_id, UTM parameters, and consent. On success the browser sends a Matomo campaign lead event named after the same campaign_id.
+  CMS[Storyblok campaign_id]
+  CMS brief@--> Page[Campaign page]
+  Page form@--> Form[Interest form + consent]
+  Form post@-->|email, UTM, campaign_id| Lead["/api/lead"]
+  Lead hubspot@-->|Forms API| Contact[HubSpot contact]
+  Form event@-->|on success| Matomo[Matomo campaign / lead event]
+  brief@{ animation: slow }
+  form@{ animation: slow }
+  post@{ animation: slow }
+  hubspot@{ animation: slow }
+  event@{ animation: slow }

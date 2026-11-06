@@ -44,6 +44,12 @@
 }
 .campaign-action button { font: inherit; font-weight: 650; cursor: pointer; margin-top: 0.5rem; }
 .campaign-action__status { min-height: 3rem; margin: 0; }
+.campaign-action__consent { display: flex; gap: 0.6rem; align-items: flex-start; }
+.campaign-action__consent input { flex: none; width: 1.15rem; height: 1.15rem; margin: 0.2rem 0 0; padding: 0; accent-color: var(--accent); }
+.campaign-action__consent label { font-weight: 400; font-size: 0.825rem; }
+.campaign-action__trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.campaign-action__verification { display: contents; }
+.campaign-action button:disabled { cursor: progress; opacity: 0.7; }
 @media (min-width: 48rem) {
   .campaign-brief__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .campaign-action__layout { grid-template-columns: 1fr 1fr; }
