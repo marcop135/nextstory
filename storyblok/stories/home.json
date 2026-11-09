@@ -303,14 +303,14 @@
       {
         "_uid": "home-cta",
         "component": "cta_band",
-        "headline": "See how this page is built",
-        "headline__i18n__de": "So entsteht diese Seite",
-        "text": "Follow a Storyblok block from the content model to the published page.",
-        "text__i18n__de": "Verfolge einen Storyblok-Block vom Content-Modell bis zur veröffentlichten Seite.",
-        "cta_label": "How it works",
-        "cta_label__i18n__de": "So funktioniert es",
-        "cta_href": "/how-it-works",
-        "cta_href__i18n__de": "/de/how-it-works"
+        "headline": "Follow a campaign from page to lead",
+        "headline__i18n__de": "Eine Kampagne von der Seite bis zum Lead",
+        "text": "A workshop landing page built from the same blocks, with a brief, an agenda, and a sign-up form that records the lead.",
+        "text__i18n__de": "Eine Workshop-Landingpage aus denselben Blöcken, mit Briefing, Agenda und einem Anmeldeformular, das den Lead erfasst.",
+        "cta_label": "See the campaign",
+        "cta_label__i18n__de": "Kampagne ansehen",
+        "cta_href": "/campaign-workshop",
+        "cta_href__i18n__de": "/de/campaign-workshop"
       }
     ]
   }

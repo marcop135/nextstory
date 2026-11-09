@@ -48,7 +48,11 @@ export default function PublishingVisual({ labels, caption, resource = "home", s
 
   useEffect(() => {
     const element = figure.current;
-    if (!element || typeof IntersectionObserver === "undefined") return;
+    if (!element) return;
+    if (typeof IntersectionObserver === "undefined") {
+      element.dataset.motion = "static";
+      return;
+    }
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let visible = false;
     let completed = false;
@@ -80,7 +84,7 @@ export default function PublishingVisual({ labels, caption, resource = "home", s
   }, []);
 
   return (
-    <figure ref={figure} className="publishing-visual" data-motion="static" data-composition={resource}>
+    <figure ref={figure} className="publishing-visual" data-motion="pending" data-composition={resource}>
       <div className="publishing-visual__bar" aria-hidden="true">
         <span>{resource === "home" ? "storyblok" : "nextstory"} / {resource}</span>
         <span>{resource === "privacy" || resource === "for-agents" ? "EN" : "EN + DE"}</span>

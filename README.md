@@ -41,21 +41,6 @@ Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
 
 See [Architecture](docs/architecture.md) for request flows.
 
-## Source files by feature
-
-| Feature | Source |
-| --- | --- |
-| Schema and types | [`storyblok/components.json`](storyblok/components.json), [`scripts/storyblok-types.mjs`](scripts/storyblok-types.mjs) |
-| CMS blocks | [`src/lib/storyblok.ts`](src/lib/storyblok.ts), [`src/components/`](src/components/) |
-| Preview and revalidation | [`preview/route.ts`](src/app/api/preview/route.ts), [`revalidate/route.ts`](src/app/api/revalidate/route.ts) |
-| Navigation and footer | [`src/lib/site-config.ts`](src/lib/site-config.ts), [`src/components/SiteChrome.tsx`](src/components/SiteChrome.tsx) |
-| Related notes | [`src/lib/related-content.ts`](src/lib/related-content.ts), [`src/components/RelatedContent.tsx`](src/components/RelatedContent.tsx) |
-| Localization | [`src/lib/i18n.ts`](src/lib/i18n.ts), [`src/proxy.ts`](src/proxy.ts) |
-| Seed stories | [`src/lib/mock-story.ts`](src/lib/mock-story.ts) |
-| Published Markdown | [`src/lib/story-markdown.ts`](src/lib/story-markdown.ts) |
-| Campaign to lead | [`lead/route.ts`](src/app/api/lead/route.ts), [`CampaignAction.tsx`](src/components/CampaignAction.tsx), [`agent-tools.ts`](src/lib/agent-tools.ts) (`get_campaign_brief`), [flow](docs/architecture.md#campaign-to-lead) |
-| Read-only agent access | [`src/lib/agent-resources.ts`](src/lib/agent-resources.ts), [`src/lib/agent-tools.ts`](src/lib/agent-tools.ts) |
-
 [Content schema](docs/storyblok-schema.md) · [Commands](docs/commands.md) · [Development cycle](docs/development-cycle.md)
 
 ## Tech stack
