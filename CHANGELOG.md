@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-09
+
 ### Added
 
 - Show inline, localized errors on the campaign form and name the cause of a failed send ([#111](https://github.com/marcop135/nextstory/pull/111)) ([#110](https://github.com/marcop135/nextstory/issues/110)).
