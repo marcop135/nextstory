@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 
 import MatomoRouteTracker from "@/components/MatomoRouteTracker";
 import AgentTools from "@/components/AgentTools";
-import CopyMotion from "@/components/CopyMotion";
 import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/SiteChrome";
 import StoryblokProvider from "@/components/StoryblokProvider";
 import {
@@ -61,7 +60,8 @@ export const viewport: Viewport = {
 
 const fallbackNav = [
   { _uid: "nav-how", label: "How it works", de: "So funktioniert es", href: "/how-it-works" },
-  { _uid: "nav-blocks", label: "Blocks", de: "Blöcke", href: "/blocks" },
+  { _uid: "nav-blocks", label: "Block library", de: "Block-Bibliothek", href: "/blocks" },
+  { _uid: "nav-workshop", label: "Campaign demo", de: "Kampagnen-Demo", href: "/campaign-workshop" },
 ];
 
 const fallbackFooterNav = [
@@ -105,7 +105,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <body>
           <SiteHeader copy={copy} />
           {children}
-          <CopyMotion />
           <SiteFooter copy={copy} />
           <script
             type="application/ld+json"

@@ -11,12 +11,12 @@ const copy: Record<"en" | "de", ChromeCopy> = {
   en: {
     nav: [{ _uid: "a", label: "Blocks", href: "/blocks" }],
     footerNote: "Next Story demo",
-    footerNav: [{ _uid: "s", label: "Source", href: "https://github.com/marcop135/nextstory" }, { _uid: "p", label: "Privacy", href: "/privacy" }],
+    footerNav: [{ _uid: "s", label: "Source", href: "https://github.com/marcop135/nextstory" }, { _uid: "d", label: "Docs", href: "https://github.com/marcop135/nextstory/tree/main/docs" }, { _uid: "p", label: "Privacy", href: "/privacy" }],
   },
   de: {
     nav: [{ _uid: "a", label: "Blöcke", href: "/de/blocks" }],
     footerNote: "Next-Story-Demo",
-    footerNav: [{ _uid: "s", label: "Quellcode", href: "https://github.com/marcop135/nextstory" }, { _uid: "p", label: "Datenschutz", href: "/privacy" }],
+    footerNav: [{ _uid: "s", label: "Quellcode", href: "https://github.com/marcop135/nextstory" }, { _uid: "d", label: "Dokumentation", href: "https://github.com/marcop135/nextstory/tree/main/docs" }, { _uid: "p", label: "Datenschutz", href: "/privacy" }],
   },
 };
 
@@ -73,4 +73,12 @@ it.each(["/blocks", "/de/blocks"])("marks only the current menu destination at %
   const html = renderToStaticMarkup(createElement(SiteHeader, { copy }));
   expect(html).toMatch(new RegExp(`aria-current="page"[^>]*href="${pathname}"`));
   expect(html.match(/aria-current="page"/g)).toHaveLength(1);
+});
+
+it("lists the repository link first in the Project group, with a GitHub icon", () => {
+  usePathname.mockReturnValue("/de");
+  const html = renderToStaticMarkup(createElement(SiteFooter, { copy }));
+  expect(html).toMatch(/class="footer-source" href="https:\/\/github.com\/marcop135\/nextstory" target="_blank" rel="noopener noreferrer"/);
+  expect(html).toMatch(/id="footer-project">Projekt<\/h2><a class="footer-source"[^>]*><svg[^>]*>.*?<\/svg>Quellcode<\/a><a href="[^"]*\/docs">/);
+  expect(html.match(/href="https:\/\/github.com\/marcop135\/nextstory"/g)).toHaveLength(1);
 });
