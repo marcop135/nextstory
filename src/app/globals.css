@@ -43,7 +43,29 @@
   background: var(--bg);
 }
 .campaign-action button { font: inherit; font-weight: 650; cursor: pointer; margin-top: 0.5rem; }
-.campaign-action__status { min-height: 3rem; margin: 0; }
+.campaign-action__form[hidden] { display: none; }
+.campaign-action__field { display: grid; gap: 0.4rem; }
+.campaign-action input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }
+.campaign-action__error { display: flex; gap: 0.4rem; align-items: baseline; margin: 0; color: var(--danger); font-size: 0.875rem; font-weight: 600; }
+.campaign-action__error::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 1.1em; height: 1.1em; border-radius: 50%; background: var(--danger); color: var(--surface); font-size: 0.8em; font-weight: 800; }
+.campaign-action__status { min-height: 1.5rem; margin: 0; }
+.campaign-action__status[data-tone="error"] { padding: 0.75rem 1rem; border-left: 3px solid var(--danger); border-radius: 0.25rem; background: color-mix(in oklch, var(--danger) 8%, var(--surface)); font-weight: 600; }
+.campaign-action button { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; }
+.campaign-action__spinner { width: 1em; height: 1em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: campaign-spin 0.8s linear infinite; }
+@keyframes campaign-spin { to { transform: rotate(1turn); } }
+.campaign-action__success { display: grid; justify-items: start; gap: 0.5rem; padding: 1.5rem; border: 1px solid var(--success); border-radius: 0.5rem; background: color-mix(in oklch, var(--success) 7%, var(--surface)); }
+.campaign-action__success:focus { outline: none; }
+.campaign-action__success:focus-visible { outline: 0.1875rem solid var(--accent); outline-offset: 0.1875rem; }
+.campaign-action__success h3 { margin: 0.25rem 0 0; font-size: 1.35rem; }
+.campaign-action__success p { margin: 0; }
+.campaign-action__success .campaign-action__next { margin-top: 0.75rem; }
+.campaign-action__registered { color: var(--muted); font-size: 0.9rem; overflow-wrap: anywhere; }
+.campaign-action__check { width: 2.5rem; height: 2.5rem; fill: none; stroke: var(--success); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+@media (prefers-reduced-motion: no-preference) {
+  .campaign-action__success { animation: heading-rise 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+  .campaign-action__check path { stroke-dasharray: 16; stroke-dashoffset: 16; animation: campaign-check 0.45s 0.2s ease-out forwards; }
+}
+@keyframes campaign-check { to { stroke-dashoffset: 0; } }
 .campaign-action__consent { display: flex; gap: 0.6rem; align-items: flex-start; }
 .campaign-action__consent input { flex: none; width: 1.15rem; height: 1.15rem; margin: 0.2rem 0 0; padding: 0; accent-color: var(--accent); }
 .campaign-action__consent label { font-weight: 400; font-size: 0.825rem; }
@@ -66,6 +88,8 @@
   --band-bg: var(--ink);
   --band-ink: var(--accent-ink);
   --label: oklch(0.5 0.1 185);
+  --danger: oklch(0.5 0.18 25);
+  --success: oklch(0.5 0.12 155);
   --measure: 68rem;
   color-scheme: light dark;
 }
@@ -82,6 +106,8 @@
     --band-bg: oklch(0.3 0.06 235);
     --band-ink: oklch(0.97 0.01 230);
     --label: oklch(0.8 0.12 180);
+    --danger: oklch(0.76 0.14 25);
+    --success: oklch(0.8 0.13 155);
     color-scheme: dark;
   }
 }
@@ -377,6 +403,16 @@ a {
   animation-fill-mode: both;
 }
 
+/*
+ * Until hydration decides whether the sequence runs, scripted browsers hold
+ * the illustration at its first frame instead of painting the finished state.
+ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .publishing-visual[data-motion="pending"] .publishing-visual__stage { opacity: 0.4; transform: translateY(0.5rem); }
+  .publishing-visual[data-motion="pending"] .publishing-visual__track span { transform: scaleX(0); }
+  .publishing-visual[data-composition="how-it-works"][data-motion="pending"] .workflow-visual__input { background-size: 0% 0.25rem; }
+}
+
 .publishing-visual__stage--1 { animation-delay: 0.25s; }
 .publishing-visual__stage--2 { animation-delay: 0.5s; }
 .publishing-visual__stage--3 { animation-delay: 0.75s; }
@@ -533,22 +569,25 @@ a {
   font-weight: 700;
 }
 
+/*
+ * Intro copy animates from the first paint, in CSS only, so a slow script
+ * download never shows the finished text first and then replays it.
+ */
 @media (prefers-reduced-motion: no-preference) {
-  [data-copy-motion="pending"] {
-    opacity: 0;
-    transform: translateY(0.75rem);
+  .hero .wrap > div:first-child > *,
+  .not-found > * {
+    animation: heading-rise 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
   }
-  [data-copy-motion="visible"] {
-    animation: heading-rise 1s cubic-bezier(0.22, 0.61, 0.36, 1) var(--copy-delay, 0ms) both;
-  }
-  h1[data-copy-motion="visible"] {
+  .hero .wrap > div:first-child > h1,
+  .not-found > h1 {
     animation-duration: 1.4s;
   }
-  [data-copy-motion]:focus-within {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
+  .hero .wrap > div:first-child > :nth-child(2),
+  .not-found > :nth-child(2) { animation-delay: 160ms; }
+  .hero .wrap > div:first-child > :nth-child(3),
+  .not-found > :nth-child(3) { animation-delay: 320ms; }
+  .hero .wrap > div:first-child > :nth-child(n + 4),
+  .not-found > :nth-child(n + 4) { animation-delay: 480ms; }
 }
 
 @keyframes heading-rise {
@@ -989,6 +1028,9 @@ a {
   display: inline-flex;
   margin-top: 1.5rem;
 }
+
+.footer-nav .footer-source { display: inline-flex; align-items: flex-start; gap: 0.4rem; color: var(--ink); font-weight: 650; }
+.footer-source__icon { flex: none; width: 0.95rem; height: 0.95rem; margin-top: 0.22rem; fill: currentColor; }
 
 .footer-nav {
   display: flex;

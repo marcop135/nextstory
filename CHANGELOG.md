@@ -7,6 +7,19 @@
 
 ## [Unreleased]
 
+### Added
+
+- Show inline, localized errors on the campaign form and name the cause of a failed send ([#110](https://github.com/marcop135/nextstory/issues/110)).
+- Confirm campaign registrations with a success panel ([#110](https://github.com/marcop135/nextstory/issues/110)).
+
+### Changed
+
+- Update Next.js to 16.4.5, `@storyblok/react` to 7.5.0, and Playwright to 1.65.0.
+
+### Fixed
+
+- Animate the hero from first paint so slow connections no longer show the content, then replay it ([#110](https://github.com/marcop135/nextstory/issues/110)).
+
 ## [0.13.2] - 2026-11-06
 
 ### Fixed

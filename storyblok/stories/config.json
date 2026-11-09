@@ -16,16 +16,16 @@
       {
         "_uid": "nav-blocks",
         "component": "nav_link",
-        "label": "Blocks",
-        "label__i18n__de": "Blöcke",
+        "label": "Block library",
+        "label__i18n__de": "Block-Bibliothek",
         "href": "/blocks",
         "href__i18n__de": "/de/blocks"
       },
       {
         "_uid": "nav-workshop",
         "component": "nav_link",
-        "label": "Workshop",
-        "label__i18n__de": "Workshop",
+        "label": "Campaign demo",
+        "label__i18n__de": "Kampagnen-Demo",
         "href": "/campaign-workshop",
         "href__i18n__de": "/de/campaign-workshop"
       }

@@ -75,7 +75,7 @@ try {
   await page.keyboard.press("Escape");
   assert.equal(await menu.getAttribute("aria-expanded"), "false");
   await menu.click();
-  await page.locator("#site-nav").getByRole("link", { name: "Blöcke", exact: true }).click();
+  await page.locator("#site-nav").getByRole("link", { name: "Block-Bibliothek", exact: true }).click();
   await page.waitForURL("**/de/blocks");
   assert.equal(await menu.getAttribute("aria-expanded"), "false");
   assert.match(await page.locator("footer").innerText(), /Entdecken[\s\S]*Projekt[\s\S]*Datenschutz/);
@@ -101,7 +101,6 @@ try {
   for (const route of ["how-it-works", "blocks", "content-relationships", "cache-invalidation", "for-agents", "privacy"]) {
     await sequencePage.goto(`${base}/${route}`, { waitUntil: "networkidle" });
     if (route === "for-agents" || route === "privacy") {
-      assert.equal(await sequencePage.locator("[data-copy-motion]").count(), 0, `${route}: copy stays static`);
       assert.equal(await sequencePage.locator(".publishing-visual, main .actions").count(), 0, `${route}: text only`);
       assert.equal(await sequencePage.locator("main").evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
       const resource = sequencePage.waitForResponse((response) => new URL(response.url()).pathname === "/llms.txt" && response.request().isNavigationRequest());
@@ -112,20 +111,21 @@ try {
       assert.match(await sequencePage.locator("body").innerText(), /^# Next Story/);
       continue;
     }
-    await sequencePage.locator('h1[data-copy-motion="visible"]').waitFor();
     const illustration = sequencePage.locator(".publishing-visual");
     assert.equal(await illustration.count(), 1, `${route}: one illustration`);
     await illustration.scrollIntoViewIfNeeded();
     await sequencePage.waitForFunction(() => document.querySelector(".publishing-visual")?.dataset.motion === "running");
     assert.ok(await illustration.locator(".publishing-visual__track span").evaluate((el) => el.getAnimations().length) > 0);
     assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationDuration), "1.4s");
-    const delays = await sequencePage.locator('main [data-copy-motion="visible"]').evaluateAll((els) =>
+    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationName), "heading-rise", `${route}: intro animates from CSS, not after hydration`);
+    const delays = await sequencePage.locator(".hero .wrap > div:first-child > *").evaluateAll((els) =>
       els.slice(0, 3).map((el) => parseFloat(getComputedStyle(el).animationDelay)));
     assert.ok(delays.length >= 2 && delays[1] > delays[0], `${route}: stagger copy in reading order`);
     if (await sequencePage.locator(".hero__layout").count()) {
       assert.equal(await sequencePage.locator(".hero__layout").evaluate((el) => getComputedStyle(el).alignItems), "start");
     }
-    assert.equal(await sequencePage.locator('#page-content ~ * [data-copy-motion], h2#page-content[data-copy-motion]').count(), 0, `${route}: body stays static`);
+    assert.equal(await sequencePage.evaluate(() => [...document.querySelectorAll("#page-content ~ *")]
+      .flatMap((el) => el.getAnimations({ subtree: true })).filter((a) => a.animationName === "heading-rise").length), 0, `${route}: body stays static`);
     await sequencePage.getByRole("link", { name: "Discover more", exact: true }).click();
     await sequencePage.waitForURL((url) => url.hash === "#page-content");
     await sequencePage.waitForFunction(() => scrollY > 200);
@@ -167,7 +167,7 @@ try {
     await screen.goto(`${base}/blocks`, { waitUntil: "networkidle" });
     assert.equal(await screen.locator('#site-nav a[aria-current="page"]').getAttribute("href"), "/blocks");
     assert.equal(await screen.locator(".lang-switch span").evaluate((el) => getComputedStyle(el).borderBottomWidth), "0px");
-    assert.equal(await screen.locator(".cta-band .btn").getAttribute("href"), "https://github.com/marcop135/nextstory");
+    assert.equal(await screen.locator(".cta-band .btn").getAttribute("href"), "/campaign-workshop");
     assert.equal(await screen.locator(".block-label").filter({ hasText: /^hero$/ }).count(), 0);
     await screen.locator(".footer-mark").click();
     await screen.waitForURL(`${base}/`);
@@ -176,6 +176,54 @@ try {
     await screen.locator(".footer-mark").click();
     await screen.waitForURL(`${base}/de`);
     await instance.close();
+  }
+
+  for (const width of [390, 1440]) {
+    for (const locale of ["en", "de"]) {
+      const prefix = locale === "de" ? "/de" : "";
+      const instance = await context({ viewport: { width, height: 900 }, reducedMotion: "reduce" });
+      // Exercise UI outcomes without creating contacts or depending on bot verification.
+      await instance.route("https://challenges.cloudflare.com/**", (route) => route.abort());
+      await instance.addInitScript(() => {
+        window.turnstile = {
+          render: (_element, options) => { window.__verificationCallback = options.callback; return "review"; },
+          execute: () => window.__verificationCallback("review-token"),
+          reset: () => {}, remove: () => {},
+        };
+      });
+      await instance.route("**/turnstile/v0/api.js*", (route) => route.fulfill({ contentType: "application/javascript", body: "" }));
+      const screen = await instance.newPage();
+      await screen.goto(`${base}${prefix}`, { waitUntil: "networkidle" });
+      await screen.locator(".hero .btn").first().click();
+      await screen.waitForURL(`${base}${prefix}/how-it-works`);
+      await screen.locator(".cta-band .btn").click();
+      await screen.waitForURL(`${base}${prefix}/blocks`);
+      await screen.locator(".cta-band .btn").click();
+      await screen.waitForURL(`${base}${prefix}/campaign-workshop`);
+      await screen.locator('.hero a[href="#campaign-action"]').click();
+      const form = screen.locator(".campaign-action__form");
+      await form.getByRole("button").click();
+      assert.equal(await form.locator('[aria-invalid="true"]').count(), 2);
+      assert.equal(await form.locator('input[name="email"]').evaluate((el) => el === document.activeElement), true);
+      await screen.screenshot({ path: `${output}/campaign-errors-${locale}-${width}.png`, fullPage: true });
+      await form.locator('input[name="email"]').fill("review@example.com");
+      await form.locator('input[name="consent"]').check();
+      await screen.route("**/api/lead", (route) => route.fulfill({ status: 429, json: { error: "rate_limited" } }));
+      await form.getByRole("button").click();
+      await screen.waitForFunction(() => document.querySelector('.campaign-action__status[data-tone="error"]')?.textContent?.includes(document.documentElement.lang === "de" ? "Zu viele" : "Too many"));
+      assert.equal(await form.getByRole("button").isEnabled(), true);
+      assert.equal(await form.locator('input[name="email"]').inputValue(), "review@example.com");
+      await screen.route("**/api/lead", (route) => route.fulfill({ json: { ok: true, mode: "demo" } }));
+      await form.getByRole("button").click();
+      await screen.locator(".campaign-action__success").waitFor();
+      assert.equal(await form.isVisible(), false);
+      assert.equal(await screen.locator(".campaign-action__success").evaluate((el) => el === document.activeElement), true);
+      assert.match(await screen.locator(".campaign-action__success").innerText(), /review@example.com/);
+      assert.match(await screen.locator(".campaign-action__next a").getAttribute("href"), /architecture\.md#campaign-to-lead$/);
+      assert.ok(await screen.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      await screen.screenshot({ path: `${output}/campaign-success-${locale}-${width}.png`, fullPage: true });
+      await instance.close();
+    }
   }
 
   const banner = (await readFile("README.md", "utf8")).split("</p>")[0] + "</p>";
@@ -214,10 +262,24 @@ try {
     }
   }
 
+  const slow = await context({ viewport: { width: 1440, height: 1000 }, reducedMotion: "no-preference" });
+  await slow.route("**/_next/static/chunks/**", async (route) => { await new Promise((done) => setTimeout(done, 2000)); await route.continue(); });
+  const slowPage = await slow.newPage();
+  await slowPage.goto(base, { waitUntil: "commit" });
+  await slowPage.waitForFunction(() => document.querySelector(".publishing-visual__track") && getComputedStyle(document.body).margin === "0px");
+  const beforeHydration = await slowPage.evaluate(() => ({
+    motion: document.querySelector(".publishing-visual").dataset.motion,
+    opacity: getComputedStyle(document.querySelector(".publishing-visual__stage")).opacity,
+    intro: getComputedStyle(document.querySelector(".hero h1")).animationName,
+  }));
+  assert.deepEqual(beforeHydration, { motion: "pending", opacity: "0.4", intro: "heading-rise" }, "Slow load holds the first frame and animates the intro without scripts");
+  await slowPage.waitForFunction(() => document.querySelector(".publishing-visual")?.dataset.motion !== "pending");
+  await slow.close();
+
   const noScript = await context({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const staticPage = await noScript.newPage();
   await staticPage.goto(base, { waitUntil: "networkidle" });
-  assert.equal(await staticPage.locator(".publishing-visual").getAttribute("data-motion"), "static");
+  assert.equal(await staticPage.locator(".publishing-visual__stage").first().evaluate((el) => getComputedStyle(el).opacity), "1", "No-JS illustration shows its finished state");
   assert.equal(await staticPage.locator(".publishing-visual").evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
   assert.equal(await staticPage.locator(".publishing-visual__stage").count(), 4);
   await noScript.close();
