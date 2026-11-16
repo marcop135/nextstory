@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 import { OG_IMAGE, REPO_URL, SITE_NAME, SITE_URL } from "@/lib/site";
 import { agentResources, agentTasks } from "@/lib/agent-resources";
 
-const title = "For agents";
+const title = "For agents: read Next Story as Markdown";
 const description =
   "Read Next Story as Markdown, inspect its block model, and trace examples to source through public HTTP resources and read-only WebMCP tools.";
 
 export const metadata: Metadata = {
-  title,
+  title: { absolute: title },
   description,
   alternates: { canonical: "/for-agents", types: { "text/markdown": "/content/for-agents.md" } },
   openGraph: {

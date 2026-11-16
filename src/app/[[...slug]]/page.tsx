@@ -7,7 +7,7 @@ import StoryRenderer from "@/components/StoryRenderer";
 import type { PageBlok } from "@/components/types";
 import { fetchStory } from "@/lib/fetch-story";
 import { hreflangAlternates, storyblokLanguage } from "@/lib/i18n";
-import { OG_IMAGE, SITE_NAME } from "@/lib/site";
+import { SITE_NAME, ogImageFor } from "@/lib/site";
 import { isPageSlug, parseStorySegments } from "@/lib/story-path";
 import { markdownPathForPage } from "@/lib/agent-paths";
 
@@ -49,7 +49,7 @@ export async function generateMetadata({
       title,
       description,
       url: canonical,
-      images: [OG_IMAGE],
+      images: [ogImageFor(locale)],
     },
   };
 }

@@ -7,6 +7,18 @@
 
 ## [Unreleased]
 
+### Added
+
+- Site copy: Suggest How it works and the block library on the 404 page.
+
+### Changed
+
+- Docs copy: Rewrite three contrast sentences in the setup, overview, and release docs as direct statements.
+- Other copy: Lengthen the For agents meta title and og:title to 39 characters.
+- Other copy: Replace the privacy meta description with one that no longer repeats the domain.
+- Other copy: Localize the Open Graph image alt text and the JSON-LD site description on German pages.
+- Other copy: List the campaign workshop, cache invalidation, and content relationships pages in llms.txt.
+
 ## [0.14.0] - 2026-11-09
 
 ### Added

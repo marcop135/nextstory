@@ -4,7 +4,7 @@ import { AUTHOR, OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const title = "Privacy notice for nextstory.marcopontili.com";
 const description =
-  "How nextstory.marcopontili.com processes data: cookieless self-hosted Matomo, Vercel hosting, consent-based HubSpot campaign form, no cookie banner.";
+  "Cookieless self-hosted Matomo, Vercel hosting, and a consent-based HubSpot campaign form. No cookie banner is shown.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
