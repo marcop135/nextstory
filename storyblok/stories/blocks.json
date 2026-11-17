@@ -164,7 +164,7 @@
                             {
                               "type": "link",
                               "attrs": {
-                                "href": "https://www.storyblok.com/docs/concepts/fields/rich-text",
+                                "href": "https://www.storyblok.com/docs/concepts/fields#rich-text",
                                 "linktype": "url",
                                 "target": "_blank"
                               }
@@ -261,7 +261,7 @@
                             {
                               "type": "link",
                               "attrs": {
-                                "href": "https://www.storyblok.com/docs/concepts/fields/rich-text",
+                                "href": "https://www.storyblok.com/docs/concepts/fields#rich-text",
                                 "linktype": "url",
                                 "target": "_blank"
                               }
