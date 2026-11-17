@@ -7,6 +7,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Site copy: Point the rich text docs link on the blocks page at the current Storyblok fields page ([#124](https://github.com/marcop135/nextstory/pull/124), [#123](https://github.com/marcop135/nextstory/issues/123)).
+- Skip unsplash.com photo pages in the weekly link check, since they answer bots with 401 ([#124](https://github.com/marcop135/nextstory/pull/124), [#123](https://github.com/marcop135/nextstory/issues/123)).
+
 ## [0.15.1] - 2026-11-17
 
 ### Fixed

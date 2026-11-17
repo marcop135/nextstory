@@ -25,6 +25,7 @@ jobs:
             --exclude-loopback
             --exclude '^https://nextstory\.marcopontili\.com/api/'
             --exclude '^https://(www\.)?linkedin\.com/'
+            --exclude '^https://(www\.)?unsplash\.com/'
             --accept 200,206,429
             README.md CONTRIBUTING.md SECURITY.md CHANGELOG.md
             'docs/**/*.md' public/llms.txt 'storyblok/stories/*.json'
