@@ -1,7 +1,7 @@
 import { beforeEach, expect, it, vi } from "vitest";
 
 import { mockPageSlugs } from "@/lib/mock-story";
-import { publishedPageSlugs } from "@/lib/published-slugs";
+import { publishedPageSlugs, publishedPages } from "@/lib/published-slugs";
 
 vi.mock("next/headers", () => ({ draftMode: vi.fn() }));
 
@@ -40,4 +40,17 @@ it("keeps the published page list empty when every CMS page is unpublished", asy
     },
   })));
   expect(await publishedPageSlugs()).toEqual([]);
+});
+
+it("keeps each page's Storyblok publication date for the sitemap", async () => {
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({
+    links: {
+      a: { slug: "home", is_folder: false, published: true, published_at: "2026-11-01T10:00:00.000Z" },
+      b: { slug: "blocks", is_folder: false, published: true, published_at: null },
+    },
+  })));
+  expect(await publishedPages()).toEqual([
+    { slug: "home", publishedAt: "2026-11-01T10:00:00.000Z" },
+    { slug: "blocks" },
+  ]);
 });

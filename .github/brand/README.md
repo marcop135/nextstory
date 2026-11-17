@@ -3,8 +3,8 @@
 `readme-light.svg` and `readme-dark.svg` are the README header sources
 (`readme-light.png` / `readme-dark.png`, 2560x1280), selected by a single
 `<picture>` element using `prefers-color-scheme`. `social.svg` → `social.png`
-(1280x640, GitHub Settings > Social preview). `og.svg` → `public/og.png`
-(1200x630, the site's Open Graph image). All outputs are listed in
+(1280x640, GitHub Settings > Social preview). `og.svg` → `public/og.png` and
+`public/og.jpg` (1200x630; the site's Open Graph image is the JPEG). All outputs are listed in
 `brand.config.json`. All four share one layout: wordmark and tagline beside a
 three-block page whose `feature_grid` carries the Visual Editor selection
 outline. The README keeps separate light and dark palettes from `tokens.json`.

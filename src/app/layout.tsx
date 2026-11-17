@@ -36,13 +36,6 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   authors: [{ name: "Marco Pontili", url: "https://marcopontili.com" }],
-  robots: {
-    index: true,
-    follow: true,
-    "max-snippet": -1,
-    "max-image-preview": "large",
-    "max-video-preview": -1,
-  },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
