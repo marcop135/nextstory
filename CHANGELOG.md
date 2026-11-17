@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.15.1] - 2026-11-17
+
 ### Fixed
 
 - Add lastmod to sitemap entries for CMS pages, which 0.15.0 left out in production ([#121](https://github.com/marcop135/nextstory/pull/121)) ([#120](https://github.com/marcop135/nextstory/issues/120)).
