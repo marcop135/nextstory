@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+import { DISCOVERY_LINK } from "./src/lib/discovery-links";
+
 const isDev = process.env.NODE_ENV !== "production";
 const matomo = "https://mt.marcopontili.com";
 const turnstile = "https://challenges.cloudflare.com";
@@ -32,11 +34,9 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-  {
-    key: "Link",
-    value:
-      '</sitemap.xml>; rel="sitemap", </llms.txt>; rel="describedby"; type="text/plain", </openapi.json>; rel="service-desc"; type="application/json", </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
-  },
+  // UTM variants of a URL share one cache entry.
+  { key: "No-Vary-Search", value: 'params=("utm_source" "utm_medium" "utm_campaign")' },
+  { key: "Link", value: DISCOVERY_LINK },
 ];
 
 const nextConfig: NextConfig = {

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 
-import { OG_IMAGE, REPO_URL, SITE_NAME, SITE_URL } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { INDEX_ROBOTS, OG_IMAGE, REPO_URL, SITE_NAME, SITE_URL, pageJsonLd } from "@/lib/site";
 import { agentResources, agentTasks } from "@/lib/agent-resources";
 
-const title = "For agents";
+const title = "For agents: read Next Story as Markdown";
 const description =
   "Read Next Story as Markdown, inspect its block model, and trace examples to source through public HTTP resources and read-only WebMCP tools.";
 
 export const metadata: Metadata = {
-  title,
+  title: { absolute: title },
   description,
+  robots: INDEX_ROBOTS,
   alternates: { canonical: "/for-agents", types: { "text/markdown": "/content/for-agents.md" } },
   openGraph: {
     type: "website",
@@ -53,6 +55,7 @@ export default function ForAgentsPage() {
       <h2>Access and source</h2>
       <p>Public reading resources require no login or API key and return published content. Storyblok preview and revalidation remain authenticated CMS operations. <a href="/auth.md">Access rules</a>.</p>
       <p>The <a href={REPO_URL}>source repository</a> connects these examples to their implementation. Start with <code>docs/architecture.md</code>.</p>
+      <JsonLd data={pageJsonLd({ path: "/for-agents", name: title, description, locale: "en" })} />
     </main>
   );
 }

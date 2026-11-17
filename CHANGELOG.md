@@ -7,6 +7,35 @@
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-17
+
+### Added
+
+- Site copy: Suggest How it works and the block library on the 404 page ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Add per-page WebPage and BreadcrumbList JSON-LD nodes linked to the site graph ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Add lastmod and hreflang alternates to the sitemap ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Negotiate `Accept: text/markdown` on page URLs and return 406 for other types ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Link each page's Markdown version in a `Link` response header ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Add a `No-Vary-Search` header so tracking parameters share a cache entry ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Check title length, description length, and JSON-LD in the smoke test ([#118](https://github.com/marcop135/nextstory/pull/118)) ([#115](https://github.com/marcop135/nextstory/issues/115)).
+- Check external links in the docs, llms.txt, and seed stories every week ([#118](https://github.com/marcop135/nextstory/pull/118)) ([#115](https://github.com/marcop135/nextstory/issues/115)).
+
+### Changed
+
+- Docs copy: Rewrite three contrast sentences in the setup, overview, and release docs as direct statements ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: Lengthen the For agents meta title and og:title to 39 characters ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: Replace the privacy meta description with one that no longer repeats the domain ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: Localize the Open Graph image alt text and the JSON-LD site description on German pages ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: List the campaign workshop, cache invalidation, and content relationships pages in llms.txt ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Serve the Open Graph image as JPEG ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Docs copy: Describe Markdown negotiation on page URLs in the architecture doc ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Other copy: Mention `Accept: text/markdown` negotiation in llms.txt ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- Docs copy: Describe the new smoke checks and the weekly link check in the commands doc ([#118](https://github.com/marcop135/nextstory/pull/118)) ([#115](https://github.com/marcop135/nextstory/issues/115)).
+
+### Fixed
+
+- Send a single robots meta tag on the 404 page ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+
 ## [0.14.0] - 2026-11-09
 
 ### Added

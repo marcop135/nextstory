@@ -19,7 +19,7 @@ Run the demo, connect a Storyblok space, and trace content from an editor's draf
 | Connected development | Set a space preview token as `STORYBLOK_DELIVERY_API_TOKEN` | Read Storyblok drafts by default; the page badge says `source: storyblok` |
 | Published site | Run a production build with the delivery token | Read published stories; authenticated preview alone reads drafts |
 
-The personal access token and space ID enable imports, not page delivery. Local seed edits do not update a connected space, and deploying code does not publish CMS drafts. [Setup](commands.md#storyblok) covers that handoff.
+The personal access token and space ID enable imports only. Local seed edits do not update a connected space, and deploying code does not publish CMS drafts. [Setup](commands.md#storyblok) covers that handoff.
 
 ## Navigate the source
 

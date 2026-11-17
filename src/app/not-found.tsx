@@ -11,7 +11,8 @@ export default function NotFound() {
           : " in the seed stories under storyblok/stories."}
       </p>
       <p>
-        <Link href="/">Back home</Link>
+        Try <Link href="/how-it-works">How it works</Link> or the{" "}
+        <Link href="/blocks">block library</Link>, or go <Link href="/">back home</Link>.
       </p>
     </main>
   );

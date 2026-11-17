@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 
-import { AUTHOR, OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { AUTHOR, INDEX_ROBOTS, OG_IMAGE, SITE_NAME, SITE_URL, pageJsonLd } from "@/lib/site";
 
 const title = "Privacy notice for nextstory.marcopontili.com";
 const description =
-  "How nextstory.marcopontili.com processes data: cookieless self-hosted Matomo, Vercel hosting, consent-based HubSpot campaign form, no cookie banner.";
+  "Cookieless self-hosted Matomo, Vercel hosting, and a consent-based HubSpot campaign form. No cookie banner is shown.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
+  robots: INDEX_ROBOTS,
   alternates: { canonical: "/privacy" },
   openGraph: {
     type: "website",
@@ -126,6 +128,7 @@ export default function PrivacyPage() {
         You may have the right of access, rectification, erasure, restriction,
         objection, and portability. Use the contact page above. You may lodge a complaint with the data protection authority where you live or work. The same rights and the same contact route apply wherever you are in the world.
       </p>
+      <JsonLd data={pageJsonLd({ path: "/privacy", name: title, description, locale: "en" })} />
     </main>
   );
 }
