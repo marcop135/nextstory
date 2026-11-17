@@ -53,4 +53,6 @@ it("keeps each page's Storyblok publication date for the sitemap", async () => {
     { slug: "home", publishedAt: "2026-11-01T10:00:00.000Z" },
     { slug: "blocks" },
   ]);
+  const [url] = vi.mocked(fetch).mock.calls[0];
+  expect(new URL(String(url)).searchParams.get("include_dates")).toBe("1");
 });

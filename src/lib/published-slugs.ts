@@ -22,6 +22,8 @@ export async function publishedPages(): Promise<PublishedPage[]> {
     version: "published",
     token: process.env.STORYBLOK_DELIVERY_API_TOKEN!.trim(),
     per_page: "1000",
+    // Without this the Links API omits published_at.
+    include_dates: "1",
   });
   try {
     const res = await fetch(`${cdnBaseUrl()}/cdn/links?${params}`, {
