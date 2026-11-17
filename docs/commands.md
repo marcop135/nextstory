@@ -20,7 +20,7 @@ npm test                # offline CMS delivery, server rendering, preview, and w
 npm run changelog:lint
 npm run build
 npm start              # after build
-npm run smoke          # route, language, link, and sitemap checks against a running build
+npm run smoke          # route, language, metadata length, JSON-LD, link, and sitemap checks against a running build
 npm run verify:agent-readiness  # public Markdown/JSON, catalogs, parity, access, and 404s
 npm run verify:browser  # system Chrome, motion/navigation, screenshots in .next/review/
 ```
@@ -32,6 +32,8 @@ node scripts/smoke.mjs http://localhost:3502
 node scripts/verify-agent-readiness.mjs http://localhost:3502
 node scripts/verify-browser.mjs http://localhost:3502
 ```
+
+The `Links` workflow checks external links in the docs, `llms.txt`, and seed stories every Monday; run it on demand from the Actions tab.
 
 Check that a port is free before starting a server. Platform-specific listener checks and release gates are in the [development cycle](development-cycle.md#implement-and-review).
 
