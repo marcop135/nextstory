@@ -3,6 +3,11 @@ export const SITE_NAME = "Next Story";
 export const REPO_URL = "https://github.com/marcop135/nextstory";
 export const SITE_DESCRIPTION =
   "Explore Storyblok blocks in Next.js App Router: server rendering, draft preview, publish webhooks, localized caching, and read-only content access.";
+export const SITE_DESCRIPTION_DE =
+  "Storyblok-Blöcke im Next.js App Router: Server-Rendering, Entwurfsvorschau, Publish-Webhooks, lokalisierter Cache und lesender Zugriff auf Inhalte.";
+
+export const siteDescription = (locale: string) =>
+  locale === "de" ? SITE_DESCRIPTION_DE : SITE_DESCRIPTION;
 
 export const OG_IMAGE = {
   url: "/og.png",
@@ -11,13 +16,20 @@ export const OG_IMAGE = {
   alt: "Next Story: Next.js and Storyblok headless CMS demo",
 };
 
+export const OG_IMAGE_DE = {
+  ...OG_IMAGE,
+  alt: "Next Story: Headless-CMS-Demo mit Next.js und Storyblok",
+};
+
+export const ogImageFor = (locale: string) => (locale === "de" ? OG_IMAGE_DE : OG_IMAGE);
+
 export const AUTHOR = {
   name: "Marco Pontili",
   url: "https://marcopontili.com",
   email: "marco.pontili@gmail.com",
 };
 
-export const jsonLdFor = (inLanguage: string) => ({
+export const jsonLdFor = (inLanguage: string, description = siteDescription(inLanguage)) => ({
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -25,7 +37,7 @@ export const jsonLdFor = (inLanguage: string) => ({
       "@id": `${SITE_URL}/#website`,
       url: `${SITE_URL}/`,
       name: SITE_NAME,
-      description: SITE_DESCRIPTION,
+      description,
       inLanguage,
       publisher: { "@id": `${SITE_URL}/#author` },
       about: { "@id": `${SITE_URL}/#code` },

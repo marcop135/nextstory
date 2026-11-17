@@ -7,6 +7,18 @@
 
 ## [Unreleased]
 
+### Added
+
+- Site copy: Suggest How it works and the block library on the 404 page ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+
+### Changed
+
+- Docs copy: Rewrite three contrast sentences in the setup, overview, and release docs as direct statements ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: Lengthen the For agents meta title and og:title to 39 characters ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: Replace the privacy meta description with one that no longer repeats the domain ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: Localize the Open Graph image alt text and the JSON-LD site description on German pages ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Other copy: List the campaign workshop, cache invalidation, and content relationships pages in llms.txt ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+
 ## [0.14.0] - 2026-11-09
 
 ### Added

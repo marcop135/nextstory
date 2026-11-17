@@ -14,6 +14,7 @@ import {
   SITE_NAME,
   SITE_URL,
   jsonLdFor,
+  siteDescription,
 } from "@/lib/site";
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
 import { fetchSiteConfig, requestLocale } from "@/lib/site-config";
@@ -108,7 +109,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <SiteFooter copy={copy} />
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(locale)) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFor(locale, siteDescription(locale))) }}
           />
           <Script src="/matomo.js" strategy="afterInteractive" />
           <MatomoRouteTracker />

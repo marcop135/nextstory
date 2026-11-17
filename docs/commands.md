@@ -53,7 +53,7 @@ Root `.env` configures local development; deployment variables must also be set 
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Campaign form | Cloudflare Turnstile site key, inlined at build; empty skips the challenge |
 | `TURNSTILE_SECRET_KEY` | `/api/lead` | Turnstile secret; required before leads are forwarded to HubSpot |
 
-Management authentication does not establish page delivery: the personal access token and space ID cannot replace the delivery token. Tokens and secrets stay server-side; only the public Turnstile site key uses the `NEXT_PUBLIC_` prefix.
+The personal access token and space ID cannot replace the delivery token. Tokens and secrets stay server-side; only the public Turnstile site key uses the `NEXT_PUBLIC_` prefix.
 
 ## Storyblok
 
