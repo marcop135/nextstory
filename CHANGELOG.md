@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.15.2] - 2026-11-17
+
 ### Fixed
 
 - Site copy: Point the rich text docs link on the blocks page at the current Storyblok fields page ([#124](https://github.com/marcop135/nextstory/pull/124), [#123](https://github.com/marcop135/nextstory/issues/123)).
