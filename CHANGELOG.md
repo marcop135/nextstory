@@ -10,6 +10,11 @@
 ### Added
 
 - Site copy: Suggest How it works and the block library on the 404 page ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Add per-page WebPage and BreadcrumbList JSON-LD nodes linked to the site graph.
+- Add lastmod and hreflang alternates to the sitemap.
+- Negotiate `Accept: text/markdown` on page URLs and answer 406 when neither HTML nor Markdown is acceptable.
+- Link each page's Markdown version in a `Link` response header.
+- Add a `No-Vary-Search` header so tracking parameters share a cache entry.
 
 ### Changed
 
@@ -18,6 +23,13 @@
 - Other copy: Replace the privacy meta description with one that no longer repeats the domain ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
 - Other copy: Localize the Open Graph image alt text and the JSON-LD site description on German pages ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
 - Other copy: List the campaign workshop, cache invalidation, and content relationships pages in llms.txt ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
+- Serve the Open Graph image as JPEG.
+- Docs copy: Describe Markdown negotiation on page URLs in the architecture doc.
+- Other copy: Mention `Accept: text/markdown` negotiation in llms.txt.
+
+### Fixed
+
+- Send a single robots meta tag on the 404 page.
 
 ## [0.14.0] - 2026-11-09
 

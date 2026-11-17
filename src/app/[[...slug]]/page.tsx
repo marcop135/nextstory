@@ -3,11 +3,12 @@ import { draftMode } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import JsonLd from "@/components/JsonLd";
 import StoryRenderer from "@/components/StoryRenderer";
 import type { PageBlok } from "@/components/types";
 import { fetchStory } from "@/lib/fetch-story";
 import { hreflangAlternates, storyblokLanguage } from "@/lib/i18n";
-import { SITE_NAME, ogImageFor } from "@/lib/site";
+import { INDEX_ROBOTS, SITE_NAME, ogImageFor, pageJsonLd } from "@/lib/site";
 import { isPageSlug, parseStorySegments } from "@/lib/story-path";
 import { markdownPathForPage } from "@/lib/agent-paths";
 
@@ -37,6 +38,7 @@ export async function generateMetadata({
   return {
     title: { absolute: title },
     description,
+    robots: INDEX_ROBOTS,
     alternates: {
       canonical,
       languages: hreflangAlternates(slug),
@@ -56,10 +58,11 @@ export async function generateMetadata({
 
 export default async function StoryPage({ params }: PageProps) {
   const { slug: segments } = await params;
-  const { locale, slug } = parseStorySegments(segments);
+  const { locale, slug, pathname } = parseStorySegments(segments);
   if (!isPageSlug(slug)) notFound();
   const result = await fetchStory(slug, storyblokLanguage(locale));
   if (!result) notFound();
+  const content = result.story.content as PageBlok;
 
   const { isEnabled: preview } = await draftMode();
 
@@ -76,6 +79,14 @@ export default async function StoryPage({ params }: PageProps) {
         ) : null}
       </aside> : null}
       <StoryRenderer story={result.story} source={result.source} preview={preview} />
+      <JsonLd
+        data={pageJsonLd({
+          path: pathname ? `/${pathname}` : "/",
+          name: content.seo_title || result.story.name || SITE_NAME,
+          description: content.seo_description || undefined,
+          locale,
+        })}
+      />
     </>
   );
 }

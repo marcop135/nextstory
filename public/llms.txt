@@ -31,4 +31,4 @@
 - [Architecture](https://github.com/marcop135/nextstory/blob/main/docs/architecture.md): content delivery and resource design
 - [Development cycle](https://github.com/marcop135/nextstory/blob/main/docs/development-cycle.md): setup, checks, versions, annotated tags, deployment, and CMS publication
 
-Use /content/{slug}.md for a published page, including /content/de/{slug}.md for German. HTML and Markdown have separate URLs. Native WebMCP is feature-detected; HTTP resources work without browser support. Public Markdown always returns published content, including when editor preview cookies are present.
+Use /content/{slug}.md for a published page, including /content/de/{slug}.md for German. Page URLs also return Markdown when the request prefers `Accept: text/markdown`. Native WebMCP is feature-detected; HTTP resources work without browser support. Public Markdown always returns published content, including when editor preview cookies are present.

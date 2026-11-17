@@ -10,7 +10,7 @@ export const siteDescription = (locale: string) =>
   locale === "de" ? SITE_DESCRIPTION_DE : SITE_DESCRIPTION;
 
 export const OG_IMAGE = {
-  url: "/og.png",
+  url: "/og.jpg",
   width: 1200,
   height: 630,
   alt: "Next Story: Next.js and Storyblok headless CMS demo",
@@ -22,6 +22,15 @@ export const OG_IMAGE_DE = {
 };
 
 export const ogImageFor = (locale: string) => (locale === "de" ? OG_IMAGE_DE : OG_IMAGE);
+
+/** Indexable pages set this themselves, so a 404 carries only Next's `noindex`. */
+export const INDEX_ROBOTS = {
+  index: true,
+  follow: true,
+  "max-snippet": -1,
+  "max-image-preview": "large",
+  "max-video-preview": -1,
+} as const;
 
 export const AUTHOR = {
   name: "Marco Pontili",
@@ -63,3 +72,52 @@ export const jsonLdFor = (inLanguage: string, description = siteDescription(inLa
     },
   ],
 });
+
+const absoluteUrl = (path: string) => (path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`);
+
+/**
+ * Per-page JSON-LD: a WebPage linked to the site graph's `#website`, plus a
+ * BreadcrumbList (locale home > page) on every page except a locale home.
+ */
+export function pageJsonLd({
+  path,
+  name,
+  description,
+  locale,
+}: {
+  path: string;
+  name: string;
+  description?: string;
+  locale: string;
+}) {
+  const url = absoluteUrl(path);
+  const homePath = locale === "de" ? "/de" : "/";
+  const isHome = path === homePath;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name,
+        description,
+        inLanguage: locale,
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        ...(isHome ? {} : { breadcrumb: { "@id": `${url}#breadcrumb` } }),
+      },
+      ...(isHome
+        ? []
+        : [
+            {
+              "@type": "BreadcrumbList",
+              "@id": `${url}#breadcrumb`,
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: SITE_NAME, item: absoluteUrl(homePath) },
+                { "@type": "ListItem", position: 2, name, item: url },
+              ],
+            },
+          ]),
+    ],
+  };
+}

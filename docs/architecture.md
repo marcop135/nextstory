@@ -41,7 +41,7 @@ flowchart TB
 
 ## Public reading resources
 
-`/content/index.md` and `/content/de/index.md` represent home; `/content/blocks.md`, `/content/de/blocks.md`, and corresponding story paths return Markdown. Explicit URLs avoid negotiating HTML/RSC and Markdown at the same address. Unknown/private paths return 404; upstream delivery failures return 503. Preview cookies do not change these published representations. HTML metadata advertises Markdown alternates.
+`/content/index.md` and `/content/de/index.md` represent home; `/content/blocks.md`, `/content/de/blocks.md`, and corresponding story paths return Markdown. Page URLs also negotiate on `Accept` in [`src/proxy.ts`](../src/proxy.ts): a request that prefers `text/markdown` by q-value gets the same Markdown, one that accepts neither type gets 406, and both responses send `Vary: Accept`. Router (RSC) requests skip negotiation. Unknown/private paths return 404; upstream delivery failures return 503. Preview cookies do not change these published representations. HTML metadata and the `Link` header advertise Markdown alternates.
 
 [`src/lib/agent-resources.ts`](../src/lib/agent-resources.ts) owns the resource inventory, portal workflows, API catalog, OpenAPI description, and skills index. `/content/blocks.json` derives page-block metadata from the schema, including translation flags and source paths. It does not ship the React registry to browsers. `/auth.md` describes public access and the separate authenticated CMS operations.
 
