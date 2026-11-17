@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-17
+
 ### Added
 
 - Site copy: Suggest How it works and the block library on the 404 page ([#116](https://github.com/marcop135/nextstory/pull/116)) ([#113](https://github.com/marcop135/nextstory/issues/113)).
