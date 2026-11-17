@@ -1,9 +1,9 @@
 # Changelog
 
-- **Format:** Based on [Keep a Changelog](https://keepachangelog.com) ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
-- **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
-- **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does) ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
-- **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader ([#117](https://github.com/marcop135/nextstory/pull/117)) ([#114](https://github.com/marcop135/nextstory/issues/114)).
+- **Format:** Based on [Keep a Changelog](https://keepachangelog.com).
+- **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
+- **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
+- **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
 ## [Unreleased]
 
