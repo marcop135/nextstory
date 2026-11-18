@@ -48,8 +48,8 @@ See [Architecture](docs/architecture.md) for request flows.
 | Layer | Tools |
 | --- | --- |
 | Framework | Next.js 16 App Router, React 19, TypeScript 5 |
-| Styling | Plain CSS |
 | Content | Storyblok headless CMS via `@storyblok/react`, English and German |
+| Styling | Plain CSS |
 | Leads | HubSpot Forms API v3, Cloudflare Turnstile bot check |
 | Analytics | Matomo through Tag Manager, cookieless |
 | Testing | Vitest, Playwright, ESLint |
