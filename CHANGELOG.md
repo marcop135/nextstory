@@ -11,6 +11,10 @@
 
 - Deps: Update Next.js to 16.4.6, `@storyblok/react` to 7.5.1, and Playwright to 1.65.1 ([#129](https://github.com/marcop135/nextstory/pull/129)).
 
+### Fixed
+
+- Sitemap: Add the x-default alternate to sitemap entries and lastmod to the privacy page entry ([#131](https://github.com/marcop135/nextstory/pull/131)) ([#127](https://github.com/marcop135/nextstory/issues/127)).
+
 ### Security
 
 - Secrets: Compare the preview and webhook secrets in constant time ([#130](https://github.com/marcop135/nextstory/pull/130)) ([#126](https://github.com/marcop135/nextstory/issues/126)).
