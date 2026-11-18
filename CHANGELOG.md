@@ -9,7 +9,7 @@
 
 ### Fixed
 
-- Add the x-default alternate to sitemap entries and lastmod to the privacy page entry.
+- Sitemap: Add the x-default alternate to sitemap entries and lastmod to the privacy page entry.
 
 ## [0.15.2] - 2026-11-17
 
