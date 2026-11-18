@@ -7,11 +7,6 @@
 
 ## [Unreleased]
 
-### Changed
-
-- Site copy: Reword the home page feature heading and comparison intro in the seed stories.
-- Docs copy: Reword two contrast sentences in the commands and development cycle docs as direct statements.
-
 ## [0.15.2] - 2026-11-17
 
 ### Fixed
