@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 
-import { locales } from "@/lib/i18n";
+import { defaultLocale, locales } from "@/lib/i18n";
 import { publishedPages } from "@/lib/published-slugs";
-import { SITE_URL } from "@/lib/site";
+import { PRIVACY_UPDATED, SITE_URL } from "@/lib/site";
 import { publicPathForSlug } from "@/lib/story-path";
 
 export const dynamic = "force-dynamic";
@@ -15,9 +15,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const seen = new Set<string>();
   const entries: MetadataRoute.Sitemap = [];
   for (const { slug, publishedAt } of pages) {
-    const languages = Object.fromEntries(
-      locales.map((locale) => [locale, absolute(publicPathForSlug(slug, locale))]),
-    );
+    const languages = {
+      ...Object.fromEntries(locales.map((locale) => [locale, absolute(publicPathForSlug(slug, locale))])),
+      "x-default": absolute(publicPathForSlug(slug, defaultLocale)),
+    };
     for (const locale of locales) {
       const path = publicPathForSlug(slug, locale);
       if (seen.has(path)) continue;
@@ -30,8 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
   // English-only app routes: no German alternate.
-  for (const path of ["/privacy", "/for-agents"]) {
-    if (!seen.has(path)) entries.push({ url: absolute(path) });
-  }
+  if (!seen.has("/privacy")) entries.push({ url: absolute("/privacy"), lastModified: PRIVACY_UPDATED });
+  if (!seen.has("/for-agents")) entries.push({ url: absolute("/for-agents") });
   return entries;
 }

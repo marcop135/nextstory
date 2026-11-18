@@ -195,7 +195,7 @@ export default function CampaignAction({ blok }: { blok: CampaignActionBlok }) {
           >
             <p id={noteId} className="campaign-action__note">{blok.demo_note}</p>
             <div className="campaign-action__field">
-              <label htmlFor={emailId}>{blok.email_label}</label>
+              <label htmlFor={emailId}>{blok.email_label} <span className="campaign-action__required">{copy.required}</span></label>
               <input
                 ref={emailInput}
                 id={emailId}
@@ -236,7 +236,8 @@ export default function CampaignAction({ blok }: { blok: CampaignActionBlok }) {
                 />
                 <label htmlFor={consentId}>
                   {blok.consent_label}{" "}
-                  <a href={blok.privacy_link_href}>{blok.privacy_link_label}</a>.
+                  <a href={blok.privacy_link_href}>{blok.privacy_link_label}</a>.{" "}
+                  <span className="campaign-action__required">{copy.required}</span>
                 </label>
               </div>
               {errors.consent ? <p id={consentErrorId} className="campaign-action__error">{errors.consent}</p> : null}

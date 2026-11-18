@@ -88,7 +88,7 @@ try {
   assert.equal(await page.locator("main h1").innerText(), "Inhalte verknüpfen");
   assert.ok(await page.locator("main .code-example a").count() > 0, "Learning notes must link to their implementation");
   await page.getByRole("button", { name: "Menü" }).click();
-  await page.locator(".lang-switch").getByRole("link", { name: "EN", exact: true }).click();
+  await page.locator(".lang-switch").getByRole("link", { name: "English (EN)", exact: true }).click();
   await page.waitForURL("**/content-relationships");
   await page.waitForFunction(() => document.documentElement.lang === "en");
   assert.equal(await page.locator("main h1").innerText(), "Content relationships");
