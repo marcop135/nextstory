@@ -9,9 +9,8 @@
 
 ### Security
 
-- Compare the preview and webhook secrets in constant time.
+- Compare the preview and webhook secrets in constant time and pin GitHub Actions to commit SHAs.
 - Send a `Cross-Origin-Opener-Policy` header and deny payment, USB, and Topics in `Permissions-Policy`.
-- Pin GitHub Actions to commit SHAs.
 
 ## [0.15.2] - 2026-11-17
 
