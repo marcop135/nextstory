@@ -47,13 +47,15 @@ See [Architecture](docs/architecture.md) for request flows.
 
 | Layer | Tools |
 | --- | --- |
-| Framework | Next.js 16 App Router, React 19, TypeScript 5 |
-| Content | Storyblok headless CMS via `@storyblok/react`, English and German |
+| Language | TypeScript 5 |
+| Framework | Next.js 16 App Router, React 19 |
 | Styling | Plain CSS |
+| Content | Storyblok headless CMS via `@storyblok/react`, English and German |
 | Leads | HubSpot Forms API v3, Cloudflare Turnstile bot check |
+| Quality | Vitest, Playwright, ESLint, TypeScript |
 | Analytics | Matomo through Tag Manager, cookieless |
-| Testing | Vitest, Playwright, ESLint |
-| Delivery | Vercel hosting, GitHub Actions CI, Dependabot |
+| Hosting | Vercel |
+| CI | GitHub Actions, Dependabot |
 
 ## Quick start
 
