@@ -5,12 +5,13 @@ import type { NextRequest } from "next/server";
 import { normalizeStorySlug, parseStorySegments, publicPathForSlug } from "@/lib/story-path";
 import { defaultLocale, isLocale, storyblokLanguage } from "@/lib/i18n";
 import { fetchStory, type StoryResult } from "@/lib/fetch-story";
+import { secretMatches } from "@/lib/secret";
 
 export async function GET(request: NextRequest) {
   const secret = request.nextUrl.searchParams.get("secret");
 
   const expected = process.env.STORYBLOK_PREVIEW_SECRET?.trim();
-  if (!expected || secret !== expected) {
+  if (!secretMatches(secret, expected)) {
     return new Response("Invalid preview secret", { status: 401 });
   }
 
