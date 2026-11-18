@@ -9,11 +9,11 @@
 
 ### Fixed
 
-- Accessibility: Name the scrollable code blocks as regions so screen readers announce their labels.
-- Accessibility: Announce the full language name on the EN/DE switch.
-- Accessibility: Return focus to the menu button when Escape closes the mobile menu.
-- Accessibility: Mark the campaign form's email and consent fields as required.
-- Accessibility: Announce the footer source link's new tab and mark English-only footer links `hreflang="en"`.
+- A11y: Name the scrollable code blocks as regions so screen readers announce their labels.
+- A11y: Announce the full language name on the EN/DE switch.
+- A11y: Return focus to the menu button when Escape closes the mobile menu.
+- A11y: Mark the campaign form's email and consent fields as required.
+- A11y: Announce the footer source link's new tab and mark English-only footer links `hreflang="en"`.
 
 ## [0.15.2] - 2026-11-17
 
