@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server";
 import { CONFIG_SLUG, normalizeStorySlug, publicPathForSlug } from "@/lib/story-path";
 import { locales } from "@/lib/i18n";
 import { storyblokCacheTag, storyCacheTag, relatedContentCacheTag } from "@/lib/story-cache";
+import { secretMatches } from "@/lib/secret";
 
 // Expire immediately: a publish must show on the next request, not after a stale serve.
 const expireNow = { expire: 0 };
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
     request.headers.get("x-revalidate-secret");
   const expected = process.env.STORYBLOK_REVALIDATE_SECRET?.trim();
 
-  if (!expected || secret !== expected) {
+  if (!secretMatches(secret, expected)) {
     return Response.json({ ok: false, error: "Unauthorized" }, { status: 401 });
   }
 

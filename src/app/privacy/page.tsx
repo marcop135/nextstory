@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import JsonLd from "@/components/JsonLd";
-import { AUTHOR, INDEX_ROBOTS, OG_IMAGE, SITE_NAME, SITE_URL, pageJsonLd } from "@/lib/site";
+import { AUTHOR, INDEX_ROBOTS, OG_IMAGE, PRIVACY_UPDATED, SITE_NAME, SITE_URL, pageJsonLd } from "@/lib/site";
 
 const title = "Privacy notice for nextstory.marcopontili.com";
 const description =
@@ -27,7 +27,7 @@ export default function PrivacyPage() {
   return (
     <main id="main" tabIndex={-1} className="wrap prose">
       <h1>Privacy</h1>
-      <p className="meta">Last updated: 2026-11-06</p>
+      <p className="meta">Last updated: {PRIVACY_UPDATED}</p>
       <p>
         This notice covers the demo site at {SITE_URL.replace("https://", "")}.
         The source code is public; running it yourself is outside this notice.
