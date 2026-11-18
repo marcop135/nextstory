@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.15.3] - 2026-11-18
+
 ### Changed
 
 - Deps: Update Next.js to 16.4.6, `@storyblok/react` to 7.5.1, and Playwright to 1.65.1 ([#129](https://github.com/marcop135/nextstory/pull/129)).
