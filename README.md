@@ -9,8 +9,6 @@
 
 # Next Story
 
-A [Next.js](https://nextjs.org/) App Router and [Storyblok](https://www.storyblok.com/) learning project. Explore content modeling, draft preview, localization, caching, and read-only agent access, with each feature linked to its source.
-
 [![CI](https://img.shields.io/github/actions/workflow/status/marcop135/nextstory/ci.yml?branch=develop&label=CI)](https://github.com/marcop135/nextstory/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/marcop135/nextstory?label=Release)](https://github.com/marcop135/nextstory/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
@@ -19,6 +17,8 @@ A [Next.js](https://nextjs.org/) App Router and [Storyblok](https://www.storyblo
 [![React 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Storyblok](https://img.shields.io/badge/Storyblok-CMS-09B3AF?logo=storyblok&logoColor=white)](https://www.storyblok.com/)
+
+A [Next.js](https://nextjs.org/) App Router and [Storyblok](https://www.storyblok.com/) learning project. Explore content modeling, draft preview, localization, caching, and read-only agent access, with each feature linked to its source.
 
 ## Explore the demo
 
@@ -94,6 +94,10 @@ All variables are optional in local mode. Set them in `.env` for CMS mode:
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 Bug reports and feature requests go through [issues](https://github.com/marcop135/nextstory/issues). Vulnerabilities go through [SECURITY.md](./SECURITY.md) instead.
+
+## Related
+
+[Next Fold](https://github.com/marcop135/nextfold) is the Sanity counterpart: typed page sections, an embedded Studio, and GROQ queries.
 
 ## Author
 
