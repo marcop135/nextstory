@@ -79,6 +79,7 @@ it("lists the repository link first in the Project group, with a GitHub icon", (
   usePathname.mockReturnValue("/de");
   const html = renderToStaticMarkup(createElement(SiteFooter, { copy }));
   expect(html).toMatch(/class="footer-source" href="https:\/\/github.com\/marcop135\/nextstory" target="_blank" rel="noopener noreferrer"/);
-  expect(html).toMatch(/id="footer-project">Projekt<\/h2><a class="footer-source"[^>]*><svg[^>]*>.*?<\/svg>Quellcode<\/a><a href="[^"]*\/docs">/);
+  expect(html).toMatch(/id="footer-project">Projekt<\/h2><a class="footer-source"[^>]*><svg[^>]*>.*?<\/svg>Quellcode<span class="visually-hidden"> \(öffnet in neuem Tab\)<\/span><\/a><a href="[^"]*\/docs">/);
+  expect(html).toMatch(/<a hrefLang="en" href="\/privacy">Datenschutz<\/a>/);
   expect(html.match(/href="https:\/\/github.com\/marcop135\/nextstory"/g)).toHaveLength(1);
 });

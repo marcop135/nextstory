@@ -7,6 +7,15 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Name the scrollable code blocks as regions so screen readers announce their labels.
+- Announce the full language name on the EN/DE switch.
+- Return focus to the menu button when Escape closes the mobile menu.
+- Mark the campaign form's email and consent fields as required.
+- Announce that the footer source link opens in a new tab.
+- Mark footer links to English-only pages with `hreflang="en"` on German pages.
+
 ## [0.15.2] - 2026-11-17
 
 ### Fixed
