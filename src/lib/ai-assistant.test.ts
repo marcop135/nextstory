@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 
+import { readFileSync } from "node:fs";
+import { runInNewContext } from "node:vm";
+
 import {
   matomoTrackingUrl,
   shouldSkipPath,
@@ -26,6 +29,30 @@ describe("uaIsAiAssistant", () => {
     "Googlebot/2.1",
   ])("ignores %s", (ua) => {
     expect(uaIsAiAssistant(ua)).toBe(false);
+  });
+});
+
+describe("analytics signals", () => {
+  it("loads the Matomo container when Do Not Track or Global Privacy Control is on", () => {
+    const source = readFileSync(new URL("../../public/matomo.js", import.meta.url), "utf8");
+    const load = (nav: { doNotTrack?: string | null; globalPrivacyControl?: boolean }) => {
+      const created: string[] = [];
+      runInNewContext(source, {
+        navigator: nav,
+        window: {},
+        document: {
+          createElement: () => ({ async: false, src: "" }),
+          getElementsByTagName: () => [{ parentNode: { insertBefore: (node: { src: string }) => created.push(node.src) } }],
+        },
+        Date,
+      });
+      return created;
+    };
+    const container = ["https://mt.marcopontili.com/c/ZaEgDcKb.js"];
+    expect(load({ doNotTrack: "1" })).toEqual(container);
+    expect(load({ globalPrivacyControl: true })).toEqual(container);
+    expect(load({ doNotTrack: "1", globalPrivacyControl: true })).toEqual(container);
+    expect(load({})).toEqual(container);
   });
 });
 
@@ -69,7 +96,7 @@ describe("matomoTrackingUrl", () => {
 });
 
 describe("proxy", () => {
-  async function run(ua: string, path: string) {
+  async function run(ua: string, path: string, extra?: Record<string, string>) {
     const { proxy } = await import("@/proxy");
     const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 204 }));
     vi.stubGlobal("fetch", fetchMock);
@@ -77,7 +104,7 @@ describe("proxy", () => {
     const request = {
       url: `https://nextstory.marcopontili.com${path}`,
       nextUrl: new URL(`https://nextstory.marcopontili.com${path}`),
-      headers: new Headers({ "user-agent": ua }),
+      headers: new Headers({ "user-agent": ua, ...extra }),
     };
     const result = proxy(request as never, { waitUntil } as never);
     return { result, fetchMock, waitUntil };
@@ -115,6 +142,14 @@ describe("proxy", () => {
     expect(german.result.headers.get("x-middleware-request-x-site-locale")).toBe("de");
     const english = await run("Mozilla/5.0 Chrome/141.0", "/denmark");
     expect(english.result.headers.get("x-middleware-request-x-site-locale")).toBe("en");
+  });
+
+  it("reports AI-assistant hits when Do Not Track or Global Privacy Control is sent", async () => {
+    const dnt = await run("Claude-User/1.0", "/blocks", { dnt: "1" });
+    expect(dnt.waitUntil).toHaveBeenCalledOnce();
+    const gpc = await run("Claude-User/1.0", "/blocks", { "sec-gpc": "1" });
+    expect(gpc.waitUntil).toHaveBeenCalledOnce();
+    expect(gpc.fetchMock).toHaveBeenCalledOnce();
   });
 
   it("ignores browsers and static assets", async () => {
