@@ -9,8 +9,10 @@
 
 ### Fixed
 
-- Accessibility: Name code blocks as regions and announce full language names on the EN/DE switch.
-- Accessibility: Return focus to the menu button on Escape and mark required campaign form fields.
+- Accessibility: Name the scrollable code blocks as regions so screen readers announce their labels.
+- Accessibility: Announce the full language name on the EN/DE switch.
+- Accessibility: Return focus to the menu button when Escape closes the mobile menu.
+- Accessibility: Mark the campaign form's email and consent fields as required.
 - Accessibility: Announce the footer source link's new tab and mark English-only footer links `hreflang="en"`.
 
 ## [0.15.2] - 2026-11-17
