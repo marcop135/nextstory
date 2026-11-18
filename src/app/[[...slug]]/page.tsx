@@ -8,7 +8,7 @@ import StoryRenderer from "@/components/StoryRenderer";
 import type { PageBlok } from "@/components/types";
 import { fetchStory } from "@/lib/fetch-story";
 import { hreflangAlternates, storyblokLanguage } from "@/lib/i18n";
-import { INDEX_ROBOTS, SITE_NAME, ogImageFor, pageJsonLd } from "@/lib/site";
+import { INDEX_ROBOTS, SITE_NAME, notFoundTitle, ogImageFor, pageJsonLd } from "@/lib/site";
 import { isPageSlug, parseStorySegments } from "@/lib/story-path";
 import { markdownPathForPage } from "@/lib/agent-paths";
 
@@ -25,7 +25,7 @@ export async function generateMetadata({
     ? await fetchStory(slug, storyblokLanguage(locale))
     : null;
   if (!result) {
-    return { title: "Not found" };
+    return { title: { absolute: notFoundTitle(locale) } };
   }
 
   const content = result.story.content as PageBlok;

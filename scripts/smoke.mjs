@@ -16,6 +16,10 @@ const pages = [
   ["/de", "de", "Jeden Markt aus einem Content-Modell bedienen"],
   ["/de/how-it-works", "de", "In vier Schritten vom Entwurf zur Live-Seite"],
   ["/de/blocks", "de", "Jeder Block dieser Site"],
+  ["/cache-invalidation", "en", "Cache invalidation"],
+  ["/content-relationships", "en", "Content relationships"],
+  ["/de/cache-invalidation", "de", "Cache-Invalidierung"],
+  ["/de/content-relationships", "de", "Inhalte verknüpfen"],
   ["/privacy", "en", "Privacy"],
   ["/for-agents", "en", "For agents"],
 ];

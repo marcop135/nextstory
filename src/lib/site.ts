@@ -2,7 +2,11 @@ export const SITE_URL = "https://nextstory.marcopontili.com";
 export const SITE_NAME = "Next Story";
 export const REPO_URL = "https://github.com/marcop135/nextstory";
 /** Shown on the privacy page and sent as its sitemap lastmod. */
-export const PRIVACY_UPDATED = "2026-11-06";
+export const PRIVACY_UPDATED = "2026-11-18";
+
+/** Document title for a missing page. Long enough for the metadata bound, and noindex. */
+export const notFoundTitle = (locale: string) =>
+  locale === "de" ? "Seite nicht gefunden · Next Story" : "Page not found · Next Story demo";
 export const SITE_DESCRIPTION =
   "Explore Storyblok blocks in Next.js App Router: server rendering, draft preview, publish webhooks, localized caching, and read-only content access.";
 export const SITE_DESCRIPTION_DE =
