@@ -94,6 +94,7 @@ for (const path of ["/how-it-works", "/de/blocks"]) {
   check(sitemap.includes(`${path}</loc>`), `sitemap.xml: missing ${path}`);
 }
 check(!sitemap.includes("/config<"), "sitemap.xml: lists the config story");
+check(sitemap.includes("hreflang=\"x-default\""), "sitemap.xml: no x-default alternate");
 check(!sitemap.includes("/pricing<"), "sitemap.xml: lists the removed Pricing page");
 for (const [path, destination] of [["/pricing", "/"], ["/de/pricing", "/de"]]) {
   const res = await fetch(base + path, { redirect: "manual" });

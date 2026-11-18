@@ -1,6 +1,6 @@
 {
   "name": "nextstory",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "private": false,
   "description": "Next.js App Router + Storyblok headless CMS demo",
   "scripts": {

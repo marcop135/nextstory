@@ -83,7 +83,7 @@ npm run storyblok:types:check  # CI: fails when the generated types are stale
 | `--dry-run` | Read remote state and report changes without writing |
 | `--snapshot <file>` | Export remote story state to a new file; read-only |
 | `--baseline <file>` | Require remote story state to match the reviewed snapshot before replacing content |
-| `--publish` | Publish the selected seed content, rather than saving drafts |
+| `--publish` | Publish the selected seed content; without it, the import saves drafts |
 
 Without selectors, writes require `--bootstrap`. Baselines protect story content, not component schemas; keep snapshots outside version control. Publication sends the selected local seed content, not an arbitrary editor draft. If the remote story differs, review a fresh snapshot before replacing it.
 

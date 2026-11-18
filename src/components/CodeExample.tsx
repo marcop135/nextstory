@@ -12,7 +12,7 @@ export default function CodeExample({ blok }: { blok: CodeExampleBlok }) {
         {blok.explanation ? <p className="section-intro">{blok.explanation}</p> : null}
         <figure>
           <div className="code-example__bar"><span>{blok.language || "text"}</span>{href ? <a href={href}>{blok.source_path}</a> : null}</div>
-          <pre tabIndex={0} aria-label={blok.caption || blok.headline}><code>{blok.code}</code></pre>
+          <pre tabIndex={0} role="region" aria-label={blok.caption || blok.headline}><code>{blok.code}</code></pre>
           {blok.caption ? <figcaption>{blok.caption}</figcaption> : null}
         </figure>
       </div>
