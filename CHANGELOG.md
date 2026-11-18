@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.15.4] - 2026-11-18
+
 ### Added
 
 - Privacy: Serve `/.well-known/gpc.json` and keep Matomo loaded ([#138](https://github.com/marcop135/nextstory/pull/138)) ([#137](https://github.com/marcop135/nextstory/issues/137)).
