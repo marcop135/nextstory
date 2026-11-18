@@ -7,6 +7,21 @@
 
 ## [Unreleased]
 
+## [0.15.4] - 2026-11-18
+
+### Added
+
+- Privacy: Serve `/.well-known/gpc.json` and keep Matomo loaded ([#138](https://github.com/marcop135/nextstory/pull/138)) ([#137](https://github.com/marcop135/nextstory/issues/137)).
+
+### Changed
+
+- Privacy: State that Matomo loads when Do Not Track or Global Privacy Control is on ([#138](https://github.com/marcop135/nextstory/pull/138)) ([#137](https://github.com/marcop135/nextstory/issues/137)).
+
+### Fixed
+
+- Metadata: Lengthen the cache invalidation and content relationships descriptions past 70 characters ([#138](https://github.com/marcop135/nextstory/pull/138)) ([#137](https://github.com/marcop135/nextstory/issues/137)).
+- A11y: Name the missing page in the 404 title, and show the 404 and error pages in German ([#138](https://github.com/marcop135/nextstory/pull/138)) ([#137](https://github.com/marcop135/nextstory/issues/137)).
+
 ## [0.15.3] - 2026-11-18
 
 ### Changed

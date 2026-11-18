@@ -28,3 +28,6 @@ next-env.d.ts
 .vercel
 .env*
 .playwriter*
+
+# audit reports
+.audit/

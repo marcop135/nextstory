@@ -45,8 +45,10 @@ export default function PrivacyPage() {
       <p>
         This site uses a self-hosted, cookieless installation of Matomo, run
         by the controller. No cookies are set and nothing is stored on your
-        device. IP addresses are anonymised. The browser&apos;s Do Not Track
-        signal is honoured: when it is on, no page view is recorded.
+        device. IP addresses are anonymised. The analytics script loads when
+        Do Not Track or Global Privacy Control is on. Neither signal stops
+        this measurement. Global Privacy Control is a request not to sell or
+        share data for advertising, and this site does not do that.
       </p>
       <p>
         When an AI assistant fetches a page on a user&apos;s behalf (for
