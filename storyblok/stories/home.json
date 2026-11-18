@@ -75,7 +75,7 @@
       {
         "_uid": "home-proof",
         "component": "feature_grid",
-        "headline": "What this demo proves",
+        "headline": "What this demo shows",
         "headline__i18n__de": "Was diese Demo zeigt",
         "features": [
           {
@@ -125,8 +125,8 @@
         "component": "comparison_table",
         "headline": "What changes in the CMS, what changes in code",
         "headline__i18n__de": "Was sich im CMS ändert und was im Code",
-        "intro": "Editors work with the blocks developers provide. The content model connects both sides.",
-        "intro__i18n__de": "Die Redaktion arbeitet mit den Blöcken, die die Entwicklung bereitstellt. Das Content-Modell verbindet beide Seiten.",
+        "intro": "Editors work with the blocks developers provide, and the content model connects both sides.",
+        "intro__i18n__de": "Die Redaktion arbeitet mit den Blöcken, die die Entwicklung bereitstellt, und das Content-Modell verbindet beide Seiten.",
         "caption": "Content and component ownership",
         "caption__i18n__de": "Verantwortung für Inhalte und Komponenten",
         "table": {

@@ -31,6 +31,7 @@
   background: var(--surface);
 }
 .campaign-action__note { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.9rem; }
+.campaign-action__required { color: var(--muted); font-weight: 400; }
 .campaign-action label { font-weight: 600; }
 .campaign-action input {
   width: 100%;

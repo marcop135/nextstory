@@ -33,7 +33,9 @@ const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()" },
+  // Turnstile may open a challenge popup, so popups keep their opener.
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
   // UTM variants of a URL share one cache entry.
   { key: "No-Vary-Search", value: 'params=("utm_source" "utm_medium" "utm_campaign")' },
   { key: "Link", value: DISCOVERY_LINK },

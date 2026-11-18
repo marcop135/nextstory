@@ -8,6 +8,7 @@ export type FieldErrors = { email?: string; consent?: string };
 /** Interface copy the CMS does not model: field errors, server outcomes, and success controls. */
 export const formCopy = {
   en: {
+    required: "(required)",
     emailMissing: "Enter your email address.",
     emailInvalid: "Enter an email address in the format name@example.com.",
     consentMissing: "Tick the box to agree before registering.",
@@ -23,6 +24,7 @@ export const formCopy = {
     network: "No response from the server. Check your connection, then try again.",
   },
   de: {
+    required: "(Pflichtfeld)",
     emailMissing: "E-Mail-Adresse eingeben.",
     emailInvalid: "E-Mail-Adresse im Format name@beispiel.de eingeben.",
     consentMissing: "Vor dem Absenden das Kästchen zur Einwilligung ankreuzen.",

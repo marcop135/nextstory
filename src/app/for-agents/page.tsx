@@ -35,7 +35,7 @@ export default function ForAgentsPage() {
 
       <h2 id="page-content" tabIndex={-1}>Reading workflows</h2>
       <ol>
-        {agentTasks.map((task) => <li key={task.name}><strong>{task.name}.</strong> {task.instruction}<pre className="agent-request" tabIndex={0} aria-label={task.name}><code>curl {SITE_URL}{task.request}</code></pre></li>)}
+        {agentTasks.map((task) => <li key={task.name}><strong>{task.name}.</strong> {task.instruction}<pre className="agent-request" tabIndex={0} role="region" aria-label={task.name}><code>curl {SITE_URL}{task.request}</code></pre></li>)}
       </ol>
 
       <h2>Surfaces</h2>
