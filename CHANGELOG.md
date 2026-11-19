@@ -13,7 +13,7 @@
 
 ### Changed
 
-- Campaign: Let visitors pick workshop benefits on the campaign page and confirm each save ([#140](https://github.com/marcop135/nextstory/issues/140)).
+- Campaign: Let visitors pick workshop benefits, see the saved picks by name, and open or update their draft ([#140](https://github.com/marcop135/nextstory/issues/140)).
 
 ## [0.15.4] - 2026-11-18
 

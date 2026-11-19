@@ -80,16 +80,27 @@ it("renders the campaign grid as a checkbox form that reflects the selection", (
   expect(html).not.toContain("Gespeichert:");
 });
 
-it("confirms a save and offers only allow-listed features", () => {
+it("confirms a save by name, opens the draft first, and offers only allow-listed features", () => {
   const story = mockStoryForSlug("campaign-workshop")!;
   const grid = story.content.body.find((blok: { _uid: string }) => blok._uid === "workshop-benefits");
   grid.features.push({ _uid: "workshop-feature-2", component: "feature", title: "Unlisted feature" });
-  const html = renderToStaticMarkup(createElement(StoryRenderer, {
-    story, source: "mock", campaignSelection: { selected: ["workshop-feature-1"], locale: "en", saved: true },
+  const render = (selection: { selected: string[]; saved?: boolean }) => renderToStaticMarkup(createElement(StoryRenderer, {
+    story, source: "mock", campaignSelection: { locale: "en", ...selection },
   }));
-  expect(html).toContain("Saved: 1 of 2 features.");
-  expect(html.match(/href="\/campaign-workshop\/draft"/g)).toHaveLength(1);
-  expect(html).not.toContain("Unlisted feature");
+  const saved = render({ selected: ["workshop-feature-1"], saved: true });
+  expect(saved).toContain("<strong>Draft saved. </strong>Your draft page covers: A review process editors can use.");
+  expect(saved).toMatch(/class="btn feature-choice__open" href="\/campaign-workshop\/draft">Open your draft page/);
+  expect(saved).toContain(">Update draft</button>");
+  expect(saved).not.toContain("Build my draft page");
+  expect(saved).toContain('id="feature-choice-workshop-feature-1" type="checkbox" data-saved=""');
+  expect(saved).not.toContain("Unlisted feature");
+  const returning = render({ selected: ["workshop-feature-0"] });
+  expect(returning).toContain("Your draft page covers: Shared page patterns.");
+  expect(returning).not.toContain("Draft saved.");
+  const fresh = render({ selected: [] });
+  expect(fresh).toContain(">Build my draft page</button>");
+  expect(fresh).not.toContain("feature-choice__open");
+  expect(render({ selected: [], saved: true })).toContain("Nothing saved. Pick at least one feature");
 });
 
 it("keeps the plain feature grid without a selection prop or on other stories", () => {
