@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.16.1] - 2026-11-19
+
 ### Fixed
 
 - Campaign: Require a workshop pick before saving a draft ([#144](https://github.com/marcop135/nextstory/pull/144)) ([#143](https://github.com/marcop135/nextstory/issues/143)).
