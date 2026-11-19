@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { storyblokEditable } from "@storyblok/react/rsc";
 
+import CampaignChoiceForm from "@/components/CampaignChoiceForm";
 import {
   CAMPAIGN_DRAFT_FEATURES,
   CAMPAIGN_DRAFT_GRID,
@@ -17,6 +18,7 @@ const copy = {
     saved: "Draft saved.",
     covers: "Your draft page covers:",
     none: "Nothing saved. Pick at least one feature to build your draft page.",
+    empty: "Pick at least one feature before saving your draft.",
     dirty: "You changed your picks. Update the draft to apply them.",
   },
   de: {
@@ -27,6 +29,7 @@ const copy = {
     saved: "Entwurf gespeichert.",
     covers: "Ihre Entwurfsseite zeigt:",
     none: "Nichts gespeichert. Mindestens einen Inhalt wählen, um die Entwurfsseite zu erstellen.",
+    empty: "Mindestens einen Inhalt wählen, bevor der Entwurf gespeichert wird.",
     dirty: "Auswahl geändert. Entwurf aktualisieren, um sie zu übernehmen.",
   },
 };
@@ -34,8 +37,9 @@ const copy = {
 /**
  * The campaign page's benefits grid as a plain HTML form. It posts to
  * /api/campaign-draft without JavaScript; the checkboxes reflect the cookie.
- * With a saved draft the primary action opens it; once a checkbox differs
- * from the saved picks, CSS (`:has`) promotes "Update draft" instead.
+ * With a saved draft, Open is the primary action and Update is secondary.
+ * Once a checkbox differs from the saved picks, CSS (`:has`) swaps that pair.
+ * Submitting with nothing checked shows an error and does not save.
  */
 export default function CampaignFeatureForm({ blok }: { blok: CampaignFeatureFormBlok }) {
   const text = copy[blok.locale];
@@ -47,9 +51,9 @@ export default function CampaignFeatureForm({ blok }: { blok: CampaignFeatureFor
     <section id={CAMPAIGN_DRAFT_GRID} className="feature-grid" {...storyblokEditable(blok)}>
       <div className="wrap">
         {blok.headline ? <h2>{blok.headline}</h2> : null}
-        <form className={`feature-choice${hasDraft ? " feature-choice--saved" : ""}`} method="post" action="/api/campaign-draft">
+        <CampaignChoiceForm className={`feature-choice${hasDraft ? " feature-choice--saved" : ""}`}>
           <input type="hidden" name="locale" value={blok.locale} />
-          <fieldset>
+          <fieldset aria-invalid={blok.empty || undefined} aria-describedby={blok.empty ? "feature-choice-error" : undefined}>
             <legend>{text.legend}</legend>
             <div className="feature-grid__list">
               {features.map((feature) => {
@@ -84,6 +88,7 @@ export default function CampaignFeatureForm({ blok }: { blok: CampaignFeatureFor
               <p className="feature-choice__summary feature-choice__summary--empty">{text.none}</p>
             ) : null}
           </div>
+          <p id="feature-choice-error" className="feature-choice__summary feature-choice__summary--invalid" role="alert" tabIndex={-1} hidden={!blok.empty}>{text.empty}</p>
           {hasDraft ? (
             <div className="feature-choice__actions">
               <Link className="btn feature-choice__open" href={campaignDraftPath(blok.locale)}>{text.open}</Link>
@@ -95,7 +100,7 @@ export default function CampaignFeatureForm({ blok }: { blok: CampaignFeatureFor
               <button className="btn" type="submit">{text.build}</button>
             </div>
           )}
-        </form>
+        </CampaignChoiceForm>
       </div>
     </section>
   );

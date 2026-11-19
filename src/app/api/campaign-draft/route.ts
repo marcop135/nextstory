@@ -75,9 +75,15 @@ export async function POST(request: NextRequest) {
   }
   const selected = [...new Set(featureUids as string[])];
   if (selected.some((id) => !published.includes(id))) return fail("invalid_request", 400);
+  const locale = submission.locale && isLocale(submission.locale) ? submission.locale : defaultLocale;
+  if (selected.length === 0) {
+    if (!submission.form) return fail("invalid_request", 400);
+    const response = NextResponse.redirect(new URL(`${campaignPath(locale)}?error=empty#${CAMPAIGN_DRAFT_GRID}`, request.nextUrl.origin), 303);
+    response.headers.set("Cache-Control", "no-store");
+    return response;
+  }
 
   const value = signCampaignDraft(selected, secret);
-  const locale = submission.locale && isLocale(submission.locale) ? submission.locale : defaultLocale;
   const response = submission.form
     ? NextResponse.redirect(new URL(`${campaignPath(locale)}?saved=1#${CAMPAIGN_DRAFT_GRID}`, request.nextUrl.origin), 303)
     : NextResponse.json({ ok: true, featureUids: published.filter((id) => selected.includes(id)) });

@@ -84,12 +84,13 @@ it("confirms a save by name, opens the draft first, and offers only allow-listed
   const story = mockStoryForSlug("campaign-workshop")!;
   const grid = story.content.body.find((blok: { _uid: string }) => blok._uid === "workshop-benefits");
   grid.features.push({ _uid: "workshop-feature-2", component: "feature", title: "Unlisted feature" });
-  const render = (selection: { selected: string[]; saved?: boolean }) => renderToStaticMarkup(createElement(StoryRenderer, {
+  const render = (selection: { selected: string[]; saved?: boolean; empty?: boolean }) => renderToStaticMarkup(createElement(StoryRenderer, {
     story, source: "mock", campaignSelection: { locale: "en", ...selection },
   }));
   const saved = render({ selected: ["workshop-feature-1"], saved: true });
   expect(saved).toContain("<strong>Draft saved. </strong>Your draft page covers: A review process editors can use.");
   expect(saved).toMatch(/class="btn feature-choice__open" href="\/campaign-workshop\/draft">Open your draft page/);
+  expect(saved).toContain('class="btn btn--secondary feature-choice__update"');
   expect(saved).toContain(">Update draft</button>");
   expect(saved).not.toContain("Build my draft page");
   expect(saved).toContain('id="feature-choice-workshop-feature-1" type="checkbox" data-saved=""');
@@ -99,8 +100,14 @@ it("confirms a save by name, opens the draft first, and offers only allow-listed
   expect(returning).not.toContain("Draft saved.");
   const fresh = render({ selected: [] });
   expect(fresh).toContain(">Build my draft page</button>");
+  expect(fresh).toContain('id="feature-choice-error"');
+  expect(fresh).toContain("hidden=\"\"");
   expect(fresh).not.toContain("feature-choice__open");
   expect(render({ selected: [], saved: true })).toContain("Nothing saved. Pick at least one feature");
+  const rejected = render({ selected: [], empty: true });
+  expect(rejected).toContain("Pick at least one feature before saving your draft.");
+  expect(rejected).toContain('aria-invalid="true"');
+  expect(rejected).not.toMatch(/id="feature-choice-error"[^>]*hidden/);
 });
 
 it("keeps the plain feature grid without a selection prop or on other stories", () => {

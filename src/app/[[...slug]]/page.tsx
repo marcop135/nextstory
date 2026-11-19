@@ -69,11 +69,13 @@ export default async function StoryPage({ params, searchParams }: PageProps) {
   const { isEnabled: preview } = await draftMode();
   // Only the campaign page reads the request cookie, so other pages stay cacheable.
   const draftSecret = slug === CAMPAIGN_DRAFT_SLUG && !preview ? campaignDraftSecret() : null;
+  const query = await searchParams;
   const campaignSelection = draftSecret
     ? {
         selected: readCampaignDraft((await cookies()).get(CAMPAIGN_DRAFT_COOKIE)?.value, draftSecret),
         locale,
-        saved: (await searchParams)?.saved === "1",
+        saved: query?.saved === "1",
+        empty: query?.error === "empty",
       }
     : undefined;
 
