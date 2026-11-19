@@ -9,8 +9,8 @@
 
 ### Fixed
 
-- Campaign: Require a workshop pick before saving a draft ([#143](https://github.com/marcop135/nextstory/issues/143)).
-- Campaign: Show Open and Update as one primary and one secondary button ([#143](https://github.com/marcop135/nextstory/issues/143)).
+- Campaign: Require a workshop pick before saving a draft ([#144](https://github.com/marcop135/nextstory/pull/144)) ([#143](https://github.com/marcop135/nextstory/issues/143)).
+- Campaign: Show Open and Update as one primary and one secondary button ([#144](https://github.com/marcop135/nextstory/pull/144)) ([#143](https://github.com/marcop135/nextstory/issues/143)).
 
 ## [0.16.0] - 2026-11-19
 
