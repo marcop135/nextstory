@@ -7,13 +7,15 @@
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-11-19
+
 ### Added
 
-- Campaign: Show a draft page whose banner, headline, and features follow the picks on the campaign page ([#140](https://github.com/marcop135/nextstory/issues/140)).
+- Campaign: Show a draft page whose banner, headline, and features follow the picks on the campaign page ([#141](https://github.com/marcop135/nextstory/pull/141)) ([#140](https://github.com/marcop135/nextstory/issues/140)).
 
 ### Changed
 
-- Campaign: Let visitors pick workshop benefits, see the saved picks by name, and open or update their draft ([#140](https://github.com/marcop135/nextstory/issues/140)).
+- Campaign: Let visitors pick workshop benefits, see saved picks by name, and open or update their draft ([#141](https://github.com/marcop135/nextstory/pull/141)) ([#140](https://github.com/marcop135/nextstory/issues/140)).
 
 ## [0.15.4] - 2026-11-18
 
