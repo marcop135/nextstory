@@ -54,6 +54,7 @@ Root `.env` configures local development; deployment variables must also be set 
 | `HUBSPOT_FORM_ID` | `/api/lead` | GUID of a HubSpot form with fields `email`, `campaign_id`, `page_language`, `referrer`, and `utm_source` to `utm_term` |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Campaign form | Cloudflare Turnstile site key, inlined at build; empty skips the challenge |
 | `TURNSTILE_SECRET_KEY` | `/api/lead` | Turnstile secret; required before leads are forwarded to HubSpot |
+| `CAMPAIGN_DRAFT_SECRET` | `/api/campaign-draft`, `/campaign-workshop/draft` | Signs the `campaign-draft` cookie; without it the API returns 503 and the campaign page keeps the plain feature grid |
 
 The personal access token and space ID cannot replace the delivery token. Tokens and secrets stay server-side; only the public Turnstile site key uses the `NEXT_PUBLIC_` prefix.
 

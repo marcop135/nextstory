@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { draftMode } from "next/headers";
+import { cookies, draftMode } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import JsonLd from "@/components/JsonLd";
 import StoryRenderer from "@/components/StoryRenderer";
 import type { PageBlok } from "@/components/types";
+import { CAMPAIGN_DRAFT_COOKIE, CAMPAIGN_DRAFT_SLUG, campaignDraftSecret, readCampaignDraft } from "@/lib/campaign-draft";
 import { fetchStory } from "@/lib/fetch-story";
 import { hreflangAlternates, storyblokLanguage } from "@/lib/i18n";
 import { INDEX_ROBOTS, SITE_NAME, notFoundTitle, ogImageFor, pageJsonLd } from "@/lib/site";
@@ -14,6 +15,7 @@ import { markdownPathForPage } from "@/lib/agent-paths";
 
 type PageProps = {
   params: Promise<{ slug?: string[] }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateMetadata({
@@ -56,7 +58,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function StoryPage({ params }: PageProps) {
+export default async function StoryPage({ params, searchParams }: PageProps) {
   const { slug: segments } = await params;
   const { locale, slug, pathname } = parseStorySegments(segments);
   if (!isPageSlug(slug)) notFound();
@@ -65,6 +67,15 @@ export default async function StoryPage({ params }: PageProps) {
   const content = result.story.content as PageBlok;
 
   const { isEnabled: preview } = await draftMode();
+  // Only the campaign page reads the request cookie, so other pages stay cacheable.
+  const draftSecret = slug === CAMPAIGN_DRAFT_SLUG && !preview ? campaignDraftSecret() : null;
+  const campaignSelection = draftSecret
+    ? {
+        selected: readCampaignDraft((await cookies()).get(CAMPAIGN_DRAFT_COOKIE)?.value, draftSecret),
+        locale,
+        saved: (await searchParams)?.saved === "1",
+      }
+    : undefined;
 
   return (
     <>
@@ -78,7 +89,7 @@ export default async function StoryPage({ params }: PageProps) {
           <span className="source-badge">locale: {locale}</span>
         ) : null}
       </aside> : null}
-      <StoryRenderer story={result.story} source={result.source} preview={preview} />
+      <StoryRenderer story={result.story} source={result.source} preview={preview} campaignSelection={campaignSelection} />
       <JsonLd
         data={pageJsonLd({
           path: pathname ? `/${pathname}` : "/",
