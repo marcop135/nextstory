@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Campaign: Show a draft page that follows the features chosen on the campaign page ([#140](https://github.com/marcop135/nextstory/issues/140)).
+
 ## [0.15.4] - 2026-11-18
 
 ### Added
