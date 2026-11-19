@@ -39,10 +39,11 @@ it("accepts the HTML form and redirects to the form on the page that posted it",
   expect(readCampaignDraft(cookieValue(response), "draft-secret")).toEqual(["workshop-feature-0", "workshop-feature-1"]);
 });
 
-it("stores an empty selection when the form has nothing checked", async () => {
+it("sends an empty form back without saving", async () => {
   const response = await POST(request("locale=en", { type: "application/x-www-form-urlencoded" }));
-  expect(response.headers.get("location")).toBe(`${ORIGIN}/campaign-workshop?saved=1#workshop-benefits`);
-  expect(readCampaignDraft(cookieValue(response), "draft-secret")).toEqual([]);
+  expect(response.status).toBe(303);
+  expect(response.headers.get("location")).toBe(`${ORIGIN}/campaign-workshop?error=empty#workshop-benefits`);
+  expect(response.headers.get("set-cookie")).toBeNull();
 });
 
 it.each([
@@ -50,6 +51,7 @@ it.each([
   ["a non-array", { featureUids: "workshop-feature-0" }],
   ["a non-string id", { featureUids: [1] }],
   ["too many ids", { featureUids: Array(11).fill("workshop-feature-0") }],
+  ["an empty selection", { featureUids: [] }],
   ["invalid JSON", "{"],
 ])("rejects %s", async (_, body) => {
   const response = await POST(request(body));

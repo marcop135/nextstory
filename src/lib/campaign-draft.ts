@@ -21,6 +21,8 @@ export type CampaignFeatureFormBlok = Pick<FeatureGridBlok, "_uid" | "_editable"
   locale: Locale;
   selected: string[];
   saved?: boolean;
+  /** The visitor submitted the form with no feature checked. */
+  empty?: boolean;
 };
 
 export function campaignDraftSecret(): string | null {
@@ -82,10 +84,10 @@ function mapBody<T extends object>(content: T, map: (blok: Blok) => Blok | null)
 }
 
 /** Campaign page: the benefits grid becomes a checkbox form that reflects the cookie. */
-export function withCampaignFeatureForm<T extends object>(content: T, selected: string[], locale: Locale, saved = false): T {
+export function withCampaignFeatureForm<T extends object>(content: T, selected: string[], locale: Locale, saved = false, empty = false): T {
   return mapBody(content, (blok) =>
     blok._uid === CAMPAIGN_DRAFT_GRID && blok.component === "feature_grid"
-      ? { ...blok, component: CAMPAIGN_FEATURE_FORM, selected, locale, saved }
+      ? { ...blok, component: CAMPAIGN_FEATURE_FORM, selected, locale, saved, empty }
       : blok,
   );
 }

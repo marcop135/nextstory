@@ -13,14 +13,14 @@ type Props = {
   source: "storyblok" | "mock";
   preview?: boolean;
   /** Campaign page only: render the benefits grid as a form with these features checked. */
-  campaignSelection?: { selected: string[]; locale: Locale; saved?: boolean };
+  campaignSelection?: { selected: string[]; locale: Locale; saved?: boolean; empty?: boolean };
 };
 
 export default function StoryRenderer({ story, source, preview = false, campaignSelection }: Props) {
   registerStoryblokComponents();
   if (preview && source === "storyblok") return <StoryblokStory story={story} />;
   const content = campaignSelection && story.slug === CAMPAIGN_DRAFT_SLUG
-    ? withCampaignFeatureForm(story.content, campaignSelection.selected, campaignSelection.locale, campaignSelection.saved)
+    ? withCampaignFeatureForm(story.content, campaignSelection.selected, campaignSelection.locale, campaignSelection.saved, campaignSelection.empty)
     : story.content;
   // Public renders must not consume the SDK's process-wide live-editing cache.
   return <StoryblokServerComponent blok={content} />;
