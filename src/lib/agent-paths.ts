@@ -11,7 +11,7 @@ export function markdownPathForPage(pathname: string): string | null {
   if (["api", "content", "privacy", "for-agents", "config"].includes(parts[0])) return null;
   if (/^[a-z]{2}$/.test(parts[0]) && parts[0] !== "de") return null;
   const { slug } = parseStorySegments(parts);
-  if (slug === "config") return null;
+  if (slug === "config" || slug === "campaign-workshop/draft") return null;
   return `/content${pathname}.md`;
 }
 

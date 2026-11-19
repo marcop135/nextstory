@@ -73,6 +73,29 @@
 .campaign-action__trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .campaign-action__verification { display: contents; }
 .campaign-action button:disabled { cursor: progress; opacity: 0.7; }
+.feature-choice fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.feature-choice legend { margin-bottom: 1rem; padding: 0; color: var(--muted); }
+.feature-choice__item { display: flex; gap: 0.75rem; align-items: flex-start; }
+.feature-choice__item input { flex: none; width: 1.15rem; height: 1.15rem; margin: 0.2rem 0 0; padding: 0; accent-color: var(--accent); }
+.feature-choice__item label { display: grid; gap: 0.5rem; cursor: pointer; }
+.feature-choice__item strong { font-size: 1.1rem; }
+.feature-choice__item span { color: var(--muted); }
+.feature-choice__actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1.5rem; }
+.feature-choice__result:empty { display: none; }
+.feature-choice__summary { display: flex; gap: 0.6rem; align-items: flex-start; margin: 1.5rem 0 0; padding: 0.85rem 1rem; border: 1px solid color-mix(in oklch, var(--success) 45%, var(--line)); border-radius: 0.5rem; background: color-mix(in oklch, var(--success) 8%, var(--surface)); }
+.feature-choice__summary strong { color: var(--success); }
+.feature-choice__summary--empty { border-color: var(--line); background: var(--surface); color: var(--muted); }
+.feature-choice__check { flex: none; width: 1.35rem; height: 1.35rem; fill: none; stroke: var(--success); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.feature-choice__dirty { display: none; flex-basis: 100%; margin: 0; color: var(--muted); }
+/* A checkbox that differs from the saved draft makes "Update draft" the primary action. */
+.feature-choice--saved:has(input[type="checkbox"][data-saved]:not(:checked), input[type="checkbox"]:not([data-saved]):checked) .feature-choice__result,
+.feature-choice--saved:has(input[type="checkbox"][data-saved]:not(:checked), input[type="checkbox"]:not([data-saved]):checked) .feature-choice__open { display: none; }
+.feature-choice--saved:has(input[type="checkbox"][data-saved]:not(:checked), input[type="checkbox"]:not([data-saved]):checked) .feature-choice__dirty { display: block; }
+.feature-choice--saved:has(input[type="checkbox"][data-saved]:not(:checked), input[type="checkbox"]:not([data-saved]):checked) .feature-choice__update { --btn-bg: var(--accent); --btn-ink: var(--accent-ink); --btn-border: var(--accent); --btn-hover: var(--ink); --btn-hover-ink: var(--surface); }
+#workshop-benefits { scroll-margin-top: 1.5rem; }
+.draft-banner { border-bottom: 1px solid var(--line); background: color-mix(in oklch, var(--accent) 10%, var(--surface)); }
+.draft-banner__inner { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; align-items: baseline; justify-content: space-between; padding-block: 0.75rem; }
+.draft-banner__inner p { margin: 0; }
 @media (min-width: 48rem) {
   .campaign-brief__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .campaign-action__layout { grid-template-columns: 1fr 1fr; }
