@@ -9,11 +9,11 @@
 
 ### Added
 
-- Campaign: Show a draft page that follows the features chosen on the campaign page ([#140](https://github.com/marcop135/nextstory/issues/140)).
+- Campaign: Show a draft page whose banner, headline, and features follow the picks on the campaign page ([#140](https://github.com/marcop135/nextstory/issues/140)).
 
 ### Changed
 
-- Campaign: Let visitors pick workshop benefits on the campaign page, saved in a signed cookie ([#140](https://github.com/marcop135/nextstory/issues/140)).
+- Campaign: Let visitors pick workshop benefits on the campaign page and confirm each save ([#140](https://github.com/marcop135/nextstory/issues/140)).
 
 ## [0.15.4] - 2026-11-18
 

@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import {
   CAMPAIGN_DRAFT_COOKIE,
+  CAMPAIGN_DRAFT_GRID,
   CAMPAIGN_DRAFT_MAX_AGE,
   CAMPAIGN_DRAFT_SLUG,
   campaignDraftSecret,
@@ -49,7 +50,7 @@ const cookieOptions = (request: NextRequest) => ({
 /**
  * Store the campaign features a visitor chose in a signed httpOnly cookie.
  * Accepts same-origin JSON (`{ featureUids }`) or the campaign page's HTML
- * form, which is redirected back to the page that posted it. Each id must be
+ * form, which is redirected back to the form on the page that posted it. Each id must be
  * a feature the published campaign story still has.
  */
 export async function POST(request: NextRequest) {
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
   const value = signCampaignDraft(selected, secret);
   const locale = submission.locale && isLocale(submission.locale) ? submission.locale : defaultLocale;
   const response = submission.form
-    ? NextResponse.redirect(new URL(campaignPath(locale), request.nextUrl.origin), 303)
+    ? NextResponse.redirect(new URL(`${campaignPath(locale)}?saved=1#${CAMPAIGN_DRAFT_GRID}`, request.nextUrl.origin), 303)
     : NextResponse.json({ ok: true, featureUids: published.filter((id) => selected.includes(id)) });
   response.headers.set("Cache-Control", "no-store");
   response.cookies.set(CAMPAIGN_DRAFT_COOKIE, value, { ...cookieOptions(request), maxAge: CAMPAIGN_DRAFT_MAX_AGE });

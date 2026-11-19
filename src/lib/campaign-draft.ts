@@ -20,6 +20,7 @@ export type CampaignFeatureFormBlok = Pick<FeatureGridBlok, "_uid" | "_editable"
   component: typeof CAMPAIGN_FEATURE_FORM;
   locale: Locale;
   selected: string[];
+  saved?: boolean;
 };
 
 export function campaignDraftSecret(): string | null {
@@ -81,20 +82,46 @@ function mapBody<T extends object>(content: T, map: (blok: Blok) => Blok | null)
 }
 
 /** Campaign page: the benefits grid becomes a checkbox form that reflects the cookie. */
-export function withCampaignFeatureForm<T extends object>(content: T, selected: string[], locale: Locale): T {
+export function withCampaignFeatureForm<T extends object>(content: T, selected: string[], locale: Locale, saved = false): T {
   return mapBody(content, (blok) =>
     blok._uid === CAMPAIGN_DRAFT_GRID && blok.component === "feature_grid"
-      ? { ...blok, component: CAMPAIGN_FEATURE_FORM, selected, locale }
+      ? { ...blok, component: CAMPAIGN_FEATURE_FORM, selected, locale, saved }
       : blok,
   );
 }
 
-/** Draft page: only the selected features, no grid without a selection, and no lead form. */
-export function campaignDraftContent<T extends object>(content: T, selected: string[]): T {
-  return mapBody(content, (blok) => {
+/** Titles of the selected features, in the published grid's order. */
+export function selectedFeatureTitles(content: unknown, selected: string[]): string[] {
+  return (findGrid(content)?.features ?? [])
+    .filter((feature) => selected.includes(feature._uid ?? ""))
+    .map((feature) => feature.title);
+}
+
+const draftHero = {
+  en: { eyebrow: "Your workshop draft", headline: (topics: string) => `Your workshop: ${topics}`, join: " and ", lead: "Built from the features you picked on the campaign page." },
+  de: { eyebrow: "Ihr Workshop-Entwurf", headline: (topics: string) => `Ihr Workshop: ${topics}`, join: " und ", lead: "Zusammengestellt aus den Inhalten, die Sie auf der Kampagnenseite gewählt haben." },
+};
+
+/**
+ * Draft page: the hero names the selected features, the grid keeps only those
+ * and moves up under the hero, and the lead form is dropped. Without a
+ * selection the hero stays as published and the grid is removed.
+ */
+export function campaignDraftContent<T extends object>(content: T, selected: string[], locale: Locale): T {
+  const titles = selectedFeatureTitles(content, selected);
+  const copy = draftHero[locale];
+  const mapped = mapBody(content, (blok) => {
     if (blok.component === "campaign_action") return null;
+    if (blok.component === "hero" && titles.length) {
+      return { ...blok, eyebrow: copy.eyebrow, headline: copy.headline(titles.join(copy.join)), subheadline: copy.lead };
+    }
     if (blok._uid !== CAMPAIGN_DRAFT_GRID || blok.component !== "feature_grid") return blok;
     const features = ((blok as FeatureGridBlok).features ?? []).filter((feature) => selected.includes(feature._uid ?? ""));
     return features.length ? { ...blok, features } : null;
   });
+  const body = (mapped as { body: Blok[] }).body;
+  const grid = body.findIndex((blok) => blok._uid === CAMPAIGN_DRAFT_GRID);
+  const hero = body.findIndex((blok) => blok.component === "hero");
+  if (grid > hero + 1) body.splice(hero + 1, 0, ...body.splice(grid, 1));
+  return mapped;
 }

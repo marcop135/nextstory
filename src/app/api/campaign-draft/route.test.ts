@@ -31,17 +31,17 @@ it("signs the selection into an httpOnly cookie", async () => {
   expect(readCampaignDraft(cookieValue(response), "draft-secret")).toEqual(["workshop-feature-1"]);
 });
 
-it("accepts the HTML form and redirects to the page that posted it", async () => {
+it("accepts the HTML form and redirects to the form on the page that posted it", async () => {
   const form = new URLSearchParams([["locale", "de"], ["featureUids", "workshop-feature-0"], ["featureUids", "workshop-feature-1"]]);
   const response = await POST(request(form.toString(), { type: "application/x-www-form-urlencoded" }));
   expect(response.status).toBe(303);
-  expect(response.headers.get("location")).toBe(`${ORIGIN}/de/campaign-workshop`);
+  expect(response.headers.get("location")).toBe(`${ORIGIN}/de/campaign-workshop?saved=1#workshop-benefits`);
   expect(readCampaignDraft(cookieValue(response), "draft-secret")).toEqual(["workshop-feature-0", "workshop-feature-1"]);
 });
 
 it("stores an empty selection when the form has nothing checked", async () => {
   const response = await POST(request("locale=en", { type: "application/x-www-form-urlencoded" }));
-  expect(response.headers.get("location")).toBe(`${ORIGIN}/campaign-workshop`);
+  expect(response.headers.get("location")).toBe(`${ORIGIN}/campaign-workshop?saved=1#workshop-benefits`);
   expect(readCampaignDraft(cookieValue(response), "draft-secret")).toEqual([]);
 });
 

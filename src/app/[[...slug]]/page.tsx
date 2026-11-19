@@ -15,6 +15,7 @@ import { markdownPathForPage } from "@/lib/agent-paths";
 
 type PageProps = {
   params: Promise<{ slug?: string[] }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateMetadata({
@@ -57,7 +58,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function StoryPage({ params }: PageProps) {
+export default async function StoryPage({ params, searchParams }: PageProps) {
   const { slug: segments } = await params;
   const { locale, slug, pathname } = parseStorySegments(segments);
   if (!isPageSlug(slug)) notFound();
@@ -69,7 +70,11 @@ export default async function StoryPage({ params }: PageProps) {
   // Only the campaign page reads the request cookie, so other pages stay cacheable.
   const draftSecret = slug === CAMPAIGN_DRAFT_SLUG && !preview ? campaignDraftSecret() : null;
   const campaignSelection = draftSecret
-    ? { selected: readCampaignDraft((await cookies()).get(CAMPAIGN_DRAFT_COOKIE)?.value, draftSecret), locale }
+    ? {
+        selected: readCampaignDraft((await cookies()).get(CAMPAIGN_DRAFT_COOKIE)?.value, draftSecret),
+        locale,
+        saved: (await searchParams)?.saved === "1",
+      }
     : undefined;
 
   return (

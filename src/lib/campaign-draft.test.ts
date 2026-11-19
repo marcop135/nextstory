@@ -7,6 +7,7 @@ import StoryRenderer from "@/components/StoryRenderer";
 import {
   campaignDraftContent,
   publishedFeatureUids,
+  selectedFeatureTitles,
   readCampaignDraft,
   signCampaignDraft,
 } from "@/lib/campaign-draft";
@@ -46,15 +47,22 @@ it("finds the published feature ids in the campaign story", () => {
   expect(publishedFeatureUids(mockStoryForSlug("home")!.content)).toEqual([]);
 });
 
-it("limits the draft grid to the selection and drops the lead form", () => {
+it("limits the draft grid to the selection, moves it under a named hero, and drops the lead form", () => {
   const content = mockStoryForSlug("campaign-workshop")!.content;
-  const one = campaignDraftContent(content, ["workshop-feature-1"]);
+  const one = campaignDraftContent(content, ["workshop-feature-1"], "en");
+  expect(one.body.map((blok: { _uid: string }) => blok._uid).slice(0, 2)).toEqual(["workshop-hero", "workshop-benefits"]);
   const grid = one.body.find((blok: { _uid: string }) => blok._uid === "workshop-benefits");
   expect(grid.features.map((f: { _uid: string }) => f._uid)).toEqual(["workshop-feature-1"]);
   expect(one.body.some((blok: { component: string }) => blok.component === "campaign_action")).toBe(false);
-  const none = campaignDraftContent(content, []);
+  const hero = one.body[0];
+  expect(hero.headline).toBe("Your workshop: A review process editors can use");
+  const de = campaignDraftContent(mockStoryForSlug("campaign-workshop", "de")!.content, ["workshop-feature-0", "workshop-feature-1"], "de");
+  expect(de.body[0].headline).toBe("Ihr Workshop: Gemeinsame Seitenmuster und Ein nutzbarer Redaktionsprozess");
+  const none = campaignDraftContent(content, [], "en");
   expect(none.body.some((blok: { _uid: string }) => blok._uid === "workshop-benefits")).toBe(false);
+  expect(none.body[0].headline).toBe(content.body[0].headline);
   expect(content.body.find((blok: { _uid: string }) => blok._uid === "workshop-benefits").features).toHaveLength(2);
+  expect(selectedFeatureTitles(content, ["workshop-feature-1", "workshop-feature-0"])).toEqual(["Shared page patterns", "A review process editors can use"]);
 });
 
 it("renders the campaign grid as a checkbox form that reflects the selection", () => {
@@ -68,6 +76,20 @@ it("renders the campaign grid as a checkbox form that reflects the selection", (
   expect(html).toContain('name="featureUids" value="workshop-feature-1"');
   expect(html).toContain('href="/de/campaign-workshop/draft"');
   expect(html).toContain("Gemeinsame Seitenmuster");
+  expect(html).toContain('id="workshop-benefits"');
+  expect(html).not.toContain("Gespeichert:");
+});
+
+it("confirms a save and offers only allow-listed features", () => {
+  const story = mockStoryForSlug("campaign-workshop")!;
+  const grid = story.content.body.find((blok: { _uid: string }) => blok._uid === "workshop-benefits");
+  grid.features.push({ _uid: "workshop-feature-2", component: "feature", title: "Unlisted feature" });
+  const html = renderToStaticMarkup(createElement(StoryRenderer, {
+    story, source: "mock", campaignSelection: { selected: ["workshop-feature-1"], locale: "en", saved: true },
+  }));
+  expect(html).toContain("Saved: 1 of 2 features.");
+  expect(html.match(/href="\/campaign-workshop\/draft"/g)).toHaveLength(1);
+  expect(html).not.toContain("Unlisted feature");
 });
 
 it("keeps the plain feature grid without a selection prop or on other stories", () => {

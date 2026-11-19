@@ -81,6 +81,12 @@
 .feature-choice__item strong { font-size: 1.1rem; }
 .feature-choice__item span { color: var(--muted); }
 .feature-choice__actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1.5rem; }
+.feature-choice__status { margin: 1rem 0 0; color: var(--success); font-weight: 600; }
+.feature-choice__status:empty { display: none; }
+#workshop-benefits { scroll-margin-top: 1.5rem; }
+.draft-banner { border-bottom: 1px solid var(--line); background: color-mix(in oklch, var(--accent) 10%, var(--surface)); }
+.draft-banner__inner { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; align-items: baseline; justify-content: space-between; padding-block: 0.75rem; }
+.draft-banner__inner p { margin: 0; }
 @media (min-width: 48rem) {
   .campaign-brief__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .campaign-action__layout { grid-template-columns: 1fr 1fr; }
