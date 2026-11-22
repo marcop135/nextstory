@@ -27,7 +27,15 @@ export default function RelatedContent({ blok }: Props) {
         <div className="feature-grid__list">
           {blok.resolved_notes.map((note) => (
             <article className="feature feature--link" key={note.uuid}>
-              <h3><Link href={note.href}>{note.title}</Link></h3>
+              <h3>
+                <Link href={note.href}>
+                  {note.title}
+                  <span className="feature__arrow" aria-hidden="true">
+                    {" "}
+                    →
+                  </span>
+                </Link>
+              </h3>
               {note.summary ? <p>{note.summary}</p> : null}
             </article>
           ))}
