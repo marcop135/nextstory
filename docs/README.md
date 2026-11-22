@@ -9,6 +9,7 @@ Run the demo, connect a Storyblok space, and trace content from an editor's draf
 | Run locally or connect your space | [Setup and commands](commands.md) | Requirements, environment variables, imports, preview, webhooks, and connection failures |
 | Edit content or add a block | [Content model](storyblok-schema.md) | Story types, block fields, translations, shared navigation, and related notes |
 | Follow a request through the app | [Architecture](architecture.md) | Delivery modes, server rendering, cache tags, route mapping, and public Markdown |
+| Point a coding agent at a how-to | [Agent skills](agent-skills.md) | In-repo skills for blocks, campaigns, copy, and caching |
 | Verify or release a change | [Development cycle](development-cycle.md) | Local gates, feature PRs, production promotion, tags, and CMS publication |
 
 ## Choose a content source

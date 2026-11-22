@@ -13,8 +13,8 @@
       {
         "_uid": "home-hero",
         "component": "hero",
-        "eyebrow": "Next.js + Storyblok demo",
-        "eyebrow__i18n__de": "Next.js + Storyblok Demo",
+        "eyebrow": "Next.js + Storyblok CMS Demo",
+        "eyebrow__i18n__de": "Next.js + Storyblok CMS-Demo",
         "headline": "Ship every market from one content model",
         "headline__i18n__de": "Jeden Markt aus einem Content-Modell bedienen",
         "subheadline": "A marketing site is more than its pages. Every section here is a Storyblok block editors change without a deploy.",
