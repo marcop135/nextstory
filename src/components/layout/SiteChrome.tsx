@@ -11,8 +11,6 @@ import { defaultLocale, localeForPathname, type Locale } from "@/lib/i18n";
 import { AUTHOR, REPO_URL } from "@/lib/site";
 import { version } from "../../../package.json";
 
-const RELEASE_TAG_URL = `https://github.com/marcop135/nextstory/releases/tag/v${version}`;
-
 export type ChromeCopy = {
   nav: { _uid: string; label: string; href: string }[];
   footerNav?: { _uid: string; label: string; href: string }[];
@@ -111,9 +109,7 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
         <div>
           <p className="footer-note">
             {copy[locale].footerNote}{" "}
-            <a className="footer-version" href={RELEASE_TAG_URL}>
-              v{version}
-            </a>
+            <span className="footer-version">v{version}</span>
           </p>
           <p>
             {locale === "de" ? "Entwickelt und gepflegt von" : "Built and maintained by"}{" "}

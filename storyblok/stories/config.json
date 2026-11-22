@@ -45,7 +45,7 @@
         "component": "nav_link",
         "label": "Documentation",
         "label__i18n__de": "Dokumentation",
-        "href": "https://github.com/marcop135/nextstory/tree/main/docs"
+        "href": "https://github.com/marcop135/nextstory/blob/main/docs/README.md"
       },
       {
         "_uid": "footer-license",

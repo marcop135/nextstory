@@ -2,7 +2,7 @@
   <a href="https://nextstory.marcopontili.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark-rounded.svg" />
-      <img src=".github/brand/readme-light-rounded.svg" alt="Next Story, Next.js + Storyblok CMS Demo: a marketing site is more than its pages. A page list for How it works, Blocks, Campaign workshop, and For agents" width="100%" />
+      <img src=".github/brand/readme-light-rounded.svg" alt="Next Story, Next.js + Storyblok CMS Demo: editors own the content, developers own the components" width="100%" />
     </picture>
   </a>
 </p>
@@ -23,14 +23,13 @@ Every page shows one part working and links to its code. **Marketers** build pag
 
 ## Features
 
-- Pages and campaigns from shared Storyblok blocks, previewed as drafts before publish
-- One `campaign_id` from Storyblok to the HubSpot contact and the Matomo event
-- Leads checked on the server: same origin, published campaign only, honeypot, rate limit, Turnstile
-- English and German at field level
-- Publish webhooks refresh only the changed pages
+- Shared Storyblok blocks for pages and campaigns, with draft preview before publish
+- Server-checked leads: same origin, published campaign, honeypot, rate limit, Turnstile
+- One `campaign_id` from Storyblok through HubSpot and Matomo
+- Publish webhooks that refresh only the changed pages
+- Field-level English and German
 - Cookieless Matomo analytics
-- Every page links to the code behind it
-- Read-only agent access: Markdown pages, block catalog, API catalog, OpenAPI, agent skills
+- Read-only agent access to Markdown, catalogs, OpenAPI, and skills
 
 ## Explore the demo
 
@@ -54,21 +53,20 @@ Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
 
 See [Architecture](docs/architecture.md) for request flows.
 
-[Content schema](docs/storyblok-schema.md) · [Commands](docs/commands.md) · [Development cycle](docs/development-cycle.md)
+[Content model](docs/storyblok-schema.md) · [Setup and commands](docs/commands.md) · [Development cycle](docs/development-cycle.md)
 
 ## Tech stack
 
 | Layer | Tools |
 | --- | --- |
-| Language | TypeScript 5 |
-| Framework | Next.js 16 App Router, React 19 |
-| Styling | Plain CSS |
-| Content | Storyblok headless CMS via `@storyblok/react`, English and German |
-| Leads | HubSpot Forms API v3, Cloudflare Turnstile bot check |
-| Quality | Vitest, Playwright, ESLint, TypeScript |
-| Analytics | Matomo through Tag Manager, cookieless |
-| Hosting | Vercel |
-| CI | GitHub Actions, Dependabot |
+| Framework | Next.js 16 App Router, React 19, TypeScript 5 |
+| Styling | Plain CSS with cascade layers and `light-dark()` |
+| Content | Storyblok, Visual Editor, HubSpot leads, Turnstile, English and German |
+| Caching | Tagged fetch cache, expired on publish |
+| Quality | ESLint, Storyblok types, GitHub Actions CI, Dependabot |
+| Security | Security headers |
+| Analytics | Self-hosted Matomo, cookieless |
+| Hosting | Vercel, Cloudflare DNS |
 
 ## Quick start
 
@@ -92,19 +90,13 @@ Against a running build:
 
 ## Agent skills
 
-Markdown skills for Claude Code, Cursor, and Codex ship in the repo and load when you open the clone. Each one points an agent at the right how-to and the checks CI runs.
+Four Markdown skills ship once under [`.agents/skills/`](.agents/skills/); [`.claude/skills/`](.claude/skills/) is symlinks so Claude Code, Cursor, and Codex all load the same files. Each skill points at a how-to and the checks CI runs.
 
 [Agent skills docs](docs/agent-skills.md)
 
-Three read-only workflows for visitors and remote agents live at [`/.well-known/agent-skills/index.json`](https://nextstory.marcopontili.com/.well-known/agent-skills/index.json): read a German page, inspect the block model, and trace a block to code. No API key is required.
-
-[For agents](https://nextstory.marcopontili.com/for-agents) lists the same workflows and every public resource.
-
 ## Storyblok setup
 
-Create a space, enable German (`de`), and follow [own-space setup](docs/commands.md#storyblok) for imports, preview, and webhooks. Imports save drafts; replacements require a reviewed snapshot.
-
-All variables are optional in local mode. Set them in `.env` for CMS mode:
+Create a space, enable German (`de`), then follow [own-space setup](docs/commands.md#storyblok). Variables are optional locally; set them in `.env` for CMS mode:
 
 | Variable | Required for | Purpose / default |
 | --- | --- | --- |
@@ -118,10 +110,6 @@ All variables are optional in local mode. Set them in `.env` for CMS mode:
 ## Contributing
 
 Found a bug or have an idea? Open an [issue](https://github.com/marcop135/nextstory/issues), or read [CONTRIBUTING.md](./CONTRIBUTING.md) before a pull request. To report a vulnerability, use [SECURITY.md](./SECURITY.md) instead of a public issue.
-
-## Related
-
-[Next Fold](https://github.com/marcop135/nextfold) is the Sanity counterpart: typed page sections, an embedded Studio, and GROQ queries.
 
 ## Author
 

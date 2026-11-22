@@ -11,12 +11,12 @@ const copy: Record<"en" | "de", ChromeCopy> = {
   en: {
     nav: [{ _uid: "a", label: "Blocks", href: "/blocks" }],
     footerNote: "Next Story demo",
-    footerNav: [{ _uid: "s", label: "Source", href: "https://github.com/marcop135/nextstory" }, { _uid: "d", label: "Docs", href: "https://github.com/marcop135/nextstory/tree/main/docs" }, { _uid: "p", label: "Privacy", href: "/privacy" }],
+    footerNav: [{ _uid: "s", label: "Source", href: "https://github.com/marcop135/nextstory" }, { _uid: "d", label: "Docs", href: "https://github.com/marcop135/nextstory/blob/main/docs/README.md" }, { _uid: "p", label: "Privacy", href: "/privacy" }],
   },
   de: {
     nav: [{ _uid: "a", label: "Blöcke", href: "/de/blocks" }],
     footerNote: "Next-Story-Demo",
-    footerNav: [{ _uid: "s", label: "Quellcode", href: "https://github.com/marcop135/nextstory" }, { _uid: "d", label: "Dokumentation", href: "https://github.com/marcop135/nextstory/tree/main/docs" }, { _uid: "p", label: "Datenschutz", href: "/privacy" }],
+    footerNav: [{ _uid: "s", label: "Quellcode", href: "https://github.com/marcop135/nextstory" }, { _uid: "d", label: "Dokumentation", href: "https://github.com/marcop135/nextstory/blob/main/docs/README.md" }, { _uid: "p", label: "Datenschutz", href: "/privacy" }],
   },
 };
 
@@ -41,7 +41,7 @@ it("switches the header and footer back to English on English routes", () => {
   expect(footer).toContain(">Marco Pontili<");
   expect(footer).toContain('target="_blank"');
   expect(footer).toContain('rel="noopener"');
-  expect(footer).toMatch(/class="footer-version"[^>]*href="https:\/\/github.com\/marcop135\/nextstory\/releases\/tag\/v/);
+  expect(footer).toMatch(/<span class="footer-version">v\d+\.\d+\.\d+<\/span>/);
 });
 
 it("renders localized footer groups and CMS links on German routes", () => {
@@ -82,7 +82,7 @@ it("lists the repository link first in the Project group, with a GitHub icon", (
   usePathname.mockReturnValue("/de");
   const html = renderToStaticMarkup(createElement(SiteFooter, { copy }));
   expect(html).toMatch(/class="footer-source" href="https:\/\/github.com\/marcop135\/nextstory" target="_blank" rel="noopener noreferrer"/);
-  expect(html).toMatch(/id="footer-project">Projekt<\/h2><a class="footer-source"[^>]*><svg[^>]*>.*?<\/svg>Quellcode<span class="visually-hidden"> \(öffnet in neuem Tab\)<\/span><\/a><a href="[^"]*\/docs">/);
+  expect(html).toMatch(/id="footer-project">Projekt<\/h2><a class="footer-source"[^>]*><svg[^>]*>.*?<\/svg>Quellcode<span class="visually-hidden"> \(öffnet in neuem Tab\)<\/span><\/a><a href="[^"]*\/docs\/README\.md">/);
   expect(html).toMatch(/<a hrefLang="en" href="\/privacy">Datenschutz<\/a>/);
   expect(html.match(/href="https:\/\/github.com\/marcop135\/nextstory"/g)).toHaveLength(1);
 });

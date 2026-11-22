@@ -5,7 +5,7 @@ const require = createRequire(import.meta.url);
 const eslintRequire = createRequire(require.resolve("eslint/package.json"));
 const minimatch = eslintRequire("minimatch").minimatch;
 
-describe("legacy lint-plugin glob compatibility", () => {
+describe("eslint minimatch override", () => {
   it("retains callable matching, braces, and negated patterns", () => {
     expect(minimatch("src/page.tsx", "src/*.{ts,tsx}")).toBe(true);
     expect(minimatch("src/page.css", "src/*.{ts,tsx}")).toBe(false);

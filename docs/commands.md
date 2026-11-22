@@ -1,5 +1,7 @@
 # Setup and commands
 
+Install dependencies, run the demo, set environment variables, and connect your own Storyblok space.
+
 Use Node.js `^22.13.0 || >=24` and npm. Run commands from the repository root. Bundled seed stories work without a Storyblok account.
 
 ## Local development
@@ -133,4 +135,6 @@ npm run brand:render    # requires the brand kit's Playwright/sharp tooling
 npm run brand:check
 ```
 
-Sources and tooling: [.github/brand/README.md](../.github/brand/README.md). Local commits, changelog/version ownership, annotated tags, promotion, and CMS publication: [development cycle](development-cycle.md).
+Sources and tooling: [.github/brand/README.md](../.github/brand/README.md). Local commits, changelog/version ownership, annotated tags, promotion, and CMS publication: [Development cycle](development-cycle.md).
+
+[Documentation index](README.md)

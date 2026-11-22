@@ -1,8 +1,10 @@
-# Storyblok space schema (Next Story)
+# Content model
+
+Edit stories and blocks in Storyblok, keep English and German in the same story, and add a block when the demo needs a new section type.
 
 Open [Storyblok](https://app.storyblok.com/), sign in, select the project space, then open **Content** and a story such as `home`. The Visual Editor edits copy, blocks, and translations; `config` holds navigation and the footer. Save keeps a draft; Publish updates the live content through the configured webhook.
 
-[`storyblok/components.json`](../storyblok/components.json) defines the model and generates [`src/types/storyblok.generated.ts`](../src/types/storyblok.generated.ts). [`storyblok/stories/`](../storyblok/stories/) contains localized seed content for imports and offline rendering. [Setup and imports](commands.md#storyblok) covers connecting a space and replacing existing content.
+[`storyblok/components.json`](../storyblok/components.json) defines the model and generates [`src/types/storyblok.generated.ts`](../src/types/storyblok.generated.ts). [`storyblok/stories/`](../storyblok/stories/) contains localized seed content for imports and offline rendering. [Setup and commands: Storyblok](commands.md#storyblok) covers connecting a space and replacing existing content.
 
 ## Blocks
 
@@ -61,3 +63,5 @@ Home uses the viewport-controlled hero and ownership comparison. How-it-works an
 5. Import the selected schema changes, deploy the renderer, then preview and publish reviewed content using the new block.
 
 Use `related_content.stories` for ordered links to shared `learning_note` stories rather than duplicating their text. Targets must be published to appear in public related-content lists; drafts remain available in authenticated preview.
+
+[Documentation index](README.md)

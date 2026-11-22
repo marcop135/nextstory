@@ -287,9 +287,6 @@
 .site-footer .footer-version {
   font-size: 0.8em;
   white-space: nowrap;
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
 }
 
 .footer-mark {

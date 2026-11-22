@@ -1,6 +1,8 @@
 # Architecture
 
-Next Story is a headless CMS demo built with Next.js and Storyblok. Storyblok owns page content; React Server Components define how blocks render. The workshop campaign reuses the shared block model and carries one `campaign_id` from Storyblok to a HubSpot contact and a Matomo event.
+Trace a request from Storyblok delivery through cache tags, draft preview, campaign leads, and public Markdown.
+
+Storyblok owns page content; React Server Components define how blocks render. The workshop campaign reuses the shared block model and carries one `campaign_id` from Storyblok to a HubSpot contact and a Matomo event.
 
 ```mermaid
 flowchart TB
@@ -37,7 +39,11 @@ flowchart TB
 3. Spam controls: a visually hidden `website` honeypot, an in-memory limit of 5 requests per client IP per 10 minutes per server instance, and Turnstile `siteverify` (action `campaign-lead`) when `TURNSTILE_SECRET_KEY` is set. With HubSpot configured and no Turnstile secret the route returns 503 instead of forwarding.
 4. Demo mode: without `HUBSPOT_PORTAL_ID` and `HUBSPOT_FORM_ID` (CI, forks, local seeds) the route validates and returns `{ ok: true, mode: "demo" }` without contacting HubSpot. Otherwise it forwards to the HubSpot Forms API v3 with `hutk` from the `hubspotutk` cookie when present; HubSpot error bodies are never echoed.
 5. On success the form pushes `["trackEvent", "campaign", "lead", campaign_id]` to Matomo's `_paq` queue. HubSpot contacts filtered by `campaign_id` and Matomo events with the same name measure the same campaign.
-6. Campaign draft: on `/campaign-workshop` and `/de/campaign-workshop` the `workshop-benefits` grid renders as a checkbox form ([`CampaignFeatureForm`](../src/components/campaign/CampaignFeatureForm.tsx)) that posts to [`/api/campaign-draft`](../src/app/api/campaign-draft/route.ts) without JavaScript. The route accepts same-origin form or JSON posts, checks each id against the published story, and sets the httpOnly `campaign-draft` cookie: `{ campaignId, featureUids }` HMAC-signed with `CAMPAIGN_DRAFT_SECRET` ([`campaign-draft.ts`](../src/lib/campaign-draft.ts)). A form post redirects back to the form in its locale with `?saved=1`. With a saved draft the form names the saved features and makes "Open your draft page" the primary action; when a checkbox differs from the saved picks, CSS `:has()` swaps in "Update draft" without JavaScript; `DELETE` clears the cookie. Only allow-listed features get a checkbox. `/campaign-workshop/draft` and `/de/campaign-workshop/draft` read the cookie on each request and render the published story under a banner naming the picks: the hero headline names the selected features, the grid keeps only those and moves under the hero, the lead form is dropped, and the page is `noindex`. A bad signature, another `campaignId`, or an unknown id reads as an empty selection. Without the secret the API returns 503 and the campaign page keeps the plain grid. The draft does not enter the lead payload.
+6. Campaign draft (server-read picks, not part of the lead payload):
+   - On `/campaign-workshop` and `/de/campaign-workshop`, the `workshop-benefits` grid renders as a checkbox form ([`CampaignFeatureForm`](../src/components/campaign/CampaignFeatureForm.tsx)) that posts to [`/api/campaign-draft`](../src/app/api/campaign-draft/route.ts) without JavaScript. Only allow-listed features get a checkbox.
+   - The route accepts same-origin form or JSON posts, checks each id against the published story, and sets the httpOnly `campaign-draft` cookie: `{ campaignId, featureUids }` HMAC-signed with `CAMPAIGN_DRAFT_SECRET` ([`campaign-draft.ts`](../src/lib/campaign-draft.ts)). A form post redirects back with `?saved=1`. `DELETE` clears the cookie. Without the secret the API returns 503 and the page keeps the plain feature grid.
+   - With a saved draft the form names the saved features and makes "Open your draft page" the primary action; when a checkbox differs from the saved picks, CSS `:has()` swaps in "Update draft" without JavaScript.
+   - `/campaign-workshop/draft` and `/de/campaign-workshop/draft` read the cookie on each request and render the published story under a banner naming the picks: the hero headline names the selected features, the grid keeps only those and moves under the hero, the lead form is dropped, and the page is `noindex`. A bad signature, another `campaignId`, or an unknown id reads as an empty selection.
 7. `/content/campaigns.json` lists `campaign_id`, page URL, audience, goal, and measure from `campaign_brief` blocks on published pages in both languages; the read-only `get_campaign_brief` browser tool returns it.
 
 ## Public reading resources
@@ -71,3 +77,5 @@ Production runs on Vercel at `https://nextstory.marcopontili.com`. [Environment 
 - [`public/matomo.js`](../public/matomo.js) loads self-hosted, cookieless Matomo (site 5) after hydration; [`MatomoRouteTracker`](../src/components/layout/MatomoRouteTracker.tsx) records client navigations.
 - [`src/proxy.ts`](../src/proxy.ts) reports AI-assistant fetches (`ChatGPT-User`, `Claude-User`, and the rest of the marcopontili.com access-log needles) to Matomo with `recMode=1` via `waitUntil`. It never changes the response.
 - [`next.config.ts`](../next.config.ts) sets CSP, HSTS, `nosniff`, and Referrer-Policy on every route. `frame-ancestors` allows the Storyblok Visual Editor and `script-src` its bridge script; `script-src` and `frame-src` allow Cloudflare Turnstile.
+
+[Documentation index](README.md)

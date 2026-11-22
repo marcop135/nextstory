@@ -1,5 +1,5 @@
-// Next Story brand art: writes og.svg (centered name and one line) and
-// readme-{light,dark}.svg / social.svg (name beside a page list).
+// Next Story brand art: writes og.svg and readme-{light,dark}.svg / social.svg.
+// Left: mono label, wordmark, editors/developers claim. Right: three-block page.
 // Fonts stay as /* @fonts:start */ … /* @fonts:end */ markers for render.mjs.
 // Run from the repository root: node .github/brand/art.mjs, then
 // npm run brand:render, then node scripts/round-readme-images.mjs.
@@ -7,18 +7,21 @@ import { writeFileSync } from "node:fs";
 
 const root = new URL("../../", import.meta.url);
 
-const TAGLINE = "A marketing site is more than its pages.";
+const CLAIM_1 = "Editors own the content.";
+const CLAIM_2 = "Developers own the components.";
 const MONO = "NEXT.JS + STORYBLOK CMS DEMO";
 
 const STYLE = `  <style>
     /* @fonts:start */ /* @fonts:end */
-    .title { font-family: 'Source Sans 3', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
-    .tag { font-family: 'Source Sans 3', sans-serif; font-weight: 400; }
-    .page { font-family: 'Source Sans 3', sans-serif; font-weight: 500; }
-    .mono { font-family: 'Roboto Mono', monospace; font-weight: 400; letter-spacing: 1.5px; }
+    .title { font-family: 'Source Sans 3', sans-serif; font-weight: 700; letter-spacing: -0.025em; }
+    .tag { font-family: 'Source Sans 3', sans-serif; font-weight: 500; }
+    .eyebrow { font-family: 'Source Sans 3', sans-serif; font-weight: 600; letter-spacing: 0.06em; }
+    .mono { font-family: 'Roboto Mono', monospace; font-weight: 400; }
   </style>`;
 
-/** Site tokens from .github/brand/tokens.json. */
+/** Wordmark, mono label, and claims share the safe-area left edge. */
+const LEFT = 80;
+
 const OG = {
   from: "#EFF7FB",
   to: "#F9FCFE",
@@ -29,37 +32,58 @@ const OG = {
 
 const README = {
   light: {
-    bg: "#EFF7FB",
-    surface: "#FFFFFF",
+    groundFrom: "#EFF7FB",
+    groundTo: "#F9FCFE",
     text: "#101C28",
-    muted: "#555F69",
-    border: "#C8D3D9",
     accent: "#006C7D",
-    grid: "#DCE8EE",
-    shadow: "rgba(16,28,40,0.12)",
+    card: "#FFFFFF",
+    cardBorder: "#C8D3D9",
+    label: "#00756B",
+    barMuted: "#9AA7B0",
+    barSoft: "#EFF7FB",
+    ctaFill: "#006C7D",
+    ctaBar: "#7FB6BE",
+    shadow: "#101C28",
+    shadowOpacity: "0.1",
+    heroLabelFill: "#FFFFFF",
+    heroLabelStroke: "#006C7D",
+    heroLabelText: "#006C7D",
+    gridLabelFill: "#00756B",
+    gridLabelStroke: "#00756B",
+    gridLabelText: "#FFFFFF",
+    ctaLabelFill: "#FFFFFF",
+    ctaLabelStroke: "#006C7D",
+    ctaLabelText: "#006C7D",
   },
   dark: {
-    bg: "#091018",
-    surface: "#141E28",
+    groundFrom: "#091018",
+    groundTo: "#0E1721",
     text: "#E8F0F4",
-    muted: "#9DADB9",
-    border: "#293442",
     accent: "#5EC6EC",
-    grid: "#12202C",
-    shadow: "rgba(0,0,0,0.55)",
+    card: "#141E28",
+    cardBorder: "#293442",
+    label: "#52D7C1",
+    barMuted: "#414F5D",
+    barSoft: "#0D141E",
+    ctaFill: "#0B3A4C",
+    ctaBar: "#5EC6EC",
+    shadow: "#000000",
+    shadowOpacity: "0.45",
+    heroLabelFill: "#141E28",
+    heroLabelStroke: "#5EC6EC",
+    heroLabelText: "#5EC6EC",
+    gridLabelFill: "#52D7C1",
+    gridLabelStroke: "#52D7C1",
+    gridLabelText: "#091018",
+    ctaLabelFill: "#141E28",
+    ctaLabelStroke: "#5EC6EC",
+    ctaLabelText: "#5EC6EC",
   },
 };
 
-const PAGES = [
-  { name: "How it works" },
-  { name: "Blocks" },
-  { name: "Campaign workshop" },
-  { name: "For agents" },
-];
-
 function ogArt(p, { width, height, label }) {
   const cx = width / 2;
-  const top = height / 2 - 90;
+  const top = height / 2 - 110;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
   <title>Next Story</title>
   <defs>
@@ -70,54 +94,58 @@ function ogArt(p, { width, height, label }) {
   </defs>
 ${STYLE}
   <rect width="${width}" height="${height}" fill="url(#ground)"/>
-  <text class="mono" x="${cx}" y="${top}" text-anchor="middle" font-size="22" fill="${p.accent}">${MONO}</text>
-  <text class="title" x="${cx}" y="${top + 110}" text-anchor="middle" font-size="104" fill="${p.text}">Next <tspan fill="${p.accent}">Story</tspan></text>
-  <text class="tag" x="${cx}" y="${top + 178}" text-anchor="middle" font-size="34" fill="${p.muted}" data-fit-w="900">${TAGLINE}</text>
+  <text class="eyebrow" x="${cx}" y="${top}" text-anchor="middle" font-size="22" fill="${p.accent}">${MONO}</text>
+  <text class="title" x="${cx}" y="${top + 128}" text-anchor="middle" font-size="104" fill="${p.text}">Next <tspan fill="${p.accent}">Story</tspan></text>
+  <text class="tag" x="${cx}" y="${top + 206}" text-anchor="middle" font-size="34" fill="${p.muted}">${CLAIM_1}</text>
+  <text class="tag" x="${cx}" y="${top + 266}" text-anchor="middle" font-size="34" fill="${p.muted}">${CLAIM_2}</text>
 </svg>
 `;
 }
 
 function readmeArt(p, { width, height, label }) {
-  // Equal space left of the wordmark, between it and the page list, and right of the list.
-  const x0 = 96;
-  const px = 729;
-  const py = 56;
-  const pw = 440;
-  const ph = 520;
-  const fold = 72;
-  const outline = `M${px} ${py + 14}a14 14 0 0 1 14-14H${px + pw - 14}a14 14 0 0 1 14 14V${py + ph - fold}L${px + pw - fold} ${py + ph}H${px + 14}a14 14 0 0 1-14-14z`;
-  const rowY = (i) => py + 88 + i * 88;
-  const rows = PAGES.map(
-    (page, i) => `<rect x="${px + 24}" y="${rowY(i)}" width="${pw - 48}" height="72" rx="12" fill="${p.surface}" stroke="${p.border}"/>
-    <rect x="${px + 24}" y="${rowY(i)}" width="6" height="72" rx="3" fill="${p.accent}"/>
-    <text class="page" x="${px + 52}" y="${rowY(i) + 46}" font-size="28" fill="${p.text}">${page.name}</text>`,
-  ).join("\n    ");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
   <title>Next Story</title>
   <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="${p.grid}" stroke-width="1"/></pattern>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="${p.shadow}"/></filter>
-    <filter id="lift" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="-6" dy="-6" stdDeviation="8" flood-color="${p.shadow}"/></filter>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${p.groundFrom}"/>
+      <stop offset="1" stop-color="${p.groundTo}"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="${p.shadow}" flood-opacity="${p.shadowOpacity}"/>
+    </filter>
   </defs>
 ${STYLE}
-  <rect width="${width}" height="${height}" fill="${p.bg}"/>
-  <rect width="${width}" height="${height}" fill="url(#grid)"/>
-  <path d="${outline}" fill="${p.surface}" stroke="${p.border}" stroke-width="1.5" filter="url(#shadow)"/>
-  <text class="mono" x="${px + 26}" y="${py + 62}" font-size="22" letter-spacing="2" fill="${p.muted}">PAGES</text>
-  ${rows}
-  <path d="M${px + pw} ${py + ph - fold}L${px + pw - fold} ${py + ph}L${px + pw - fold} ${py + ph - fold}z" fill="${p.accent}" filter="url(#lift)"/>
-  <rect x="${x0}" y="${213}" width="20" height="20" fill="${p.accent}"/>
-  <text class="mono" x="${x0 + 34}" y="${232}" font-size="22" fill="${p.muted}">${MONO}</text>
-  <text class="title" x="${x0}" y="${364}" font-size="120" fill="${p.text}">Next <tspan fill="${p.accent}">Story</tspan></text>
-  <text class="tag" x="${x0}" y="${440}" font-size="33" fill="${p.text}" data-fit-w="600">${TAGLINE}</text>
+  <rect width="${width}" height="${height}" fill="url(#ground)"/>
+  <text class="eyebrow" x="${LEFT}" y="188" font-size="26" fill="${p.accent}">${MONO}</text>
+  <text class="title" x="${LEFT - 2}" y="292" font-size="120" fill="${p.text}" data-fit-w="600">Next <tspan fill="${p.accent}">Story</tspan></text>
+  <text class="tag" x="${LEFT}" y="372" font-size="34" fill="${p.text}" data-fit-w="560">${CLAIM_1}</text>
+  <text class="tag" x="${LEFT}" y="421" font-size="34" fill="${p.text}" data-fit-w="560">${CLAIM_2}</text>
+  <g filter="url(#shadow)">
+    <rect x="714" y="124" width="470" height="120" rx="14" fill="${p.card}" stroke="${p.cardBorder}" stroke-width="2"/>
+    <rect x="714" y="288" width="470" height="120" rx="14" fill="${p.card}" stroke="${p.cardBorder}" stroke-width="2"/>
+    <rect x="714" y="452" width="470" height="84" rx="14" fill="${p.ctaFill}"/>
+  </g>
+  <rect x="742" y="158" width="280" height="20" rx="10" fill="${p.barMuted}"/>
+  <rect x="742" y="194" width="120" height="20" rx="10" fill="${p.accent}"/>
+  <rect x="738" y="316" width="130" height="68" rx="10" fill="${p.barSoft}" stroke="${p.cardBorder}" stroke-width="1.5"/>
+  <rect x="884" y="316" width="130" height="68" rx="10" fill="${p.barSoft}" stroke="${p.cardBorder}" stroke-width="1.5"/>
+  <rect x="1030" y="316" width="130" height="68" rx="10" fill="${p.barSoft}" stroke="${p.cardBorder}" stroke-width="1.5"/>
+  <rect x="742" y="484" width="220" height="20" rx="10" fill="${p.ctaBar}"/>
+  <rect x="706" y="280" width="486" height="136" rx="18" fill="none" stroke="${p.label}" stroke-width="3" stroke-dasharray="10 7"/>
+  <rect x="1074.4" y="103.2" width="93.6" height="41.6" rx="10.4" fill="${p.heroLabelFill}" stroke="${p.heroLabelStroke}" stroke-width="2"/>
+  <text class="mono" x="1121.2" y="132.32" text-anchor="middle" font-size="26" fill="${p.heroLabelText}">hero</text>
+  <rect x="949.6" y="261.2" width="218.4" height="41.6" rx="10.4" fill="${p.gridLabelFill}" stroke="${p.gridLabelStroke}" stroke-width="2"/>
+  <text class="mono" x="1058.8" y="290.32" text-anchor="middle" font-size="26" fill="${p.gridLabelText}">feature_grid</text>
+  <rect x="1012" y="431.2" width="156.0" height="41.6" rx="10.4" fill="${p.ctaLabelFill}" stroke="${p.ctaLabelStroke}" stroke-width="2"/>
+  <text class="mono" x="1090.0" y="460.32" text-anchor="middle" font-size="26" fill="${p.ctaLabelText}">cta_band</text>
 </svg>
 `;
 }
 
 const README_LABEL =
-  "Next Story, Next.js + Storyblok CMS Demo: a marketing site is more than its pages. A page list with a folded corner: How it works, Blocks, Campaign workshop, For agents";
+  "Next Story, Next.js + Storyblok CMS Demo: editors own the content, developers own the components";
 
-writeFileSync(new URL(".github/brand/og.svg", root), ogArt(OG, { width: 1200, height: 630, label: `Next Story: ${TAGLINE}` }));
+writeFileSync(new URL(".github/brand/og.svg", root), ogArt(OG, { width: 1200, height: 630, label: README_LABEL }));
 const outputs = [
   ["readme-light.svg", README.light],
   ["readme-dark.svg", README.dark],
