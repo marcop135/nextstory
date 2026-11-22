@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import JsonLd from "@/components/JsonLd";
+import JsonLd from "@/components/seo/JsonLd";
 import { INDEX_ROBOTS, OG_IMAGE, REPO_URL, SITE_NAME, SITE_URL, pageJsonLd } from "@/lib/site";
 import { agentResources, agentTasks } from "@/lib/agent-resources";
 

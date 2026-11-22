@@ -26,7 +26,8 @@ The personal access token and space ID enable imports only. Local seed edits do 
 | Location | Responsibility |
 | --- | --- |
 | [`storyblok/`](../storyblok/) | Component schema and localized seed stories |
-| [`src/components/`](../src/components/) | Block rendering, shared navigation, and client interactions |
+| [`src/components/`](../src/components/) | Block rendering by folder (`blocks/`, `campaign/`, `layout/`, `visuals/`, `agents/`, `seo/`) |
+| [`src/styles/`](../src/styles/) | Layered global CSS (`reset`, `tokens`, `base`, `layout`, `components`) |
 | [`src/lib/`](../src/lib/) | Delivery, localization, content relationships, caching, and public resources |
 | [`src/app/`](../src/app/) | HTML pages, preview/webhook routes, Markdown, and discovery endpoints |
 | [`scripts/`](../scripts/) | CMS imports, generated types, and verification |

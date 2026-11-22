@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import PublishingVisual from "@/components/PublishingVisual";
+import PublishingVisual from "@/components/visuals/PublishingVisual";
 
 type Sequence = {
   en: string[];

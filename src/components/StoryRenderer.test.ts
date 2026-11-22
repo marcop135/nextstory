@@ -2,7 +2,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
-import Hero from "@/components/Hero";
+import Hero from "@/components/blocks/Hero";
 import type { HeroBlok } from "@/components/types";
 
 import StoryRenderer from "@/components/StoryRenderer";

@@ -2,7 +2,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, expect, it, vi } from "vitest";
 
-import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/SiteChrome";
+import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/layout/SiteChrome";
 
 const { usePathname } = vi.hoisted(() => ({ usePathname: vi.fn() }));
 vi.mock("next/navigation", () => ({ usePathname }));

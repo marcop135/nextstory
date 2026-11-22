@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { storyblokEditable } from "@storyblok/react/rsc";
 
-import CampaignChoiceForm from "@/components/CampaignChoiceForm";
+import CampaignChoiceForm from "@/components/campaign/CampaignChoiceForm";
 import {
   CAMPAIGN_DRAFT_FEATURES,
   CAMPAIGN_DRAFT_GRID,

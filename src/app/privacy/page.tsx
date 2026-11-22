@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import JsonLd from "@/components/JsonLd";
+import JsonLd from "@/components/seo/JsonLd";
 import { AUTHOR, INDEX_ROBOTS, OG_IMAGE, PRIVACY_UPDATED, SITE_NAME, SITE_URL, pageJsonLd } from "@/lib/site";
 
 const title = "Privacy notice for nextstory.marcopontili.com";
