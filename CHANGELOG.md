@@ -7,6 +7,21 @@
 
 ## [Unreleased]
 
+### Added
+
+- Motion: Reveal section headings, leads, cards, steps, and code examples as they enter the viewport.
+- Manifest: Serve 192 and 512 PNG icons plus a maskable 512 icon, with a light theme color.
+
+### Changed
+
+- Cards: Make feature cards with a link clickable as a whole, with hover lift and a focus ring on the card.
+- Footer: Link the version to its GitHub release tag and open the author link in a new tab.
+- Privacy: Lead with site, controller, and contact, and move Last updated to the end.
+
+### Fixed
+
+- Motion: Play the hero intro once per visit, not again on every client navigation.
+
 ## [0.16.1] - 2026-11-19
 
 ### Fixed
