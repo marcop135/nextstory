@@ -6,6 +6,7 @@ import { AUTHOR, INDEX_ROBOTS, OG_IMAGE, PRIVACY_UPDATED, SITE_NAME, SITE_URL, p
 const title = "Privacy notice for nextstory.marcopontili.com";
 const description =
   "Cookieless self-hosted Matomo, Vercel hosting, and a consent-based HubSpot campaign form. No cookie banner is shown.";
+const host = SITE_URL.replace("https://", "");
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -27,20 +28,21 @@ export default function PrivacyPage() {
   return (
     <main id="main" tabIndex={-1} className="wrap prose">
       <h1>Privacy</h1>
-      <p className="meta">Last updated: {PRIVACY_UPDATED}</p>
       <p>
-        This notice covers the demo site at {SITE_URL.replace("https://", "")}.
+        This notice covers the demo site at {host}.
         The source code is public; running it yourself is outside this notice.
       </p>
+      <ul>
+        <li>Site: {host}</li>
+        <li>
+          Controller: <a href="https://marcopontili.com">{AUTHOR.name}</a>
+        </li>
+        <li>
+          Contact: <a href="https://marcopontili.com/contact">marcopontili.com/contact</a>
+        </li>
+      </ul>
 
-      <h2 id="page-content" tabIndex={-1}>Controller</h2>
-      <p>
-        <a href="https://marcopontili.com">{AUTHOR.name}</a>
-        <br />
-        Contact: <a href="https://marcopontili.com/contact">marcopontili.com/contact</a>
-      </p>
-
-      <h2>What is processed</h2>
+      <h2 id="page-content" tabIndex={-1}>What is processed</h2>
       <h3>Analytics: self-hosted Matomo</h3>
       <p>
         This site uses a self-hosted, cookieless installation of Matomo, run
@@ -130,6 +132,7 @@ export default function PrivacyPage() {
         You may have the right of access, rectification, erasure, restriction,
         objection, and portability. Use the contact page above. You may lodge a complaint with the data protection authority where you live or work. The same rights and the same contact route apply wherever you are in the world.
       </p>
+      <p className="meta">Last updated: {PRIVACY_UPDATED}</p>
       <JsonLd data={pageJsonLd({ path: "/privacy", name: title, description, locale: "en" })} />
     </main>
   );

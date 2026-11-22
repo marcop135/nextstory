@@ -59,7 +59,13 @@
 /*
  * Intro copy animates from the first paint, in CSS only, so a slow script
  * download never shows the finished text first and then replays it.
+ * ScrollReveal sets data-intro-played after the first load, so client
+ * navigations skip the intro.
  */
+:root[data-intro-played] .hero .wrap > div:first-child > * {
+  animation: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .hero .wrap > div:first-child > *,
   .not-found > * {
@@ -208,18 +214,52 @@
   color: var(--muted);
 }
 
+/* A card with a link is clickable as a whole: the link's ::after covers the card. */
+.feature--link {
+  position: relative;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .feature--link:hover {
+    border-color: var(--ink);
+    box-shadow: 0 0.5rem 1.5rem -0.75rem rgb(0 0 0 / 0.2);
+    transform: translateY(-0.125rem);
+  }
+}
+
+.feature--link:has(a:focus-visible) {
+  outline: 0.1875rem solid var(--accent);
+  outline-offset: 0.1875rem;
+}
+
 .feature--link h3 a {
   color: var(--ink);
+  font-weight: 400;
   text-decoration: none;
 }
 
 .feature--link h3 a::after {
-  content: " →";
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.feature--link h3 a:focus-visible {
+  outline: none;
+}
+
+.feature--link h3 a .feature__arrow {
   color: var(--accent);
 }
 
-.feature--link h3 a:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .feature--link:hover h3 a {
+    color: var(--accent);
+  }
 }
 
 .steps {

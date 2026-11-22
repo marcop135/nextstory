@@ -39,6 +39,9 @@ it("switches the header and footer back to English on English routes", () => {
   expect(footer).toContain("Next Story demo");
   expect(footer).toContain("Built and maintained by");
   expect(footer).toContain(">Marco Pontili<");
+  expect(footer).toContain('target="_blank"');
+  expect(footer).toContain('rel="noopener"');
+  expect(footer).toMatch(/class="footer-version"[^>]*href="https:\/\/github.com\/marcop135\/nextstory\/releases\/tag\/v/);
 });
 
 it("renders localized footer groups and CMS links on German routes", () => {

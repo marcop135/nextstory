@@ -50,6 +50,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
+  // Light header surface (oklch surface token), a single value for the browser chrome.
+  themeColor: "#f9fcfe",
 };
 
 const fallbackNav = [
