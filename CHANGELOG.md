@@ -9,12 +9,12 @@
 
 ### Added
 
-- Motion: Reveal section headings, leads, cards, steps, and code examples as they enter the viewport ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
-- Manifest: Serve 192 and 512 PNG icons plus a maskable 512 icon, with a light theme color ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
+- Site: Reveal section headings, leads, cards, steps, and code examples on scroll, except on For agents and Privacy ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
+- Manifest: Serve 192 and 512 PNG icons plus a maskable 512 for saved shortcuts, with a light theme color ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 
 ### Changed
 
-- Cards: Make feature cards with a link clickable as a whole, with hover lift and a focus ring on the card ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
+- Cards: Make whole feature cards with a link clickable, with hover lift, regular-weight links, and a focus ring on the card ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 - Footer: Link the version to its GitHub release tag and open the author link in a new tab ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 - Privacy: Lead with site, controller, and contact, and move Last updated to the end ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 
