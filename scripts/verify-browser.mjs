@@ -93,7 +93,9 @@ try {
   await page.waitForFunction(() => document.documentElement.lang === "en");
   assert.equal(await page.locator("main h1").innerText(), "Content relationships");
   assert.match(await page.locator("footer").innerText(), /Explore[\s\S]*Project[\s\S]*Privacy/);
-  assert.equal(await page.locator("footer").getByRole("link", { name: "Marco Pontili", exact: true }).getAttribute("title"), "Marco Pontili");
+  assert.equal(await page.locator("footer").getByRole("link", { name: /Marco Pontili/ }).getAttribute("title"), "Marco Pontili");
+  assert.equal(await page.locator("footer").getByRole("link", { name: /Marco Pontili/ }).getAttribute("target"), "_blank");
+  assert.equal(await page.locator("footer").getByRole("link", { name: /Marco Pontili/ }).getAttribute("rel"), "noopener");
   await mobile.close();
 
   const animated = await context({ viewport: { width: 1440, height: 1000 }, reducedMotion: "no-preference" });
