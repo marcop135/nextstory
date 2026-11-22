@@ -1,0 +1,14 @@
+/*
+ * Global stylesheet, imported once by the root layout.
+ * Cascade layers fix the order: reset < tokens < base < layout < components.
+ */
+@layer reset, tokens, base, layout, components;
+
+@import "./reset.css";
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./blocks.css";
+@import "./campaign.css";
+@import "./visuals.css";
+@import "./agents.css";

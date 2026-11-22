@@ -3,9 +3,9 @@ import Link from "next/link";
 import { storyblokEditable } from "@storyblok/react/rsc";
 
 import type { HeroBlok } from "@/components/types";
-import PublishingVisual from "@/components/PublishingVisual";
-import PageVisual from "@/components/PageVisual";
-import PageContinue from "@/components/PageContinue";
+import PublishingVisual from "@/components/visuals/PublishingVisual";
+import PageVisual from "@/components/visuals/PageVisual";
+import PageContinue from "@/components/layout/PageContinue";
 
 export default function Hero({ blok }: { blok: HeroBlok }) {
   const primary = blok.cta_label && blok.cta_href;

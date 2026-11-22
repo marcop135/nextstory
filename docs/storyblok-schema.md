@@ -55,7 +55,7 @@ Home uses the viewport-controlled hero and ownership comparison. How-it-works an
 ## Add a block
 
 1. Define fields in `storyblok/components.json`; mark reader-facing fields translatable and include the component in its parent's block whitelist.
-2. Run `npm run storyblok:types`. Implement the component in `src/components/` and register its schema name in `src/lib/storyblok.ts`.
+2. Run `npm run storyblok:types`. Implement the component under `src/components/blocks/` or `src/components/campaign/` and register its schema name in `src/lib/storyblok.ts`.
 3. Add an English/German example to the block-library seed. New offline stories must also be registered in `src/lib/mock-story.ts`.
 4. Check server rendering and Markdown output. Update `src/lib/story-markdown.ts` if the new block needs serialization, then run the [verification gates](development-cycle.md#implement-and-review).
 5. Import the selected schema changes, deploy the renderer, then preview and publish reviewed content using the new block.

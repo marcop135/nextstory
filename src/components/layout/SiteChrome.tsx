@@ -5,10 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import LanguageSwitch from "@/components/LanguageSwitch";
+import LanguageSwitch from "@/components/layout/LanguageSwitch";
 import { defaultLocale, localeForPathname, type Locale } from "@/lib/i18n";
 import { AUTHOR, REPO_URL } from "@/lib/site";
-import { version } from "../../package.json";
+import { version } from "../../../package.json";
 
 export type ChromeCopy = {
   nav: { _uid: string; label: string; href: string }[];

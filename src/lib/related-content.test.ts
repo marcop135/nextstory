@@ -1,7 +1,7 @@
 import { expect, it, vi } from "vitest";
 import { renderToStaticMarkup, renderToReadableStream } from "react-dom/server";
 import { createElement } from "react";
-import RelatedContent from "@/components/RelatedContent";
+import RelatedContent from "@/components/blocks/RelatedContent";
 import { attachRelatedNotes, relatedUuids } from "@/lib/related-content";
 import { mockStoryForSlug } from "@/lib/mock-story";
 import { storyMarkdown } from "@/lib/story-markdown";

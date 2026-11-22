@@ -73,7 +73,7 @@
             "title__i18n__de": "Eine Datei verlinken",
             "text": "A step can name the file that implements it.",
             "text__i18n__de": "Ein Schritt kann die Datei nennen, die ihn umsetzt.",
-            "file": "src/components/Steps.tsx"
+            "file": "src/components/blocks/Steps.tsx"
           }
         ]
       },

@@ -1,0 +1,5 @@
+/* agents */
+
+@layer components {
+.agent-request { max-width: 100%; overflow-x: auto; padding: 0.75rem; border: 1px solid var(--line); border-radius: 0.35rem; background: var(--surface); font-size: 0.8rem; }
+}

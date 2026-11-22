@@ -1,7 +1,7 @@
 import { storyblokEditable, StoryblokServerComponent } from "@storyblok/react/rsc";
 import type { LearningNoteBlok } from "@/components/types";
-import PageVisual from "@/components/PageVisual";
-import PageContinue from "@/components/PageContinue";
+import PageVisual from "@/components/visuals/PageVisual";
+import PageContinue from "@/components/layout/PageContinue";
 
 export default function LearningNote({ blok }: { blok: LearningNoteBlok }) {
   return (

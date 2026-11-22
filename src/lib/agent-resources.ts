@@ -39,7 +39,7 @@ export function blockCatalog() {
         name, label: component.display_name,
         example_url: `${SITE_URL}/blocks`,
         schema_path: "storyblok/components.json",
-        component_path: `src/components/${name.replace(/(^|_)([a-z])/g, (_, __, c: string) => c.toUpperCase())}.tsx`,
+        component_path: `src/components/${name.startsWith("campaign_") ? "campaign" : "blocks"}/${name.replace(/(^|_)([a-z])/g, (_, __, c: string) => c.toUpperCase())}.tsx`,
         fields: Object.entries(component.schema).map(([name, field]) => ({ name, type: field.type, translatable: field.translatable === true, ...(field.component_whitelist ? { components: field.component_whitelist } : {}) })),
       };
     }),

@@ -2,7 +2,7 @@
  * Privacy-friendly analytics (cookieless): self-hosted Matomo Tag Manager
  * container, whose Pageview tag tracks the first load. Do Not Track and
  * Global Privacy Control do not stop the container. Client-side route changes
- * are tracked by src/components/MatomoRouteTracker.tsx.
+ * are tracked by src/components/layout/MatomoRouteTracker.tsx.
  */
 (function () {
   var _mtm = (window._mtm = window._mtm || []);

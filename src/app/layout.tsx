@@ -3,10 +3,10 @@ import { Source_Sans_3 } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 
-import MatomoRouteTracker from "@/components/MatomoRouteTracker";
-import AgentTools from "@/components/AgentTools";
-import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/SiteChrome";
-import StoryblokProvider from "@/components/StoryblokProvider";
+import MatomoRouteTracker from "@/components/layout/MatomoRouteTracker";
+import AgentTools from "@/components/agents/AgentTools";
+import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/layout/SiteChrome";
+import StoryblokProvider from "@/components/layout/StoryblokProvider";
 import {
   OG_IMAGE,
   REPO_URL,
@@ -19,7 +19,7 @@ import {
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
 import { fetchSiteConfig, requestLocale } from "@/lib/site-config";
 
-import "./globals.css";
+import "@/styles/globals.css";
 
 const sans = Source_Sans_3({
   subsets: ["latin"],

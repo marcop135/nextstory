@@ -22,7 +22,7 @@ npm run verify:agent-readiness  # against the same running instance
 npm run verify:browser         # system Chrome; desktop/mobile evidence in .next/review/
 ```
 
-Change blocks in `storyblok/components.json` first, then run `npm run storyblok:types` and add the React component to `src/lib/storyblok.ts`. Keep shared content as referenced stories rather than duplicated block text.
+Change blocks in `storyblok/components.json` first, then run `npm run storyblok:types` and add the React component under `src/components/blocks/` or `src/components/campaign/`, registering it in `src/lib/storyblok.ts`. Keep shared content as referenced stories rather than duplicated block text.
 
 Add a Keep a Changelog bullet under `## [Unreleased]` for user-visible changes.
 
