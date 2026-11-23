@@ -9,10 +9,10 @@
 
 ### Added
 
-- Blocks: Inspect required fields and English/German values in an interactive block view.
-- Cache: Compare the last five HEAD requests per page and inspect response headers.
-- Campaign: Inspect attribution values locally before submitting a lead.
-- Publishing: Reorder a draft and publish it to a local preview.
+- Blocks: Inspect required fields and English/German values in an interactive block view ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Cache: Compare the last five HEAD requests per page and inspect response headers ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Campaign: Inspect attribution values locally before submitting a lead ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Publishing: Reorder a draft and publish it to a local preview ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 
 - Docs: Add a Features section, in-repo agent skills, and agent-skills docs to the README.
 - Site: Reveal headings, leads, cards, steps, and code examples on scroll, except For agents and Privacy ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
@@ -20,7 +20,7 @@
 
 ### Changed
 
-- Home: Simplify the publishing illustration and limit its headings to two lines.
+- Home: Simplify the publishing illustration and limit its headings to two lines ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 
 - Docs: Align guide titles with the docs index, tighten scaffolding, and clarify agent-skills layout.
 - Docs: Restructure the README tech stack table by layer.
