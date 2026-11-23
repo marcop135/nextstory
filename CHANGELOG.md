@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Docs: Clarify setup and contributor paths with updated header art and organized diagrams.
+
 ## [0.17.0] - 2026-11-23
 
 ### Added

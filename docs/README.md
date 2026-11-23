@@ -1,19 +1,19 @@
 # Next Story documentation
 
-Run the demo, connect a Storyblok space, and follow content from an editor draft to server-rendered pages. English and German share the same stories and block model.
+Start the demo, connect Storyblok, or find the guide for a code change.
 
-## Tutorial
+## Start here
 
 Start with [Local development](commands.md#local-development) to run the bundled demo, then follow [Storyblok setup](commands.md#storyblok) to connect a space.
 
-## How-to guides
+## Make a change
 
-| Guide | Answers |
+| Guide | Use it to |
 | --- | --- |
 | [Add a block](add-a-block.md) | Define, render, translate, and verify a reusable block |
 | [Add a campaign](add-a-campaign.md) | Connect a page, campaign ID, consent, and lead intake |
-| [Agent skills](agent-skills.md) | In-repo skills for Claude Code, Cursor, and Codex |
-| [Development cycle](development-cycle.md) | Local gates, feature PRs, production promotion, tags, and CMS publication |
+| [Agent skills](agent-skills.md) | Use or add coding-agent skills |
+| [Development cycle](development-cycle.md) | Run checks, open a PR, and release code or CMS content |
 
 ## Reference
 
@@ -32,17 +32,17 @@ Start with [Local development](commands.md#local-development) to run the bundled
 
 The personal access token and space ID enable imports only. Local seed edits do not update a connected space, and deploying code does not publish CMS drafts. [Setup and commands: Storyblok](commands.md#storyblok) covers that handoff.
 
-## Explanation
+## Understand the system
 
-[Architecture](architecture.md) follows the request path, campaign-to-lead flow, cache tags, and public Markdown representations.
+[Architecture](architecture.md) explains requests, lead submission, caching, and Markdown output. Diagram sources and light/dark images live in [`diagrams/`](diagrams/).
 
 ### Source map
 
 | Location | Responsibility |
 | --- | --- |
 | [`storyblok/`](../storyblok/) | Component schema and localized seed stories |
-| [`src/components/`](../src/components/) | Block rendering by folder (`blocks/`, `campaign/`, `layout/`, `visuals/`, `agents/`, `seo/`) |
-| [`src/styles/`](../src/styles/) | Layered global CSS (`reset`, `tokens`, `base`, `layout`, `components`) |
+| [`src/components/`](../src/components/) | Blocks, campaigns, shared layout, visuals, and agent UI |
+| [`src/styles/`](../src/styles/) | Design tokens and layered CSS |
 | [`src/lib/`](../src/lib/) | Delivery, localization, content relationships, caching, and public resources |
 | [`src/app/`](../src/app/) | HTML pages, preview/webhook routes, Markdown, and discovery endpoints |
 | [`scripts/`](../scripts/) | CMS imports, generated types, and verification |

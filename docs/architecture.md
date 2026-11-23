@@ -30,8 +30,8 @@ flowchart TB
 ## Campaign to lead
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="campaign-to-lead-dark.svg" />
-  <img src="campaign-to-lead-light.svg" alt="One campaign_id flows from Storyblok to the campaign page, its form, /api/lead, a HubSpot contact, and a Matomo event" width="720" />
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/campaign-to-lead-dark.svg" />
+  <img src="diagrams/campaign-to-lead-light.svg" alt="One campaign_id flows from Storyblok to the campaign page, its form, /api/lead, a HubSpot contact, and a Matomo event" width="720" />
 </picture>
 
 1. `campaign_brief` and `campaign_action` share a `campaign_id` set in Storyblok. [`CampaignAction`](../src/components/campaign/CampaignAction.tsx) posts JSON to `/api/lead`: email, consent, `campaign_id`, page URL and title, `document.referrer`, the five `utm_*` query parameters, and, when a site key is set, a Cloudflare Turnstile token. The Turnstile script loads on first focus in the form; each submit requests a new single-use token.
