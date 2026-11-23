@@ -1,3 +1,6 @@
+/** Validate changelog format, section order, and bullet length.
+ * Run: npm run changelog:lint. Exit 0 on valid content, 1 on violations.
+ */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";

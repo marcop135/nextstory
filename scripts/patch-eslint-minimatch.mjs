@@ -1,3 +1,6 @@
+/** Adapt ESLint plugin imports to the installed minimatch export.
+ * Run: npm run postinstall. Checks installed plugins; exit 0 on success, nonzero on errors.
+ */
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";

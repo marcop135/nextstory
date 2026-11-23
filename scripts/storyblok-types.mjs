@@ -3,6 +3,7 @@
  *
  *   node scripts/storyblok-types.mjs           write src/types/storyblok.generated.ts
  *   node scripts/storyblok-types.mjs --check   exit 1 if the file is stale
+ * Exit 0 after generation or a matching check; nonzero for unsupported schema fields.
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 

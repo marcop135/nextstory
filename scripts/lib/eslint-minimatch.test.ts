@@ -1,3 +1,6 @@
+/** Check the ESLint minimatch compatibility patch without changing global matching.
+ * Run: npm test. Vitest exits 0 on success, 1 on assertion failure.
+ */
 import { createRequire } from "node:module";
 import { describe, expect, it } from "vitest";
 

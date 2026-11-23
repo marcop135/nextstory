@@ -74,6 +74,8 @@ Production runs on Vercel at `https://nextstory.marcopontili.com`. [Environment 
 
 ## Analytics and headers
 
+The proxy sets `Vary: Accept` for negotiated HTML and Markdown. A production-mode local HEAD check on 2026-11-23 returned only Next.js router fields and `Accept-Encoding` for HTML, so the final response does not preserve that value. Do not assume an intermediary caches negotiated representations separately; explicit `/content/*.md` routes remain the unambiguous Markdown path.
+
 - [`public/matomo.js`](../public/matomo.js) loads self-hosted, cookieless Matomo (site 5) after hydration; [`MatomoRouteTracker`](../src/components/layout/MatomoRouteTracker.tsx) records client navigations.
 - [`src/proxy.ts`](../src/proxy.ts) reports AI-assistant fetches (`ChatGPT-User`, `Claude-User`, and the rest of the marcopontili.com access-log needles) to Matomo with `recMode=1` via `waitUntil`. It never changes the response.
 - [`next.config.ts`](../next.config.ts) sets CSP, HSTS, `nosniff`, and Referrer-Policy on every route. `frame-ancestors` allows the Storyblok Visual Editor and `script-src` its bridge script; `script-src` and `frame-src` allow Cloudflare Turnstile.
