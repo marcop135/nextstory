@@ -36,7 +36,7 @@
 
 ### Fixed
 
-- Accessibility: Put visible language codes first in language-switch names.
+- Accessibility: Put visible language codes first in language-switch names ([#160](https://github.com/marcop135/nextstory/pull/160)) ([#159](https://github.com/marcop135/nextstory/issues/159)).
 
 - Site: Play the hero intro once per visit, not again on every client navigation ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 
