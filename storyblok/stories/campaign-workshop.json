@@ -24,6 +24,15 @@
         "cta_href__i18n__de": "#campaign-action"
       },
       {
+        "_uid": "workshop-attribution",
+        "component": "app_widget",
+        "kind": "attribution_inspector",
+        "heading": "See where this visit came from",
+        "heading__i18n__de": "Die Herkunft dieses Besuchs ansehen",
+        "body": "Inspect the page and campaign values attached to a registration.",
+        "body__i18n__de": "Prüfe die Seiten- und Kampagnenwerte, die einer Anmeldung zugeordnet werden."
+      },
+      {
         "_uid": "workshop-brief",
         "component": "campaign_brief",
         "eyebrow": "Behind the campaign",

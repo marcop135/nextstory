@@ -1,5 +1,7 @@
 import { REPO_URL } from "@/lib/site";
 import { sourceUrl } from "@/lib/source-url";
+import { widgetFallbacks } from "@/lib/messages";
+import { localeForPathname } from "@/lib/i18n";
 
 type Data = Record<string, unknown>;
 const data = (v: unknown): Data => v && typeof v === "object" ? v as Data : {};
@@ -61,6 +63,10 @@ export function blockMarkdown(value: unknown): string {
   const section = (title: unknown, body: string) => [title ? `## ${inline(title)}` : "", body].filter(Boolean).join("\n\n");
   const link = (label: unknown, hrefValue: unknown) => { const href = url(hrefValue); return label && href ? `[${inline(label)}](${href})` : ""; };
   switch (b.component) {
+    case "app_widget": {
+      const descriptions: Record<string, string> = widgetFallbacks.en;
+      return section(b.heading, inline(b.body) || descriptions[text(b.kind)] || "");
+    }
     case "campaign_brief": return section(b.headline, [inline(b.text), `${inline(b.audience_label)}: ${inline(b.audience)}`, `${inline(b.goal_label)}: ${inline(b.goal)}`, `${inline(b.measure_label)}: ${inline(b.measure)}`, link(b.link_label, b.link_href)].filter(Boolean).join("\n\n"));
     case "campaign_action": return section(b.headline, [inline(b.text), inline(b.demo_note), inline(b.email_label), inline(b.button_label)].filter(Boolean).join("\n\n"));
     case "hero": return [`# ${inline(b.headline)}`, inline(b.subheadline), b.animated_visual ? inline(b.visual_caption) : imageMarkdown(b), link(b.cta_label, b.cta_href), link(b.secondary_label, b.secondary_href)].filter(Boolean).join("\n\n");
@@ -99,6 +105,11 @@ function imageMarkdown(b: Data) {
 export function storyMarkdown(content: unknown, canonical: string, source: string) {
   const page = data(content);
   if (page.component !== "page" && page.component !== "learning_note") throw new Error("Only page stories are public");
-  const body = [page.component === "learning_note" ? `# ${inline(page.title)}\n\n${inline(page.summary)}` : "", ...items(page.body).map(blockMarkdown)].filter(Boolean).join("\n\n");
+  const descriptions: Record<string, string> = widgetFallbacks[localeForPathname(new URL(canonical, "https://local.test").pathname)];
+  const blocks = items(page.body).map((value) => {
+    const block = data(value);
+    return blockMarkdown(block.component === "app_widget" && !block.body ? { ...block, body: descriptions[text(block.kind)] } : block);
+  });
+  const body = [page.component === "learning_note" ? `# ${inline(page.title)}\n\n${inline(page.summary)}` : "", ...blocks].filter(Boolean).join("\n\n");
   return `${body}\n\nCanonical: ${canonical}\nContent source: ${source}; published representation.\n`;
 }

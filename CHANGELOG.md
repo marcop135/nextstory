@@ -9,11 +9,18 @@
 
 ### Added
 
+- Blocks: Inspect required fields and English/German values in an interactive block view.
+- Cache: Compare the last five HEAD requests per page and inspect response headers.
+- Campaign: Inspect attribution values locally before submitting a lead.
+- Publishing: Reorder a draft and publish it to a local preview.
+
 - Docs: Add a Features section, in-repo agent skills, and agent-skills docs to the README.
 - Site: Reveal headings, leads, cards, steps, and code examples on scroll, except For agents and Privacy ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 - Site: Serve 192 and 512 PNG icons plus a maskable 512 for saved shortcuts, with a light theme color ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 
 ### Changed
+
+- Home: Simplify the publishing illustration and limit its headings to two lines.
 
 - Docs: Align guide titles with the docs index, tighten scaffolding, and clarify agent-skills layout.
 - Docs: Restructure the README tech stack table by layer.

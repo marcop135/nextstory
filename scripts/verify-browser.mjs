@@ -228,6 +228,86 @@ try {
     }
   }
 
+  for (const locale of ["en", "de"]) {
+    const prefix = locale === "de" ? "/de" : "";
+    const instance = await context({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+    const screen = await instance.newPage();
+    const widget = screen.locator("[data-widget]");
+    await screen.goto(`${base}${prefix}/how-it-works`, { waitUntil: "networkidle" });
+    const before = await widget.locator(".app-widget__preview li b").allTextContents();
+    const down = widget.locator(".app-widget__order li").first().getByRole("button").last();
+    await down.focus();
+    await screen.keyboard.press("Enter");
+    await screen.waitForFunction(() => document.querySelector('[data-widget] [role="status"]')?.textContent);
+    const firstStatus = await widget.getByRole("status").textContent();
+    await widget.locator(".app-widget__order li").first().getByRole("button").last().click();
+    assert.notEqual(await widget.getByRole("status").textContent(), firstStatus, "Every reorder announces its resulting order");
+    await widget.locator(".app-widget__order li").first().getByRole("button").last().click();
+    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), before);
+    await widget.getByRole("button", { name: locale === "de" ? "Veröffentlichen" : "Publish", exact: true }).click();
+    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), [before[1], before[0], before[2]]);
+    await widget.getByRole("button", { name: locale === "de" ? "Zurücksetzen" : "Reset", exact: true }).click();
+    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), before);
+
+    await screen.goto(`${base}${prefix}/blocks`, { waitUntil: "networkidle" });
+    await widget.getByRole("button", { name: locale === "de" ? "Blöcke untersuchen" : "Inspect blocks" }).click();
+    await widget.locator(".app-widget__fields dt").first().waitFor();
+    const firstBlock = widget.locator(".app-widget__choices button").first();
+    await firstBlock.focus();
+    await screen.keyboard.press("Space");
+    assert.equal(await firstBlock.getAttribute("aria-pressed"), "true");
+    assert.match(await widget.innerText(), /Every block on this site/);
+    assert.match(await widget.innerText(), /Jeder Block dieser Site/);
+
+    await screen.goto(`${base}${prefix}/campaign-workshop?utm_source=widget-check&utm_campaign=proof`, { waitUntil: "networkidle" });
+    const sent = [];
+    screen.on("request", (request) => { if (request.method() === "POST") sent.push(request.url()); });
+    await widget.getByRole("button").click();
+    assert.match(await widget.innerText(), /widget-check/);
+    const firstRefresh = await widget.getByRole("status").textContent();
+    await widget.getByRole("button").click();
+    assert.notEqual(await widget.getByRole("status").textContent(), firstRefresh);
+    assert.match(await widget.innerText(), /utm_campaign/);
+    assert.deepEqual(sent, [], "Attribution inspection sends nothing");
+
+    await screen.goto(`${base}${prefix}/cache-invalidation`, { waitUntil: "networkidle" });
+    const methods = [];
+    screen.on("request", (request) => { if (new URL(request.url()).pathname.startsWith("/content/")) methods.push(request.method()); });
+    const requestButton = widget.getByRole("button", { name: locale === "de" ? "Erneut anfragen" : "Request again" });
+    for (let index = 0; index < 6; index++) {
+      await requestButton.click();
+      await screen.waitForFunction(() => document.querySelector('[data-widget="cache_inspector"] .btn')?.getAttribute("aria-disabled") === "false");
+    }
+    assert.equal(await widget.locator(".app-widget__timings li").count(), 5);
+    assert.deepEqual(methods, Array(6).fill("HEAD"));
+    await widget.locator("summary").focus();
+    await screen.keyboard.press("Enter");
+    assert.equal(await widget.locator("details").getAttribute("open"), "");
+    assert.match(await widget.innerText(), /storyblok:[a-f0-9]{64}/);
+    await widget.getByRole("button", { name: "blocks", exact: true }).click();
+    assert.equal(await widget.locator(".app-widget__timings li").count(), 0);
+
+    for (const width of [320, 390, 768, 1440]) {
+      await screen.setViewportSize({ width, height: 900 });
+      for (const colorScheme of ["light", "dark"]) {
+        await screen.emulateMedia({ colorScheme, reducedMotion: "reduce" });
+        for (const route of ["blocks", "how-it-works", "campaign-workshop", "cache-invalidation"]) {
+          await screen.goto(`${base}${prefix}/${route}`, { waitUntil: "networkidle" });
+          if (route === "blocks" || route === "campaign-workshop") {
+            await widget.locator(".btn").first().click();
+            await widget.locator("dl").first().waitFor();
+          }
+          assert.ok(await screen.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${route} ${locale} ${width}px: widget overflow`);
+          if (width === 390 || width === 1440) await widget.screenshot({ path: `${output}/widget-${route}-${locale}-${width}-${colorScheme}.png` });
+        }
+      }
+    }
+    await screen.emulateMedia({ forcedColors: "active" });
+    await widget.getByRole("button", { name: "blocks", exact: true }).focus();
+    assert.notEqual(await widget.getByRole("button", { name: "blocks", exact: true }).evaluate((el) => getComputedStyle(el).outlineStyle), "none");
+    await instance.close();
+  }
+
   const banner = (await readFile("README.md", "utf8")).split("</p>")[0] + "</p>";
   for (const colorScheme of ["light", "dark"]) {
     const instance = await context({ viewport: { width: 1000, height: 600 }, colorScheme });

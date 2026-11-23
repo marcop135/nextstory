@@ -101,7 +101,7 @@ export default function PublishingVisual({ labels, caption, resource = "home", s
                 {resourcePaths[resource] ? <svg viewBox="0 0 48 48"><path d={resourcePaths[resource]} /></svg> : null}
                 {sketches[index]?.map((line) => <code key={line}>{line}</code>)}
               </> : <>
-                {index === 0 ? <><code>hero</code><code>comparison_table</code><code>cta_band</code></> : null}
+                {index === 0 ? <><code>hero</code><code>page.body</code></> : null}
                 {index === 1 ? <><i /><i /><i /></> : null}
                 {index === 2 ? <svg viewBox="0 0 48 48"><path d="m12 24 8 8 16-16" /></svg> : null}
                 {index === 3 ? <><span className="publishing-visual__page">EN<i /><i /></span><span className="publishing-visual__page">DE<i /><i /></span></> : null}
