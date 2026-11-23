@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-11-23
+
 ### Added
 
 - Checks: Test localized pages, widget states, and campaign flows with Playwright and axe in CI ([#163](https://github.com/marcop135/nextstory/pull/163)) ([#152](https://github.com/marcop135/nextstory/issues/152)).
