@@ -15,8 +15,14 @@ export { expect };
 
 export async function a11yViolations(page: Page): Promise<string[]> {
   // Client navigation can expose the new content before its stylesheet finishes loading.
-  await page.waitForLoadState("networkidle");
-  await page.evaluate(() => document.fonts.ready);
+  await page.waitForLoadState("load");
+  await expect(page).toHaveTitle(/\S/);
+  await page.waitForFunction(() => [...document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]')]
+    .every((link) => link.sheet !== null));
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await new Promise<void>((done) => requestAnimationFrame(() => requestAnimationFrame(() => done())));
+  });
   const result = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
     .analyze();
