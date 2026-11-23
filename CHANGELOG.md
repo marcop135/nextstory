@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Docs: Clarify setup and contributor paths with updated art and diagrams ([#165](https://github.com/marcop135/nextstory/pull/165)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
+
 ## [0.17.0] - 2026-11-23
 
 ### Added

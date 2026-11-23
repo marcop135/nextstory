@@ -1,20 +1,19 @@
 # Brand images
 
-`art.mjs` writes the SVG sources. `readme-light.svg` and `readme-dark.svg` are the
+Edit the SVG sources directly. `readme-light.svg` and `readme-dark.svg` are the
 README header sources (`readme-light.png` / `readme-dark.png`, 2560x1280),
 selected by a single `<picture>` element using `prefers-color-scheme`.
 `social.svg` → `social.png` (1280x640, GitHub Settings > Social preview).
 `og.svg` → `public/og.png` and `public/og.jpg` (1200x630; the site's Open Graph
 image is the JPEG). All outputs are listed in `brand.config.json`.
 
-The README header pairs the wordmark and one-line marketing-site tagline with
-Home, Blocks, and Campaigns labels. Page names use weight 500 and the tagline
-uses weight 400. Light and dark palettes come from `tokens.json`.
+The README header pairs the wordmark with editor/developer responsibilities
+and the `hero`, `feature_grid`, and `cta_band` blocks. Keep its production
+typography and artwork; the wordmark is optically aligned with the tagline.
 
 From the repository root:
 
 ```bash
-node .github/brand/art.mjs
 npm run brand:render
 node scripts/round-readme-images.mjs
 ```

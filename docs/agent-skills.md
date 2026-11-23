@@ -2,7 +2,7 @@
 
 Point Claude Code, Cursor, or Codex at the right how-to, the trap to avoid, and the checks CI runs.
 
-Public read-only workflows for visitors and remote agents stay separate: [`/.well-known/agent-skills/index.json`](https://nextstory.marcopontili.com/.well-known/agent-skills/index.json) and [For agents](https://nextstory.marcopontili.com/for-agents).
+Three public workflows read a German page, inspect the block model, and trace a block to code. They are read-only and need no key: [skill index](https://nextstory.marcopontili.com/.well-known/agent-skills/index.json) and [For agents](https://nextstory.marcopontili.com/for-agents).
 
 ## The skills
 
