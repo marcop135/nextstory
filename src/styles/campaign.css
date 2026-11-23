@@ -7,6 +7,7 @@
   border-top: 1px solid var(--line);
 }
 .campaign-brief { background: var(--surface); }
+.labelled-block:has(> .campaign-brief) > .wrap { padding-block-end: 1.5rem; }
 .hero:has(a[href="#campaign-action"]) h1 {
   overflow-wrap: anywhere;
   hyphens: auto;

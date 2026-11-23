@@ -32,8 +32,8 @@ it("renders CMS blocks on the server without a client provider or delivery token
   }));
   expect(html).toContain("<h1>Ship every market from one content model</h1>");
   expect(html).toContain("Editors own the page");
-  expect(html).toContain("Follow a campaign from page to lead");
-  expect(html).toContain('href="/campaign-workshop"');
+  expect(html).toContain("See how a page gets published");
+  expect(html).toContain('href="/how-it-works"');
   expect(html).toContain('class="wrap hero__layout"');
   expect(html).toContain('class="publishing-visual"');
   expect(html).not.toContain("Domenico Loia / Unsplash");
@@ -52,7 +52,7 @@ it.each(mockPageSlugs)("renders the %s seed story in both languages", (slug) => 
   expect(de).not.toContain("__i18n__");
   expect(en).toContain('class="publishing-visual"');
   expect(de).toContain('class="publishing-visual"');
-  if (slug !== "home") {
+  if (!["home", "how-it-works", "blocks", "campaign-workshop"].includes(slug)) {
     expect(en).toContain(`nextstory / ${slug}`);
     expect(de).not.toContain("An edit becomes a preview");
   }
@@ -88,7 +88,7 @@ it("renders new block content, image alternatives, and native accordion controls
 it("serves German copy and German links from field-level translations", () => {
   const html = render("home", "de");
   expect(html).toContain("Jeden Markt aus einem Content-Modell bedienen");
-  expect(html).toContain("Modellieren");
+  expect(html).toContain("Wähle einen Block");
   expect(html).toContain("Veröffentlichen");
   expect(html).toContain("Texte und Übersetzungen");
   expect(html).toContain('alt="Aquarellierte Website-Skizzen mit wiederverwendbaren Seitenabschnitten"');

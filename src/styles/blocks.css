@@ -67,13 +67,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero .wrap > div:first-child > *,
-  .not-found > * {
+  .hero .wrap > div:first-child > :not(h1),
+  .not-found > :not(h1) {
     animation: heading-rise 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-  }
-  .hero .wrap > div:first-child > h1,
-  .not-found > h1 {
-    animation-duration: 1.4s;
   }
   .hero .wrap > div:first-child > :nth-child(2),
   .not-found > :nth-child(2) { animation-delay: 160ms; }
@@ -394,6 +390,13 @@
 
   .image-text__layout--text-only {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .hero__layout:has(> .publishing-visual) {
+    inline-size: min(100% - 2rem, var(--measure));
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 }
 

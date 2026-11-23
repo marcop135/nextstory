@@ -10,6 +10,71 @@ async function activate(control: Locator, mode: "mouse" | "keyboard") {
 for (const locale of ["en", "de"] as const) {
   const prefix = locale === "de" ? "/de" : "";
   const copy = widgetMessages[locale];
+  test(`${locale}: home blocks highlight their page sections`, async ({ page }) => {
+    await page.goto(`${prefix}/`);
+    const proof = page.locator('.proof--home');
+    const choices = proof.locator('.proof__home-picker button');
+    for (let index = 0; index < 3; index++) {
+      await activate(choices.nth(index), 'keyboard');
+      await expect(choices.nth(index)).toHaveAttribute('aria-pressed', 'true');
+      await expect(proof.locator('.proof__home-block').nth(index)).toHaveAttribute('data-active', 'true');
+    }
+    await expectAccessible(page);
+  });
+  for (const route of ["/how-it-works"]) {
+    test(`${locale} ${route || "home"}: edit and publish the hero preview`, async ({ page }) => {
+      await page.goto(`${prefix}${route || "/"}`);
+      const proof = page.locator(".proof");
+      const change = proof.locator(".proof__change");
+      const preview = proof.locator(".proof__animated-headline");
+      const initial = await preview.innerText();
+      await change.click();
+      await expect(preview).not.toHaveText(initial);
+      const updated = await preview.innerText();
+      await activate(proof.locator(".proof__publish"), "keyboard");
+      await expect(preview).toHaveText(updated);
+      await expect(proof.locator(".proof__publish")).toHaveAttribute("aria-disabled", "true");
+      const headlines = new Set([initial, updated]);
+      for (let index = 0; index < 4; index++) {
+        await change.click();
+        headlines.add(await preview.innerText());
+      }
+      expect(headlines.size).toBe(6);
+      await change.click();
+      await expect(preview).toHaveText(initial);
+      await expectAccessible(page);
+      await proof.locator(".proof__reset").click();
+      await expect(preview).toHaveText(initial);
+    });
+  }
+  test(`${locale}: build a page from the hero block palette`, async ({ page }) => {
+    await page.goto(`${prefix}/blocks`);
+    const proof = page.locator(".proof");
+    const features = proof.getByRole("button", { name: locale === "de" ? "Merkmale" : "Features", exact: false });
+    await activate(features, "keyboard");
+    await expect(features).toHaveAttribute("aria-pressed", "true");
+    await expect(proof.locator(".proof-page__features")).toBeVisible();
+    await expectAccessible(page);
+    const selected = proof.locator('.proof__choices button[aria-pressed="true"]');
+    while (await selected.count()) await selected.first().click();
+    await expect(proof.locator(".proof-page__block")).toHaveCount(0);
+    await proof.locator(".proof__reset").click();
+    await expect(proof.locator(".proof-page__block")).toHaveCount(2);
+  });
+  test(`${locale}: campaign choices update the preview without submitting`, async ({ page }) => {
+    await page.goto(`${prefix}/campaign-workshop`);
+    const posts: string[] = [];
+    page.on("request", (request) => { if (request.method() === "POST") posts.push(request.url()); });
+    const proof = page.locator(".proof");
+    const initial = await proof.locator(".proof__campaign strong").innerText();
+    await activate(proof.getByRole("button", { name: locale === "de" ? "Entwicklerteams" : "Developers", exact: true }), "keyboard");
+    await expect(proof.locator(".proof__campaign strong")).not.toHaveText(initial);
+    await proof.getByRole("button", { name: locale === "de" ? "Checkliste" : "Checklist", exact: true }).click();
+    await expect(proof.locator(".proof__badge")).toContainText(locale === "de" ? "Checkliste" : "Checklist");
+    await expectAccessible(page);
+    await expect(proof.locator(".proof-page__cta")).toContainText(locale === "de" ? "Checkliste herunterladen" : "Get the checklist");
+    expect(posts).toEqual([]);
+  });
   for (const mode of ["mouse", "keyboard"] as const) {
     test(`${locale} ${mode}: draft, publish, boundaries, reset`, async ({ page }) => {
       await page.goto(`${prefix}/how-it-works`);
@@ -26,7 +91,7 @@ for (const locale of ["en", "de"] as const) {
         await activate(heroDown, mode);
         await expect(draft).toHaveText([copy.features, copy.hero, copy.action]);
       }).toPass();
-      await expect(preview).toHaveText(initial);
+      await expect(preview).toHaveText([copy.features, copy.hero, copy.action]);
       await expect(widget.getByRole("status")).toContainText(copy.changed);
       await expectAccessible(page);
       const boundary = widget.getByRole("button", { name: `${copy.up}: ${copy.features}`, exact: true });

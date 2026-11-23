@@ -68,6 +68,6 @@ it("fences code safely, escapes table pipes, and omits unsafe links", () => {
 
 it("keeps widget Markdown fallbacks German when optional copy is absent", () => {
   const md = storyMarkdown({ component: "page", body: [{ component: "app_widget", kind: "draft_publish", heading: "Entwurf" }] }, "/de/how-it-works", "mock");
-  expect(md).toContain("Sortiere einen lokalen Entwurf");
-  expect(md).not.toContain("Reorder a local draft");
+  expect(md).toContain("Sortiere Blöcke in einer Live-Vorschau");
+  expect(md).not.toContain("Reorder blocks in a live preview");
 });

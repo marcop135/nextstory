@@ -9,7 +9,14 @@
 
 ### Changed
 
+- Demos: Give each page a distinct interactive preview with clearer controls and responsive layouts.
+
 - Docs: Clarify setup and contributor paths with updated art and diagrams ([#165](https://github.com/marcop135/nextstory/pull/165)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
+
+### Fixed
+
+- Publishing: Update both block lists immediately when reordering and keep focus stable during rapid changes.
+- Accessibility: Respect reduced motion and expose demo selections and preview updates to assistive technology.
 
 ## [0.17.0] - 2026-11-23
 
