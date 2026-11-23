@@ -7,6 +7,7 @@ export default defineConfig({
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },
   test: {
+    exclude: ["tests/e2e/**", "node_modules/**"],
     environment: "node",
     clearMocks: true,
     restoreMocks: true,
