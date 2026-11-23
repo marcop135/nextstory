@@ -9,14 +9,14 @@
 
 ### Changed
 
-- Demos: Give each page a distinct interactive preview with clearer controls and responsive layouts.
+- Demos: Give each page an interactive preview with responsive controls ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 
 - Docs: Clarify setup and contributor paths with updated art and diagrams ([#165](https://github.com/marcop135/nextstory/pull/165)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
 
 ### Fixed
 
-- Publishing: Update both block lists immediately when reordering and keep focus stable during rapid changes.
-- Accessibility: Respect reduced motion and expose demo selections and preview updates to assistive technology.
+- Publishing: Keep both block lists and keyboard focus in sync when reordering ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Accessibility: Announce demo changes and respect reduced motion ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 
 ## [0.17.0] - 2026-11-23
 
