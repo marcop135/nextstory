@@ -9,9 +9,9 @@
 
 ### Added
 
-- Community: Add a code of conduct and code ownership.
-- Docs: Index guides by task and add block and campaign how-tos.
-- Checks: Add CodeQL, Scorecard, and weekly production smoke checks.
+- Community: Add a code of conduct and code ownership ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
+- Docs: Index guides by task and add block and campaign how-tos ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
+- Checks: Add CodeQL, Scorecard, and weekly production smoke checks ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
 
 - Blocks: Inspect required fields and English/German values in an interactive block view ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 - Cache: Compare the last five HEAD requests per page and inspect response headers ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
