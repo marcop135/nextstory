@@ -2,6 +2,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
+import { StoryblokStory } from "@storyblok/react/rsc";
 import Hero from "@/components/blocks/Hero";
 import type { HeroBlok } from "@/components/types";
 
@@ -10,6 +11,10 @@ import { mockHomeStory, mockPageSlugs, mockStoryForSlug } from "@/lib/mock-story
 
 const { usePathname } = vi.hoisted(() => ({ usePathname: vi.fn(() => "/") }));
 vi.mock("next/navigation", () => ({ usePathname }));
+vi.mock("@storyblok/react/rsc", async (importOriginal) => ({
+  ...await importOriginal<typeof import("@storyblok/react/rsc")>(),
+  StoryblokStory: vi.fn(() => null),
+}));
 
 function render(slug: string, language?: string) {
   usePathname.mockReturnValue(`${language === "de" ? "/de" : ""}/${slug === "home" ? "" : slug}`);
@@ -112,21 +117,23 @@ it("shows translated table cells and code linked to a real source excerpt", () =
   expect(readFileSync(example.source_path, "utf8").replaceAll("\r\n", "\n")).toContain(example.code);
 });
 
-it("does not consume another editor's bridge cache when rendering a public story", () => {
+it("keeps live-editing content out of public renders", () => {
   const editorStory = structuredClone(mockHomeStory);
   editorStory.content.body[0].headline = "Unpublished editor headline";
-  const cache = (globalThis as typeof globalThis & {
-    storyCache: Map<string, typeof mockHomeStory>;
-  }).storyCache;
-  cache.set(mockHomeStory.uuid, editorStory);
-  try {
-    const html = renderToStaticMarkup(createElement(StoryRenderer, {
-      story: mockHomeStory,
-      source: "storyblok",
-    }));
-    expect(html).toContain("Ship every market from one content model");
-    expect(html).not.toContain("Unpublished editor headline");
-  } finally {
-    cache.delete(mockHomeStory.uuid);
-  }
+  renderToStaticMarkup(createElement(StoryRenderer, {
+    story: editorStory,
+    source: "storyblok",
+    preview: true,
+  }));
+  expect(StoryblokStory).toHaveBeenCalledOnce();
+  expect(vi.mocked(StoryblokStory).mock.calls[0][0].story).toBe(editorStory);
+  vi.mocked(StoryblokStory).mockClear();
+
+  const html = renderToStaticMarkup(createElement(StoryRenderer, {
+    story: mockHomeStory,
+    source: "storyblok",
+  }));
+  expect(StoryblokStory).not.toHaveBeenCalled();
+  expect(html).toContain("Ship every market from one content model");
+  expect(html).not.toContain("Unpublished editor headline");
 });
