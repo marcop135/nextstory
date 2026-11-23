@@ -17,7 +17,7 @@ export default function LanguageSwitch({ current }: { current: Locale }) {
       {locales.map((locale) => (
         <li key={locale}>
           {locale === current ? (
-            <span aria-current="true" lang={locale} title={labels[locale].name} aria-label={`${labels[locale].name} (${labels[locale].short})`}>
+            <span aria-current="true" lang={locale} title={labels[locale].name} aria-label={`${labels[locale].short}: ${labels[locale].name}`}>
               {labels[locale].short}
             </span>
           ) : (
@@ -26,7 +26,7 @@ export default function LanguageSwitch({ current }: { current: Locale }) {
               hrefLang={locale}
               lang={locale}
               title={labels[locale].name}
-              aria-label={`${labels[locale].name} (${labels[locale].short})`}
+              aria-label={`${labels[locale].short}: ${labels[locale].name}`}
             >
               {labels[locale].short}
             </Link>

@@ -91,7 +91,7 @@ try {
   assert.equal(await page.locator("main h1").innerText(), "Inhalte verknüpfen");
   assert.ok(await page.locator("main .code-example a").count() > 0, "Learning notes must link to their implementation");
   await page.getByRole("button", { name: "Menü" }).click();
-  await page.locator(".lang-switch").getByRole("link", { name: "English (EN)", exact: true }).click();
+  await page.locator(".lang-switch").getByRole("link", { name: "EN: English", exact: true }).click();
   await page.waitForURL("**/content-relationships");
   await page.waitForFunction(() => document.documentElement.lang === "en");
   assert.equal(await page.locator("main h1").innerText(), "Content relationships");
@@ -261,6 +261,14 @@ try {
     assert.equal(await firstBlock.getAttribute("aria-pressed"), "true");
     assert.match(await widget.innerText(), /Every block on this site/);
     assert.match(await widget.innerText(), /Jeder Block dieser Site/);
+    await widget.getByRole("button", { name: "feature_grid", exact: true }).click();
+    const field = widget.getByRole("region", { name: "features: EN", exact: true });
+    assert.ok(await field.evaluate((el) => el.scrollHeight > el.clientHeight));
+    await field.focus();
+    await screen.keyboard.press("ArrowDown");
+    await screen.waitForFunction(() => document.activeElement?.scrollTop > 0);
+    assert.equal(await field.evaluate((el) => getComputedStyle(el).outlineStyle), "solid");
+    await field.screenshot({ path: `${output}/block-field-keyboard-${locale}.png` });
 
     await screen.goto(`${base}${prefix}/campaign-workshop?utm_source=widget-check&utm_campaign=proof`, { waitUntil: "networkidle" });
     const sent = [];
