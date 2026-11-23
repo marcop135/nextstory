@@ -36,7 +36,7 @@
 
 ### Fixed
 
-- Accessibility: Make long block-field values focusable and scrollable by keyboard.
+- Accessibility: Make long block-field values focusable and scrollable by keyboard ([#162](https://github.com/marcop135/nextstory/pull/162)) ([#161](https://github.com/marcop135/nextstory/issues/161)).
 
 - Site: Play the hero intro once per visit, not again on every client navigation ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 
