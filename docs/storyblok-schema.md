@@ -56,6 +56,8 @@ Home uses the viewport-controlled hero and ownership comparison. How-it-works an
 
 ## Add a block
 
+`app_widget` selects one interactive proof with `kind`: `block_anatomy`, `cache_inspector`, `attribution_inspector`, or `draft_publish`. Its heading and body translate at field level. Page and learning-note bodies accept it. The block inspector reads published EN/DE examples through `/content/blocks.json?examples=blocks`. Cache inspection sends HEAD requests to public Markdown routes; the content source and configured tag/window are response headers, while cache creation time and the last invalidation are unavailable. Draft publishing is a local simulation. Attribution values stay in the browser.
+
 1. Define fields in `storyblok/components.json`; mark reader-facing fields translatable and include the component in its parent's block whitelist.
 2. Run `npm run storyblok:types`. Implement the component under `src/components/blocks/` or `src/components/campaign/` and register its schema name in `src/lib/storyblok.ts`.
 3. Add an English/German example to the block-library seed. New offline stories must also be registered in `src/lib/mock-story.ts`.

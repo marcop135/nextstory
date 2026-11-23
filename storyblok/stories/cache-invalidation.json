@@ -15,6 +15,12 @@
     "summary__i18n__de": "Einmal veröffentlichen, abhängige Seiten aktualisieren",
     "body": [
       {
+        "_uid": "cache-inspector", "component": "app_widget", "kind": "cache_inspector",
+        "heading": "Inspect a page response", "heading__i18n__de": "Eine Seitenantwort untersuchen",
+        "body": "Compare request times and the headers returned by each page's Markdown representation.",
+        "body__i18n__de": "Vergleiche Anfragezeiten und die Header der Markdown-Darstellung jeder Seite."
+      },
+      {
         "_uid": "cache-invalidation-body",
         "component": "rich_text",
         "body": {

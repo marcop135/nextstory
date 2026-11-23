@@ -36,7 +36,8 @@
           "code_example",
           "related_content",
           "campaign_brief",
-          "campaign_action"
+          "campaign_action",
+          "app_widget"
         ],
         "pos": 3
       }
@@ -547,7 +548,8 @@
         "restrict_components": true,
         "component_whitelist": [
           "rich_text",
-          "code_example"
+          "code_example",
+          "app_widget"
         ],
         "pos": 4
       }
@@ -714,6 +716,48 @@
         "required": true,
         "description": "Privacy notice section for this form, e.g. /privacy#campaign-form",
         "pos": 11
+      }
+    }
+  },
+  {
+    "name": "app_widget",
+    "display_name": "Interactive proof",
+    "is_root": false,
+    "is_nestable": true,
+    "schema": {
+      "kind": {
+        "type": "option",
+        "required": true,
+        "pos": 0,
+        "options": [
+          {
+            "name": "Block anatomy",
+            "value": "block_anatomy"
+          },
+          {
+            "name": "Cache inspector",
+            "value": "cache_inspector"
+          },
+          {
+            "name": "Attribution inspector",
+            "value": "attribution_inspector"
+          },
+          {
+            "name": "Draft and publish",
+            "value": "draft_publish"
+          }
+        ]
+      },
+      "heading": {
+        "type": "text",
+        "translatable": true,
+        "required": true,
+        "pos": 1
+      },
+      "body": {
+        "type": "textarea",
+        "translatable": true,
+        "pos": 2
       }
     }
   }

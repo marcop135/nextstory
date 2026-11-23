@@ -4,6 +4,7 @@ import { fetchStory } from "@/lib/fetch-story";
 import { storyblokLanguage } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site";
 import { storyMarkdown } from "@/lib/story-markdown";
+import { storyCacheTag } from "@/lib/story-cache";
 
 export async function GET(_request: Request, { params }: { params: Promise<{ slug: string[] }> }) {
   const parsed = parseMarkdownPath((await params).slug);
@@ -14,7 +15,12 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
     const result = await fetchStory(parsed.slug, storyblokLanguage(parsed.locale), { version: "published" });
     if (!result || (result.story.content.component !== "page" && result.story.content.component !== "learning_note")) return new Response("# Not found\n", { status: 404, headers });
     const canonical = SITE_URL + parsed.canonical;
-    return new Response(storyMarkdown(result.story.content, canonical, result.source), { headers: { ...headers, Link: `<${canonical}>; rel="canonical"` } });
+    return new Response(storyMarkdown(result.story.content, canonical, result.source), { headers: {
+      ...headers, Link: `<${canonical}>; rel="canonical"`,
+      "X-Content-Source": result.source,
+      "X-Story-Cache-Tag": storyCacheTag(parsed.slug),
+      "X-Story-Revalidate": result.source === "storyblok" ? "60" : "0",
+    } });
   } catch {
     return new Response("# Content temporarily unavailable\n", { status: 503, headers });
   }

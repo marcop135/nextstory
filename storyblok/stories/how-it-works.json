@@ -20,6 +20,15 @@
         "subheadline__i18n__de": "Von einer Änderung in Storyblok zu der Seite, die Sie gerade lesen."
       },
       {
+        "_uid": "how-draft-publish",
+        "component": "app_widget",
+        "kind": "draft_publish",
+        "heading": "Try a draft before publishing",
+        "heading__i18n__de": "Einen Entwurf vor dem Veröffentlichen testen",
+        "body": "Reorder the draft, then publish to update the preview.",
+        "body__i18n__de": "Sortiere den Entwurf um und veröffentliche ihn, um die Vorschau zu aktualisieren."
+      },
+      {
         "_uid": "how-steps",
         "component": "steps",
         "headline": "The publishing path",

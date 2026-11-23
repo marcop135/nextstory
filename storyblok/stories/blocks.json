@@ -25,6 +25,15 @@
         "cta_href__i18n__de": "/de/how-it-works"
       },
       {
+        "_uid": "blocks-anatomy",
+        "component": "app_widget",
+        "kind": "block_anatomy",
+        "heading": "Look inside a block",
+        "heading__i18n__de": "Ein Blick in einen Block",
+        "body": "Compare the fields and published English and German values of this page's blocks.",
+        "body__i18n__de": "Vergleiche Felder und veröffentlichte englische und deutsche Werte der Blöcke dieser Seite."
+      },
+      {
         "_uid": "blocks-grid",
         "component": "feature_grid",
         "headline": "Feature grid",

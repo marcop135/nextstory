@@ -17,6 +17,8 @@ const pascal = (name) =>
 
 function fieldType(field) {
   switch (field.type) {
+    case "option":
+      return field.options?.length ? field.options.map((option) => JSON.stringify(option.value)).join(" | ") : "string";
     case "text":
     case "textarea":
       return "string";

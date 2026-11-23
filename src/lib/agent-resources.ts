@@ -26,7 +26,7 @@ export const agentTasks = [
 
 export const authMarkdown = "# Public resource access\n\nPublic HTML, Markdown, and JSON resources require no login, API key, or OAuth. They return published content.\n\nStoryblok editor preview and revalidation are separate authenticated CMS operations. Their secrets are configured server-side and are not part of the public reading workflows.\n";
 
-type Component = { name: string; display_name: string; schema: Record<string, { type: string; translatable?: boolean; component_whitelist?: string[] }> };
+type Component = { name: string; display_name: string; schema: Record<string, { type: string; required?: boolean; translatable?: boolean; component_whitelist?: string[] }> };
 
 export function blockCatalog() {
   const schema = components as unknown as Component[];
@@ -40,7 +40,7 @@ export function blockCatalog() {
         example_url: `${SITE_URL}/blocks`,
         schema_path: "storyblok/components.json",
         component_path: `src/components/${name.startsWith("campaign_") ? "campaign" : "blocks"}/${name.replace(/(^|_)([a-z])/g, (_, __, c: string) => c.toUpperCase())}.tsx`,
-        fields: Object.entries(component.schema).map(([name, field]) => ({ name, type: field.type, translatable: field.translatable === true, ...(field.component_whitelist ? { components: field.component_whitelist } : {}) })),
+        fields: Object.entries(component.schema).map(([name, field]) => ({ name, type: field.type, translatable: field.translatable === true, ...(field.required ? { required: true } : {}), ...(field.component_whitelist ? { components: field.component_whitelist } : {}) })),
       };
     }),
   };

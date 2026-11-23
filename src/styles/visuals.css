@@ -63,6 +63,7 @@
 .publishing-visual__stage--3 { animation-delay: 0.75s; }
 .publishing-visual__number { color: var(--accent); font: 0.8rem monospace; }
 .publishing-visual__label { display: block; margin: 0.25rem 0 0.75rem; font-weight: 650; overflow-wrap: anywhere; }
+.publishing-visual[data-composition="home"] .publishing-visual__label { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .publishing-visual__sketch { min-height: 4.5rem; display: flex; flex-direction: column; justify-content: center; gap: 0.35rem; }
 .publishing-visual__sketch code { color: var(--muted); font-size: 0.7rem; overflow-wrap: anywhere; }
 .publishing-visual__sketch i { display: block; height: 0.4rem; background: var(--line); border-radius: 0.1rem; }
