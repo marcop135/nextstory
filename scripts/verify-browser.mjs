@@ -1,4 +1,7 @@
-/** Browser regression checks against a running token-free build. */
+/** Check motion, widgets, navigation, and responsive layouts on a token-free build.
+ * Run: npm run verify:browser -- <base-url> with system Chrome installed.
+ * Writes screenshots; exit 0 when assertions pass, nonzero on browser or assertion failure.
+ */
 import assert from "node:assert/strict";
 import { mkdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";

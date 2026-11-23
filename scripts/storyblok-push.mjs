@@ -7,6 +7,7 @@
  *
  * Writes go to the live space: components are created or replaced by name,
  * stories by slug. Publishing requires --publish; overwrites require a baseline.
+ * Checks selectors, credentials, and remote drift; exit 0 on success, nonzero on failure.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { loadSeed, syncSpace } from "./lib/storyblok-sync.mjs";

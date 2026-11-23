@@ -1,0 +1,35 @@
+name: Production smoke
+
+on:
+  schedule:
+    - cron: "10 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: "22"
+      - name: Check production journeys
+        id: smoke
+        run: npm run smoke -- https://nextstory.marcopontili.com
+      - name: Record a failed smoke check
+        if: failure() && steps.smoke.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          existing=$(gh issue list --state all --search '"Production smoke check failed" in:title' --json number,state --jq '[.[] | select(.state == "OPEN")][0].number // empty')
+          if [ -z "$existing" ]; then
+            printf 'Production smoke check failed.\n\n- Inspect the failed journey in [the workflow log](%s/%s/actions/runs/%s).\n- Verify with `npm run smoke -- https://nextstory.marcopontili.com`.\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > smoke-issue.md
+            gh issue create --title 'Production smoke check failed' --body-file smoke-issue.md
+          fi
