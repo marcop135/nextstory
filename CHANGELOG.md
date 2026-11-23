@@ -37,6 +37,7 @@
 ### Fixed
 
 - Accessibility: Make long block-field values focusable and scrollable by keyboard ([#162](https://github.com/marcop135/nextstory/pull/162)) ([#161](https://github.com/marcop135/nextstory/issues/161)).
+- Accessibility: Put visible language codes first in language-switch names ([#160](https://github.com/marcop135/nextstory/pull/160)) ([#159](https://github.com/marcop135/nextstory/issues/159)).
 
 - Site: Play the hero intro once per visit, not again on every client navigation ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 
