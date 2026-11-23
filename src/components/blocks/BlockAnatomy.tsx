@@ -47,7 +47,7 @@ export default function BlockAnatomy({ copy }: { copy: WidgetCopy }) {
       <dl className="app-widget__fields">
         {fields.map((field) => <div key={field.name}>
           <dt><code>{field.name}</code> <span>{copy.required}: {field.required ? copy.yes : copy.no} · {copy.translated}: {field.translatable ? copy.yes : copy.no}</span></dt>
-          <dd><div><b>EN</b><pre>{value(example?.fields[field.name])}</pre></div><div><b>DE</b><pre>{value(german?.fields[field.name])}</pre></div></dd>
+          <dd><div><b>EN</b><pre tabIndex={0} role="region" aria-label={`${field.name}: EN`}>{value(example?.fields[field.name])}</pre></div><div><b>DE</b><pre tabIndex={0} role="region" aria-label={`${field.name}: DE`}>{value(german?.fields[field.name])}</pre></div></dd>
         </div>)}
       </dl>
     </> : null}
