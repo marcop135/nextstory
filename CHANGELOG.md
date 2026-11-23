@@ -24,7 +24,7 @@
 
 ### Changed
 
-- Docs: Align the README, public workflows, and header art with the marketing-site story.
+- Docs: Align the README, public workflows, and header art with the marketing-site story ([#157](https://github.com/marcop135/nextstory/pull/157)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
 
 - Home: Simplify the publishing illustration and limit its headings to two lines ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 
