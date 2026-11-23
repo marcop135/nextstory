@@ -1,5 +1,5 @@
 // Next Story brand art: writes og.svg and readme-{light,dark}.svg / social.svg.
-// Left: mono label, wordmark, editors/developers claim. Right: three-block page.
+// Left: mono label, wordmark, one-line tagline. Right: named pages.
 // Fonts stay as /* @fonts:start */ … /* @fonts:end */ markers for render.mjs.
 // Run from the repository root: node .github/brand/art.mjs, then
 // npm run brand:render, then node scripts/round-readme-images.mjs.
@@ -7,19 +7,19 @@ import { writeFileSync } from "node:fs";
 
 const root = new URL("../../", import.meta.url);
 
-const CLAIM_1 = "Editors own the content.";
-const CLAIM_2 = "Developers own the components.";
+const TAGLINE = "A marketing site is more than its pages.";
 const MONO = "NEXT.JS + STORYBLOK CMS DEMO";
 
 const STYLE = `  <style>
     /* @fonts:start */ /* @fonts:end */
-    .title { font-family: 'Source Sans 3', sans-serif; font-weight: 700; letter-spacing: -0.025em; }
-    .tag { font-family: 'Source Sans 3', sans-serif; font-weight: 500; }
+    .title { font-family: 'Source Sans 3', sans-serif; font-weight: 500; letter-spacing: -0.025em; }
+    .tag { font-family: 'Source Sans 3', sans-serif; font-weight: 400; }
+    .page { font-family: 'Source Sans 3', sans-serif; font-weight: 500; }
     .eyebrow { font-family: 'Source Sans 3', sans-serif; font-weight: 600; letter-spacing: 0.06em; }
     .mono { font-family: 'Roboto Mono', monospace; font-weight: 400; }
   </style>`;
 
-/** Wordmark, mono label, and claims share the safe-area left edge. */
+/** Wordmark and tagline share the safe-area left edge. */
 const LEFT = 80;
 
 const OG = {
@@ -96,8 +96,7 @@ ${STYLE}
   <rect width="${width}" height="${height}" fill="url(#ground)"/>
   <text class="eyebrow" x="${cx}" y="${top}" text-anchor="middle" font-size="22" fill="${p.accent}">${MONO}</text>
   <text class="title" x="${cx}" y="${top + 128}" text-anchor="middle" font-size="104" fill="${p.text}">Next <tspan fill="${p.accent}">Story</tspan></text>
-  <text class="tag" x="${cx}" y="${top + 206}" text-anchor="middle" font-size="34" fill="${p.muted}">${CLAIM_1}</text>
-  <text class="tag" x="${cx}" y="${top + 266}" text-anchor="middle" font-size="34" fill="${p.muted}">${CLAIM_2}</text>
+  <text class="tag" x="${cx}" y="${top + 206}" text-anchor="middle" font-size="34" fill="${p.muted}">${TAGLINE}</text>
 </svg>
 `;
 }
@@ -116,10 +115,10 @@ function readmeArt(p, { width, height, label }) {
   </defs>
 ${STYLE}
   <rect width="${width}" height="${height}" fill="url(#ground)"/>
-  <text class="eyebrow" x="${LEFT}" y="188" font-size="26" fill="${p.accent}">${MONO}</text>
+  <rect x="${LEFT}" y="80" width="344" height="58" rx="8" fill="none" stroke="${p.cardBorder}"/>
+  <text class="mono" x="${LEFT + 16}" y="96" dominant-baseline="text-before-edge" font-size="20" fill="${p.accent}" textLength="312" lengthAdjust="spacingAndGlyphs">${MONO}</text>
   <text class="title" x="${LEFT - 2}" y="292" font-size="120" fill="${p.text}" data-fit-w="600">Next <tspan fill="${p.accent}">Story</tspan></text>
-  <text class="tag" x="${LEFT}" y="372" font-size="34" fill="${p.text}" data-fit-w="560">${CLAIM_1}</text>
-  <text class="tag" x="${LEFT}" y="421" font-size="34" fill="${p.text}" data-fit-w="560">${CLAIM_2}</text>
+  <text class="tag" x="${LEFT}" y="372" font-size="30" fill="${p.text}" data-fit-w="560">${TAGLINE}</text>
   <g filter="url(#shadow)">
     <rect x="714" y="124" width="470" height="120" rx="14" fill="${p.card}" stroke="${p.cardBorder}" stroke-width="2"/>
     <rect x="714" y="288" width="470" height="120" rx="14" fill="${p.card}" stroke="${p.cardBorder}" stroke-width="2"/>
@@ -133,17 +132,17 @@ ${STYLE}
   <rect x="742" y="484" width="220" height="20" rx="10" fill="${p.ctaBar}"/>
   <rect x="706" y="280" width="486" height="136" rx="18" fill="none" stroke="${p.label}" stroke-width="3" stroke-dasharray="10 7"/>
   <rect x="1074.4" y="103.2" width="93.6" height="41.6" rx="10.4" fill="${p.heroLabelFill}" stroke="${p.heroLabelStroke}" stroke-width="2"/>
-  <text class="mono" x="1121.2" y="132.32" text-anchor="middle" font-size="26" fill="${p.heroLabelText}">hero</text>
+  <text class="page" x="1121.2" y="132.32" text-anchor="middle" font-size="26" fill="${p.heroLabelText}">Home</text>
   <rect x="949.6" y="261.2" width="218.4" height="41.6" rx="10.4" fill="${p.gridLabelFill}" stroke="${p.gridLabelStroke}" stroke-width="2"/>
-  <text class="mono" x="1058.8" y="290.32" text-anchor="middle" font-size="26" fill="${p.gridLabelText}">feature_grid</text>
+  <text class="page" x="1058.8" y="290.32" text-anchor="middle" font-size="26" fill="${p.gridLabelText}">Blocks</text>
   <rect x="1012" y="431.2" width="156.0" height="41.6" rx="10.4" fill="${p.ctaLabelFill}" stroke="${p.ctaLabelStroke}" stroke-width="2"/>
-  <text class="mono" x="1090.0" y="460.32" text-anchor="middle" font-size="26" fill="${p.ctaLabelText}">cta_band</text>
+  <text class="page" x="1090.0" y="460.32" text-anchor="middle" font-size="26" fill="${p.ctaLabelText}">Campaigns</text>
 </svg>
 `;
 }
 
 const README_LABEL =
-  "Next Story, Next.js + Storyblok CMS Demo: editors own the content, developers own the components";
+  "Next Story: a marketing site is more than its pages";
 
 writeFileSync(new URL(".github/brand/og.svg", root), ogArt(OG, { width: 1200, height: 630, label: README_LABEL }));
 const outputs = [

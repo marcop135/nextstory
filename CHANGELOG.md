@@ -24,6 +24,8 @@
 
 ### Changed
 
+- Docs: Align the README, public workflows, and header art with the marketing-site story.
+
 - Home: Simplify the publishing illustration and limit its headings to two lines ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 
 - Docs: Align guide titles with the docs index, tighten scaffolding, and clarify agent-skills layout.

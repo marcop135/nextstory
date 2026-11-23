@@ -7,9 +7,9 @@ selected by a single `<picture>` element using `prefers-color-scheme`.
 `og.svg` → `public/og.png` and `public/og.jpg` (1200x630; the site's Open Graph
 image is the JPEG). All outputs are listed in `brand.config.json`.
 
-The README header shows the wordmark and editors/developers claim beside a
-three-block page whose `feature_grid` carries the Visual Editor selection
-outline. Light and dark palettes come from `tokens.json`.
+The README header pairs the wordmark and one-line marketing-site tagline with
+Home, Blocks, and Campaigns labels. Page names use weight 500 and the tagline
+uses weight 400. Light and dark palettes come from `tokens.json`.
 
 From the repository root:
 

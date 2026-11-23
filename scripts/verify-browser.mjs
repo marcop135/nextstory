@@ -312,16 +312,18 @@ try {
   }
 
   const banner = (await readFile("README.md", "utf8")).split("</p>")[0] + "</p>";
+  for (const width of [390, 1000]) {
   for (const colorScheme of ["light", "dark"]) {
-    const instance = await context({ viewport: { width: 1000, height: 600 }, colorScheme });
+    const instance = await context({ viewport: { width, height: 600 }, colorScheme });
     await instance.route("http://readme.test/**", (route) => route.fulfill({ path: resolve(new URL(route.request().url()).pathname.slice(1)) }));
     const readme = await instance.newPage();
     await readme.setContent(`<base href="http://readme.test/"><style>body{margin:0}</style>${banner}`);
     await readme.locator("img").evaluate((el) => el.decode());
     assert.equal(await readme.locator("img").count(), 1, "README must render one banner");
     assert.ok((await readme.locator("img").evaluate((el) => el.currentSrc)).endsWith(`readme-${colorScheme}-rounded.svg`));
-    await readme.screenshot({ path: `${output}/readme-${colorScheme}.png` });
+    await readme.screenshot({ path: `${output}/readme-${width === 1000 ? "" : "390-"}${colorScheme}.png` });
     await instance.close();
+  }
   }
 
   for (const width of [320, 390, 768, 1440]) {

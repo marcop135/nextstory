@@ -2,7 +2,7 @@
   <a href="https://nextstory.marcopontili.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark-rounded.svg" />
-      <img src=".github/brand/readme-light-rounded.svg" alt="Next Story, Next.js + Storyblok CMS Demo: editors own the content, developers own the components" width="100%" />
+      <img src=".github/brand/readme-light-rounded.svg" alt="Next Story: a marketing site is more than its pages" width="100%" />
     </picture>
   </a>
 </p>
@@ -12,12 +12,8 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/marcop135/nextstory/ci.yml?branch=develop&label=CI)](https://github.com/marcop135/nextstory/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/marcop135/nextstory?label=Release)](https://github.com/marcop135/nextstory/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
-[![Node.js 22+](https://img.shields.io/badge/Node.js-22%2B-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![Next.js 16](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-[![React 19](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)](https://react.dev/)
-[![Storyblok](https://img.shields.io/badge/Storyblok-CMS-09B3AF?logo=storyblok&logoColor=white)](https://www.storyblok.com/)
 
-**A marketing site is more than its pages.** Next Story is a [Next.js](https://nextjs.org/) and [Storyblok](https://www.storyblok.com/) demo that runs what turns a visit into a lead, in public: campaigns, consent, attribution, preview, caching, and releases.
+**A marketing site is more than its pages.** Next Story is a [Next.js](https://nextjs.org/) and [Storyblok](https://www.storyblok.com/) [live demo](https://nextstory.marcopontili.com) that runs what turns a visit into a lead, in public: campaigns, consent, attribution, preview, caching, and releases.
 
 Every page shows one part working and links to its code. **Marketers** build pages and campaigns from blocks in Storyblok; **developers** own the blocks, the lead pipeline, and the guardrails.
 
@@ -29,20 +25,23 @@ Every page shows one part working and links to its code. **Marketers** build pag
 - Publish webhooks that refresh only the changed pages
 - Field-level English and German
 - Cookieless Matomo analytics
+- Source links on every page to trace the working example
 - Read-only agent access to Markdown, catalogs, OpenAPI, and skills
 
 ## Explore the demo
 
 Live demo: **[nextstory.marcopontili.com](https://nextstory.marcopontili.com)**
 
-| Page | What it shows |
+| Page | What you can do |
 | --- | --- |
-| [Home](https://nextstory.marcopontili.com/) | Editor and developer responsibilities |
-| [How it works](https://nextstory.marcopontili.com/how-it-works) | Edit-to-publish workflow linked to source |
-| [Blocks](https://nextstory.marcopontili.com/blocks) | Block examples with component labels |
-| [Campaign workshop](https://nextstory.marcopontili.com/campaign-workshop) | Pick features, save a draft the server reads later, and submit a lead |
-| [Deutsch](https://nextstory.marcopontili.com/de) | Field-level German translations |
-| [For agents](https://nextstory.marcopontili.com/for-agents) | Published Markdown, block catalog, read-only tools |
+| [Home](https://nextstory.marcopontili.com/) | Compare editor and developer responsibilities |
+| [How it works](https://nextstory.marcopontili.com/how-it-works) | Reorder a draft and publish it to a local preview |
+| [Blocks](https://nextstory.marcopontili.com/blocks) | Inspect required fields and English/German values |
+| [Campaign workshop](https://nextstory.marcopontili.com/campaign-workshop) | Inspect attribution, pick features, save a draft, and submit a lead |
+| [Cache invalidation](https://nextstory.marcopontili.com/cache-invalidation) | Compare HEAD request timings and response headers |
+| [Content relationships](https://nextstory.marcopontili.com/content-relationships) | Trace a shared learning note to its referring pages |
+| [Deutsch](https://nextstory.marcopontili.com/de) | Read the same pages in German |
+| [For agents](https://nextstory.marcopontili.com/for-agents) | Read published Markdown, inspect the block catalog, and trace source links |
 
 ## How content flows
 
@@ -90,9 +89,7 @@ Against a running build:
 
 ## Agent skills
 
-Four Markdown skills ship once under [`.agents/skills/`](.agents/skills/); [`.claude/skills/`](.claude/skills/) is symlinks so Claude Code, Cursor, and Codex all load the same files. Each skill points at a how-to and the checks CI runs.
-
-[Agent skills docs](docs/agent-skills.md)
+Three public workflows read a German page, inspect the block model, and trace a block to code. They are read-only and need no key: [skill index](https://nextstory.marcopontili.com/.well-known/agent-skills/index.json) · [For agents](https://nextstory.marcopontili.com/for-agents).
 
 ## Storyblok setup
 
