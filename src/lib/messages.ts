@@ -9,11 +9,13 @@ const en = {
   seedWindow: "No CMS cache in seed mode", seconds: "seconds", done: "Request complete.",
   refresh: "Refresh values", refreshed: "Attribution values refreshed.", empty: "Not set",
   attributionNote: "These are the values the form reads at submission. This inspector sends nothing.",
-  draft: "Draft order", published: "Published preview", up: "Move up", down: "Move down",
-  publish: "Publish", reset: "Reset", changed: "Draft changed. The published preview is unchanged.",
-  publishedStatus: "Preview updated to the draft order.", resetStatus: "Draft and preview reset.",
-  simulation: "Local demonstration. Publishing here does not change Storyblok or the live site.",
+  draft: "Draft order", published: "Live preview", up: "Move up", down: "Move down",
+  publish: "Publish", reset: "Reset", changed: "Draft and preview updated.",
+  publishedStatus: "Current order published locally.", resetStatus: "Draft and preview reset.",
+  simulation: "Local demo. Nothing changes in Storyblok or on the live site.",
   hero: "Hero", features: "Features", action: "Call to action",
+  reorderHint: "Move a block. Watch the page follow.",
+  unpublished: "Unpublished changes", inSync: "Saved locally", tryAction: "Get started",
 };
 const de: typeof en = {
   inspect: "Blöcke untersuchen", loading: "Wird geladen…", failed: "Anfrage fehlgeschlagen. Erneut versuchen.",
@@ -26,11 +28,13 @@ const de: typeof en = {
   seedWindow: "Kein CMS-Cache im Demo-Modus", seconds: "Sekunden", done: "Anfrage abgeschlossen.",
   refresh: "Werte aktualisieren", refreshed: "Zuordnungswerte aktualisiert.", empty: "Nicht gesetzt",
   attributionNote: "Diese Werte liest das Formular beim Absenden. Diese Ansicht sendet nichts.",
-  draft: "Reihenfolge im Entwurf", published: "Veröffentlichte Vorschau", up: "Nach oben", down: "Nach unten",
-  publish: "Veröffentlichen", reset: "Zurücksetzen", changed: "Entwurf geändert. Die veröffentlichte Vorschau bleibt unverändert.",
-  publishedStatus: "Vorschau auf die Reihenfolge des Entwurfs aktualisiert.", resetStatus: "Entwurf und Vorschau zurückgesetzt.",
-  simulation: "Lokale Demonstration. Veröffentlichen ändert hier weder Storyblok noch die Live-Site.",
+  draft: "Reihenfolge im Entwurf", published: "Live-Vorschau", up: "Nach oben", down: "Nach unten",
+  publish: "Veröffentlichen", reset: "Zurücksetzen", changed: "Entwurf und Vorschau aktualisiert.",
+  publishedStatus: "Aktuelle Reihenfolge lokal veröffentlicht.", resetStatus: "Entwurf und Vorschau zurückgesetzt.",
+  simulation: "Lokale Demo. In Storyblok und auf der Live-Site ändert sich nichts.",
   hero: "Hero", features: "Merkmale", action: "Handlungsaufruf",
+  reorderHint: "Verschiebe einen Block. Die Seite folgt sofort.",
+  unpublished: "Unveröffentlichte Änderungen", inSync: "Lokal gespeichert", tryAction: "Loslegen",
 };
 export const widgetMessages = { en, de };
 export type WidgetCopy = typeof en;
@@ -39,12 +43,12 @@ const fallbackEn = {
   block_anatomy: "Inspect required and translatable fields with English and German values.",
   cache_inspector: "Read response headers and compare the last five HEAD request timings per page.",
   attribution_inspector: "Inspect page, referrer, and campaign parameters locally without sending them.",
-  draft_publish: "Reorder a local draft and publish it to the demonstration preview.",
+  draft_publish: "Reorder blocks in a live preview and publish the current order locally.",
 };
 const fallbackDe: typeof fallbackEn = {
   block_anatomy: "Prüfe Pflichtfelder und übersetzbare Felder mit englischen und deutschen Werten.",
   cache_inspector: "Lies Antwort-Header und vergleiche die letzten fünf HEAD-Anfragezeiten pro Seite.",
   attribution_inspector: "Prüfe Seiten-, Herkunfts- und Kampagnenparameter lokal, ohne sie zu senden.",
-  draft_publish: "Sortiere einen lokalen Entwurf um und veröffentliche ihn in der Demo-Vorschau.",
+  draft_publish: "Sortiere Blöcke in einer Live-Vorschau um und veröffentliche die Reihenfolge lokal.",
 };
 export const widgetFallbacks = { en: fallbackEn, de: fallbackDe };

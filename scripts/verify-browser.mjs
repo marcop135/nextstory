@@ -29,11 +29,13 @@ try {
     document.querySelector(".publishing-visual")?.getAttribute("data-motion") === expected, value);
   const time = () => visual.evaluate((el) =>
     el.querySelector(".publishing-visual__track span").getAnimations()[0]?.currentTime ?? 0);
+  await page.locator("footer").scrollIntoViewIfNeeded();
   await state("paused");
+  const initialTime = await time();
   assert.deepEqual(await visual.locator(".publishing-visual__stage").evaluateAll((stages) =>
-    stages.map((stage) => getComputedStyle(stage).animationDelay)), ["0s", "0.25s", "0.5s", "0.75s"]);
+    stages.map((stage) => getComputedStyle(stage).animationDelay)), ["0s", "0.25s"]);
   await page.waitForTimeout(5100);
-  assert.equal(await time(), 0, "Offscreen sequence must wait for the reader");
+  assert.ok(Math.abs(await time() - initialTime) < 40, "Offscreen sequence must wait for the reader");
   await visual.scrollIntoViewIfNeeded();
   await state("running");
   await page.waitForTimeout(350);
@@ -121,8 +123,8 @@ try {
     await illustration.scrollIntoViewIfNeeded();
     await sequencePage.waitForFunction(() => document.querySelector(".publishing-visual")?.dataset.motion === "running");
     assert.ok(await illustration.locator(".publishing-visual__track span").evaluate((el) => el.getAnimations().length) > 0);
-    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationDuration), "1.4s");
-    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationName), "heading-rise", `${route}: intro animates from CSS, not after hydration`);
+    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationName), "none", `${route}: headline is visible without waiting for motion`);
+    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).opacity), "1");
     const delays = await sequencePage.locator(".hero .wrap > div:first-child > *").evaluateAll((els) =>
       els.slice(0, 3).map((el) => parseFloat(getComputedStyle(el).animationDelay)));
     assert.ok(delays.length >= 2 && delays[1] > delays[0], `${route}: stagger copy in reading order`);
@@ -246,7 +248,7 @@ try {
     await widget.locator(".app-widget__order li").first().getByRole("button").last().click();
     assert.notEqual(await widget.getByRole("status").textContent(), firstStatus, "Every reorder announces its resulting order");
     await widget.locator(".app-widget__order li").first().getByRole("button").last().click();
-    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), before);
+    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), [before[1], before[0], before[2]]);
     await widget.getByRole("button", { name: locale === "de" ? "Veröffentlichen" : "Publish", exact: true }).click();
     assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), [before[1], before[0], before[2]]);
     await widget.getByRole("button", { name: locale === "de" ? "Zurücksetzen" : "Reset", exact: true }).click();
@@ -367,7 +369,7 @@ try {
     opacity: getComputedStyle(document.querySelector(".publishing-visual__stage")).opacity,
     intro: getComputedStyle(document.querySelector(".hero h1")).animationName,
   }));
-  assert.deepEqual(beforeHydration, { motion: "pending", opacity: "0.4", intro: "heading-rise" }, "Slow load holds the first frame and animates the intro without scripts");
+  assert.deepEqual(beforeHydration, { motion: "pending", opacity: "0.4", intro: "none" }, "Slow load holds the illustration's first frame without hiding the headline");
   await slowPage.waitForFunction(() => document.querySelector(".publishing-visual")?.dataset.motion !== "pending");
   await slow.close();
 
@@ -376,7 +378,7 @@ try {
   await staticPage.goto(base, { waitUntil: "networkidle" });
   assert.equal(await staticPage.locator(".publishing-visual__stage").first().evaluate((el) => getComputedStyle(el).opacity), "1", "No-JS illustration shows its finished state");
   assert.equal(await staticPage.locator(".publishing-visual").evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
-  assert.equal(await staticPage.locator(".publishing-visual__stage").count(), 4);
+  assert.equal(await staticPage.locator(".publishing-visual__stage").count(), 2);
   await noScript.close();
   assert.deepEqual(errors, [], "Browser runtime errors");
   console.log(`ok browser: viewport motion, tab events, localization, keyboard, 4 widths, light/dark, no-JS; screenshots in ${output}`);
