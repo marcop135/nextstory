@@ -29,7 +29,7 @@
 
 - Docs: Clarify setup and contributor paths with updated art and diagrams ([#165](https://github.com/marcop135/nextstory/pull/165)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
 - Site: Make whole feature cards with a link clickable, with hover lift and a focus ring on the card ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
-- Home: Highlight page sections when selecting their blocks ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Home: Highlight page sections when selecting their blocks ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 - Privacy: Lead with site, controller, and contact, and move Last updated to the end ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 - Docs: Align the README, public workflows, and header art with the marketing-site story ([#157](https://github.com/marcop135/nextstory/pull/157)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
 
