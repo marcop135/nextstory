@@ -1,4 +1,7 @@
-/** Read-only checks for a running Next Story instance. */
+/** Read-only checks for public representations, catalogs, and discovery links.
+ * Run: npm run verify:agent-readiness -- <base-url>.
+ * Exit 0 when all assertions pass, nonzero on request or contract failure.
+ */
 import assert from "node:assert/strict";
 
 const base = (process.argv[2] || "http://localhost:3000").replace(/\/$/, "");

@@ -13,12 +13,12 @@
       {
         "_uid": "home-hero",
         "component": "hero",
-        "eyebrow": "Next.js + Storyblok demo",
-        "eyebrow__i18n__de": "Next.js + Storyblok Demo",
+        "eyebrow": "Next.js + Storyblok CMS Demo",
+        "eyebrow__i18n__de": "Next.js + Storyblok CMS-Demo",
         "headline": "Ship every market from one content model",
         "headline__i18n__de": "Jeden Markt aus einem Content-Modell bedienen",
-        "subheadline": "Next Story is a headless CMS demo. Every section on this page is a Storyblok block that editors change without a deploy.",
-        "subheadline__i18n__de": "Next Story ist eine Headless-CMS-Demo. Jeder Abschnitt dieser Seite ist ein Storyblok-Block, den die Redaktion ohne Deployment ändert.",
+        "subheadline": "A marketing site is more than its pages. Every section here is a Storyblok block editors change without a deploy.",
+        "subheadline__i18n__de": "Eine Marketing-Site ist mehr als ihre Seiten. Jeder Abschnitt hier ist ein Storyblok-Block, den die Redaktion ohne Deployment ändert.",
         "cta_label": "How it works",
         "cta_label__i18n__de": "So funktioniert es",
         "cta_href": "/how-it-works",
@@ -125,8 +125,8 @@
         "component": "comparison_table",
         "headline": "What changes in the CMS, what changes in code",
         "headline__i18n__de": "Was sich im CMS ändert und was im Code",
-        "intro": "Editors work with the blocks developers provide, and the content model connects both sides.",
-        "intro__i18n__de": "Die Redaktion arbeitet mit den Blöcken, die die Entwicklung bereitstellt, und das Content-Modell verbindet beide Seiten.",
+        "intro": "Editors fill the blocks developers ship. The shared schema (field list) connects both sides.",
+        "intro__i18n__de": "Die Redaktion füllt die Blöcke, die die Entwicklung liefert. Das gemeinsame Schema (Feldliste) verbindet beide Seiten.",
         "caption": "Content and component ownership",
         "caption__i18n__de": "Verantwortung für Inhalte und Komponenten",
         "table": {
@@ -303,14 +303,14 @@
       {
         "_uid": "home-cta",
         "component": "cta_band",
-        "headline": "Follow a campaign from page to lead",
-        "headline__i18n__de": "Eine Kampagne von der Seite bis zum Lead",
-        "text": "A workshop landing page built from the same blocks, with a brief, an agenda, and a sign-up form that records the lead.",
-        "text__i18n__de": "Eine Workshop-Landingpage aus denselben Blöcken, mit Briefing, Agenda und einem Anmeldeformular, das den Lead erfasst.",
-        "cta_label": "See the campaign",
-        "cta_label__i18n__de": "Kampagne ansehen",
-        "cta_href": "/campaign-workshop",
-        "cta_href__i18n__de": "/de/campaign-workshop"
+        "headline": "See how a page gets published",
+        "headline__i18n__de": "So wird eine Seite veröffentlicht",
+        "text": "Edit content, check the preview, and follow the publish webhook to the rendered page.",
+        "text__i18n__de": "Bearbeite Inhalte, prüfe die Vorschau und folge dem Veröffentlichungs-Webhook bis zur gerenderten Seite.",
+        "cta_label": "See how it works",
+        "cta_label__i18n__de": "So funktioniert es",
+        "cta_href": "/how-it-works",
+        "cta_href__i18n__de": "/de/how-it-works"
       }
     ]
   }

@@ -6,6 +6,7 @@
  * `@id` reference resolving to a node on the same page.
  *
  *   node scripts/smoke.mjs [base-url]   (default http://localhost:3000)
+ * Exit 0 when every assertion passes, nonzero on request or assertion failure.
  */
 const base = (process.argv[2] || "http://localhost:3000").replace(/\/$/, "");
 

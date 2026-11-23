@@ -1,4 +1,7 @@
-/** Browser regression checks against a running token-free build. */
+/** Check motion, widgets, navigation, and responsive layouts on a token-free build.
+ * Run: npm run verify:browser -- <base-url> with system Chrome installed.
+ * Writes screenshots; exit 0 when assertions pass, nonzero on browser or assertion failure.
+ */
 import assert from "node:assert/strict";
 import { mkdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -26,11 +29,13 @@ try {
     document.querySelector(".publishing-visual")?.getAttribute("data-motion") === expected, value);
   const time = () => visual.evaluate((el) =>
     el.querySelector(".publishing-visual__track span").getAnimations()[0]?.currentTime ?? 0);
+  await page.locator("footer").scrollIntoViewIfNeeded();
   await state("paused");
+  const initialTime = await time();
   assert.deepEqual(await visual.locator(".publishing-visual__stage").evaluateAll((stages) =>
-    stages.map((stage) => getComputedStyle(stage).animationDelay)), ["0s", "0.25s", "0.5s", "0.75s"]);
+    stages.map((stage) => getComputedStyle(stage).animationDelay)), ["0s", "0.25s"]);
   await page.waitForTimeout(5100);
-  assert.equal(await time(), 0, "Offscreen sequence must wait for the reader");
+  assert.ok(Math.abs(await time() - initialTime) < 40, "Offscreen sequence must wait for the reader");
   await visual.scrollIntoViewIfNeeded();
   await state("running");
   await page.waitForTimeout(350);
@@ -88,12 +93,14 @@ try {
   assert.equal(await page.locator("main h1").innerText(), "Inhalte verknüpfen");
   assert.ok(await page.locator("main .code-example a").count() > 0, "Learning notes must link to their implementation");
   await page.getByRole("button", { name: "Menü" }).click();
-  await page.locator(".lang-switch").getByRole("link", { name: "English (EN)", exact: true }).click();
+  await page.locator(".lang-switch").getByRole("link", { name: "EN: English", exact: true }).click();
   await page.waitForURL("**/content-relationships");
   await page.waitForFunction(() => document.documentElement.lang === "en");
   assert.equal(await page.locator("main h1").innerText(), "Content relationships");
   assert.match(await page.locator("footer").innerText(), /Explore[\s\S]*Project[\s\S]*Privacy/);
-  assert.equal(await page.locator("footer").getByRole("link", { name: "Marco Pontili", exact: true }).getAttribute("title"), "Marco Pontili");
+  assert.equal(await page.locator("footer").getByRole("link", { name: /Marco Pontili/ }).getAttribute("title"), "Marco Pontili");
+  assert.equal(await page.locator("footer").getByRole("link", { name: /Marco Pontili/ }).getAttribute("target"), "_blank");
+  assert.equal(await page.locator("footer").getByRole("link", { name: /Marco Pontili/ }).getAttribute("rel"), "noopener");
   await mobile.close();
 
   const animated = await context({ viewport: { width: 1440, height: 1000 }, reducedMotion: "no-preference" });
@@ -116,8 +123,8 @@ try {
     await illustration.scrollIntoViewIfNeeded();
     await sequencePage.waitForFunction(() => document.querySelector(".publishing-visual")?.dataset.motion === "running");
     assert.ok(await illustration.locator(".publishing-visual__track span").evaluate((el) => el.getAnimations().length) > 0);
-    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationDuration), "1.4s");
-    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationName), "heading-rise", `${route}: intro animates from CSS, not after hydration`);
+    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).animationName), "none", `${route}: headline is visible without waiting for motion`);
+    assert.equal(await sequencePage.locator("h1").evaluate((el) => getComputedStyle(el).opacity), "1");
     const delays = await sequencePage.locator(".hero .wrap > div:first-child > *").evaluateAll((els) =>
       els.slice(0, 3).map((el) => parseFloat(getComputedStyle(el).animationDelay)));
     assert.ok(delays.length >= 2 && delays[1] > delays[0], `${route}: stagger copy in reading order`);
@@ -226,17 +233,107 @@ try {
     }
   }
 
+  for (const locale of ["en", "de"]) {
+    const prefix = locale === "de" ? "/de" : "";
+    const instance = await context({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+    const screen = await instance.newPage();
+    const widget = screen.locator("[data-widget]");
+    await screen.goto(`${base}${prefix}/how-it-works`, { waitUntil: "networkidle" });
+    const before = await widget.locator(".app-widget__preview li b").allTextContents();
+    const down = widget.locator(".app-widget__order li").first().getByRole("button").last();
+    await down.focus();
+    await screen.keyboard.press("Enter");
+    await screen.waitForFunction(() => document.querySelector('[data-widget] [role="status"]')?.textContent);
+    const firstStatus = await widget.getByRole("status").textContent();
+    await widget.locator(".app-widget__order li").first().getByRole("button").last().click();
+    assert.notEqual(await widget.getByRole("status").textContent(), firstStatus, "Every reorder announces its resulting order");
+    await widget.locator(".app-widget__order li").first().getByRole("button").last().click();
+    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), [before[1], before[0], before[2]]);
+    await widget.getByRole("button", { name: locale === "de" ? "Veröffentlichen" : "Publish", exact: true }).click();
+    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), [before[1], before[0], before[2]]);
+    await widget.getByRole("button", { name: locale === "de" ? "Zurücksetzen" : "Reset", exact: true }).click();
+    assert.deepEqual(await widget.locator(".app-widget__preview li b").allTextContents(), before);
+
+    await screen.goto(`${base}${prefix}/blocks`, { waitUntil: "networkidle" });
+    await widget.getByRole("button", { name: locale === "de" ? "Blöcke untersuchen" : "Inspect blocks" }).click();
+    await widget.locator(".app-widget__fields dt").first().waitFor();
+    const firstBlock = widget.locator(".app-widget__choices button").first();
+    await firstBlock.focus();
+    await screen.keyboard.press("Space");
+    assert.equal(await firstBlock.getAttribute("aria-pressed"), "true");
+    assert.match(await widget.innerText(), /Every block on this site/);
+    assert.match(await widget.innerText(), /Jeder Block dieser Site/);
+    await widget.getByRole("button", { name: "feature_grid", exact: true }).click();
+    const field = widget.getByRole("region", { name: "features: EN", exact: true });
+    assert.ok(await field.evaluate((el) => el.scrollHeight > el.clientHeight));
+    await field.focus();
+    await screen.keyboard.press("ArrowDown");
+    await screen.waitForFunction(() => document.activeElement?.scrollTop > 0);
+    assert.equal(await field.evaluate((el) => getComputedStyle(el).outlineStyle), "solid");
+    await field.screenshot({ path: `${output}/block-field-keyboard-${locale}.png` });
+
+    await screen.goto(`${base}${prefix}/campaign-workshop?utm_source=widget-check&utm_campaign=proof`, { waitUntil: "networkidle" });
+    const sent = [];
+    screen.on("request", (request) => { if (request.method() === "POST") sent.push(request.url()); });
+    await widget.getByRole("button").click();
+    assert.match(await widget.innerText(), /widget-check/);
+    const firstRefresh = await widget.getByRole("status").textContent();
+    await widget.getByRole("button").click();
+    assert.notEqual(await widget.getByRole("status").textContent(), firstRefresh);
+    assert.match(await widget.innerText(), /utm_campaign/);
+    assert.deepEqual(sent, [], "Attribution inspection sends nothing");
+
+    await screen.goto(`${base}${prefix}/cache-invalidation`, { waitUntil: "networkidle" });
+    const methods = [];
+    screen.on("request", (request) => { if (new URL(request.url()).pathname.startsWith("/content/")) methods.push(request.method()); });
+    const requestButton = widget.getByRole("button", { name: locale === "de" ? "Erneut anfragen" : "Request again" });
+    for (let index = 0; index < 6; index++) {
+      await requestButton.click();
+      await screen.waitForFunction(() => document.querySelector('[data-widget="cache_inspector"] .btn')?.getAttribute("aria-disabled") === "false");
+    }
+    assert.equal(await widget.locator(".app-widget__timings li").count(), 5);
+    assert.deepEqual(methods, Array(6).fill("HEAD"));
+    await widget.locator("summary").focus();
+    await screen.keyboard.press("Enter");
+    assert.equal(await widget.locator("details").getAttribute("open"), "");
+    assert.match(await widget.innerText(), /storyblok:[a-f0-9]{64}/);
+    await widget.getByRole("button", { name: "blocks", exact: true }).click();
+    assert.equal(await widget.locator(".app-widget__timings li").count(), 0);
+
+    for (const width of [320, 390, 768, 1440]) {
+      await screen.setViewportSize({ width, height: 900 });
+      for (const colorScheme of ["light", "dark"]) {
+        await screen.emulateMedia({ colorScheme, reducedMotion: "reduce" });
+        for (const route of ["blocks", "how-it-works", "campaign-workshop", "cache-invalidation"]) {
+          await screen.goto(`${base}${prefix}/${route}`, { waitUntil: "networkidle" });
+          if (route === "blocks" || route === "campaign-workshop") {
+            await widget.locator(".btn").first().click();
+            await widget.locator("dl").first().waitFor();
+          }
+          assert.ok(await screen.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${route} ${locale} ${width}px: widget overflow`);
+          if (width === 390 || width === 1440) await widget.screenshot({ path: `${output}/widget-${route}-${locale}-${width}-${colorScheme}.png` });
+        }
+      }
+    }
+    await screen.emulateMedia({ forcedColors: "active" });
+    await widget.getByRole("button", { name: "blocks", exact: true }).focus();
+    assert.notEqual(await widget.getByRole("button", { name: "blocks", exact: true }).evaluate((el) => getComputedStyle(el).outlineStyle), "none");
+    await instance.close();
+  }
+
   const banner = (await readFile("README.md", "utf8")).split("</p>")[0] + "</p>";
+  for (const width of [390, 1000]) {
   for (const colorScheme of ["light", "dark"]) {
-    const instance = await context({ viewport: { width: 1000, height: 600 }, colorScheme });
+    const instance = await context({ viewport: { width, height: 600 }, colorScheme });
     await instance.route("http://readme.test/**", (route) => route.fulfill({ path: resolve(new URL(route.request().url()).pathname.slice(1)) }));
     const readme = await instance.newPage();
     await readme.setContent(`<base href="http://readme.test/"><style>body{margin:0}</style>${banner}`);
     await readme.locator("img").evaluate((el) => el.decode());
     assert.equal(await readme.locator("img").count(), 1, "README must render one banner");
     assert.ok((await readme.locator("img").evaluate((el) => el.currentSrc)).endsWith(`readme-${colorScheme}-rounded.svg`));
-    await readme.screenshot({ path: `${output}/readme-${colorScheme}.png` });
+    await readme.screenshot({ path: `${output}/readme-${width === 1000 ? "" : "390-"}${colorScheme}.png` });
     await instance.close();
+  }
   }
 
   for (const width of [320, 390, 768, 1440]) {
@@ -272,7 +369,7 @@ try {
     opacity: getComputedStyle(document.querySelector(".publishing-visual__stage")).opacity,
     intro: getComputedStyle(document.querySelector(".hero h1")).animationName,
   }));
-  assert.deepEqual(beforeHydration, { motion: "pending", opacity: "0.4", intro: "heading-rise" }, "Slow load holds the first frame and animates the intro without scripts");
+  assert.deepEqual(beforeHydration, { motion: "pending", opacity: "0.4", intro: "none" }, "Slow load holds the illustration's first frame without hiding the headline");
   await slowPage.waitForFunction(() => document.querySelector(".publishing-visual")?.dataset.motion !== "pending");
   await slow.close();
 
@@ -281,7 +378,7 @@ try {
   await staticPage.goto(base, { waitUntil: "networkidle" });
   assert.equal(await staticPage.locator(".publishing-visual__stage").first().evaluate((el) => getComputedStyle(el).opacity), "1", "No-JS illustration shows its finished state");
   assert.equal(await staticPage.locator(".publishing-visual").evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
-  assert.equal(await staticPage.locator(".publishing-visual__stage").count(), 4);
+  assert.equal(await staticPage.locator(".publishing-visual__stage").count(), 2);
   await noScript.close();
   assert.deepEqual(errors, [], "Browser runtime errors");
   console.log(`ok browser: viewport motion, tab events, localization, keyboard, 4 widths, light/dark, no-JS; screenshots in ${output}`);

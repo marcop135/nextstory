@@ -5,6 +5,8 @@
  *
  * request(method, path, body) resolves to the parsed JSON response and throws
  * on a non-2xx status. Paths are relative to /v1/spaces/<space id>.
+ * Run through scripts/storyblok-push.mjs; validate with npm test.
+ * Checks selection and drift; returns a result or throws for the caller's exit handling.
  */
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";

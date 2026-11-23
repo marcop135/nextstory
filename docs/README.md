@@ -1,17 +1,28 @@
 # Next Story documentation
 
-Run the demo, connect a Storyblok space, and trace content from an editor's draft to server-rendered pages. English and German share the same stories and block model.
+Start the demo, connect Storyblok, or find the guide for a code change.
 
-## Find a guide
+## Start here
 
-| Task | Guide | What it answers |
-| --- | --- | --- |
-| Run locally or connect your space | [Setup and commands](commands.md) | Requirements, environment variables, imports, preview, webhooks, and connection failures |
-| Edit content or add a block | [Content model](storyblok-schema.md) | Story types, block fields, translations, shared navigation, and related notes |
-| Follow a request through the app | [Architecture](architecture.md) | Delivery modes, server rendering, cache tags, route mapping, and public Markdown |
-| Verify or release a change | [Development cycle](development-cycle.md) | Local gates, feature PRs, production promotion, tags, and CMS publication |
+Start with [Local development](commands.md#local-development) to run the bundled demo, then follow [Storyblok setup](commands.md#storyblok) to connect a space.
 
-## Choose a content source
+## Make a change
+
+| Guide | Use it to |
+| --- | --- |
+| [Add a block](add-a-block.md) | Define, render, translate, and verify a reusable block |
+| [Add a campaign](add-a-campaign.md) | Connect a page, campaign ID, consent, and lead intake |
+| [Agent skills](agent-skills.md) | Use or add coding-agent skills |
+| [Development cycle](development-cycle.md) | Run checks, open a PR, and release code or CMS content |
+
+## Reference
+
+| Guide | Answers |
+| --- | --- |
+| [Setup and commands](commands.md) | Commands, environment variables, import flags, preview, and webhooks |
+| [Content model](storyblok-schema.md) | Story types, blocks, translations, and shared navigation |
+
+### Content sources
 
 | Mode | Configuration | Result |
 | --- | --- | --- |
@@ -19,14 +30,19 @@ Run the demo, connect a Storyblok space, and trace content from an editor's draf
 | Connected development | Set a space preview token as `STORYBLOK_DELIVERY_API_TOKEN` | Read Storyblok drafts by default; the page badge says `source: storyblok` |
 | Published site | Run a production build with the delivery token | Read published stories; authenticated preview alone reads drafts |
 
-The personal access token and space ID enable imports only. Local seed edits do not update a connected space, and deploying code does not publish CMS drafts. [Setup](commands.md#storyblok) covers that handoff.
+The personal access token and space ID enable imports only. Local seed edits do not update a connected space, and deploying code does not publish CMS drafts. [Setup and commands: Storyblok](commands.md#storyblok) covers that handoff.
 
-## Navigate the source
+## Understand the system
+
+[Architecture](architecture.md) explains requests, lead submission, caching, and Markdown output. Diagram sources and light/dark images live in [`diagrams/`](diagrams/).
+
+### Source map
 
 | Location | Responsibility |
 | --- | --- |
 | [`storyblok/`](../storyblok/) | Component schema and localized seed stories |
-| [`src/components/`](../src/components/) | Block rendering, shared navigation, and client interactions |
+| [`src/components/`](../src/components/) | Blocks, campaigns, shared layout, visuals, and agent UI |
+| [`src/styles/`](../src/styles/) | Design tokens and layered CSS |
 | [`src/lib/`](../src/lib/) | Delivery, localization, content relationships, caching, and public resources |
 | [`src/app/`](../src/app/) | HTML pages, preview/webhook routes, Markdown, and discovery endpoints |
 | [`scripts/`](../scripts/) | CMS imports, generated types, and verification |

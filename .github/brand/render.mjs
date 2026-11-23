@@ -26,7 +26,7 @@ import { embedFonts } from './embed-fonts.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CHECK = process.argv.includes('--check');
-const SAFE = { width: 1120, height: 560 };
+const SAFE = { width: 1124, height: 560 };
 
 // `npx -p` puts its temporary node_modules/.bin on PATH but ESM resolution
 // ignores it, so fall back to resolving from there.
@@ -63,11 +63,11 @@ const page_ = (svg, w, h) =>
 
 async function launch() {
   try {
-    return await chromium.launch();
+    return await chromium.launch({ args: ['--disable-gpu'] });
   } catch (err) {
     // No bundled Chromium (npx path without `playwright install`): use Chrome.
     try {
-      return await chromium.launch({ channel: 'chrome' });
+      return await chromium.launch({ channel: 'chrome', args: ['--disable-gpu'] });
     } catch {
       throw err;
     }

@@ -15,6 +15,12 @@
     "summary__i18n__de": "Einmal veröffentlichen, abhängige Seiten aktualisieren",
     "body": [
       {
+        "_uid": "cache-inspector", "component": "app_widget", "kind": "cache_inspector",
+        "heading": "Inspect a page response", "heading__i18n__de": "Eine Seitenantwort untersuchen",
+        "body": "Compare request times and the headers returned by each page's Markdown representation.",
+        "body__i18n__de": "Vergleiche Anfragezeiten und die Header der Markdown-Darstellung jeder Seite."
+      },
+      {
         "_uid": "cache-invalidation-body",
         "component": "rich_text",
         "body": {
@@ -25,7 +31,7 @@
               "content": [
                 {
                   "type": "text",
-                  "text": "Published references have their own cache tag. The publish webhook expires that tag so dependent pages read the latest published notes. Draft preview bypasses the cache."
+                  "text": "Published references have their own cache tag (a label Next.js uses to clear stale pages). The publish webhook expires that tag so dependent pages read the latest notes. Draft preview bypasses the cache."
                 }
               ]
             }
@@ -38,8 +44,8 @@
               "type": "paragraph",
               "content": [
                 {
-                  "type": "text",
-                  "text": "Veröffentlichte Referenzen haben einen eigenen Cache-Tag. Der Publish-Webhook verwirft diesen Tag, damit abhängige Seiten die aktuellen Notizen laden. Die Entwurfsvorschau umgeht den Cache."
+                  "text": "Veröffentlichte Referenzen haben einen eigenen Cache-Tag (eine Markierung, mit der Next.js veraltete Seiten löscht). Der Publish-Webhook verwirft diesen Tag, damit abhängige Seiten die aktuellen Notizen laden. Die Entwurfsvorschau umgeht den Cache.",
+                  "type": "text"
                 }
               ]
             }

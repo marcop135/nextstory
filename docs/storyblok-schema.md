@@ -1,8 +1,10 @@
-# Storyblok space schema (Next Story)
+# Content model
+
+Edit stories and blocks in Storyblok, keep English and German in the same story, and add a block when the demo needs a new section type.
 
 Open [Storyblok](https://app.storyblok.com/), sign in, select the project space, then open **Content** and a story such as `home`. The Visual Editor edits copy, blocks, and translations; `config` holds navigation and the footer. Save keeps a draft; Publish updates the live content through the configured webhook.
 
-[`storyblok/components.json`](../storyblok/components.json) defines the model and generates [`src/types/storyblok.generated.ts`](../src/types/storyblok.generated.ts). [`storyblok/stories/`](../storyblok/stories/) contains localized seed content for imports and offline rendering. [Setup and imports](commands.md#storyblok) covers connecting a space and replacing existing content.
+[`storyblok/components.json`](../storyblok/components.json) defines the model and generates [`src/types/storyblok.generated.ts`](../src/types/storyblok.generated.ts). [`storyblok/stories/`](../storyblok/stories/) contains localized seed content for imports and offline rendering. [Setup and commands: Storyblok](commands.md#storyblok) covers connecting a space and replacing existing content.
 
 ## Blocks
 
@@ -54,10 +56,14 @@ Home uses the viewport-controlled hero and ownership comparison. How-it-works an
 
 ## Add a block
 
+`app_widget` selects one interactive proof with `kind`: `block_anatomy`, `cache_inspector`, `attribution_inspector`, or `draft_publish`. Its heading and body translate at field level. Page and learning-note bodies accept it. The block inspector reads published EN/DE examples through `/content/blocks.json?examples=blocks`. Cache inspection sends HEAD requests to public Markdown routes; the content source and configured tag/window are response headers, while cache creation time and the last invalidation are unavailable. Draft publishing is a local simulation. Attribution values stay in the browser.
+
 1. Define fields in `storyblok/components.json`; mark reader-facing fields translatable and include the component in its parent's block whitelist.
-2. Run `npm run storyblok:types`. Implement the component in `src/components/` and register its schema name in `src/lib/storyblok.ts`.
+2. Run `npm run storyblok:types`. Implement the component under `src/components/blocks/` or `src/components/campaign/` and register its schema name in `src/lib/storyblok.ts`.
 3. Add an English/German example to the block-library seed. New offline stories must also be registered in `src/lib/mock-story.ts`.
 4. Check server rendering and Markdown output. Update `src/lib/story-markdown.ts` if the new block needs serialization, then run the [verification gates](development-cycle.md#implement-and-review).
 5. Import the selected schema changes, deploy the renderer, then preview and publish reviewed content using the new block.
 
 Use `related_content.stories` for ordered links to shared `learning_note` stories rather than duplicating their text. Targets must be published to appear in public related-content lists; drafts remain available in authenticated preview.
+
+[Documentation index](README.md)

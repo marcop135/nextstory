@@ -1,3 +1,7 @@
+/** Wrap rendered README images and diagrams with rounded SVG clipping.
+ * Run: node scripts/round-readme-images.mjs after brand:render.
+ * Requires brand tokens and PNGs; exit 0 on success, nonzero on missing or invalid inputs.
+ */
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
@@ -10,7 +14,7 @@ for (const theme of ["light", "dark"]) {
   writeFileSync(new URL(`.github/brand/readme-${theme}-rounded.svg`, root), header);
 
   for (const diagram of ["content-flow", "campaign-to-lead"]) {
-    const path = new URL(`docs/${diagram}-${theme}.svg`, root);
+    const path = new URL(`docs/diagrams/${diagram}-${theme}.svg`, root);
     let svg = readFileSync(path, "utf8");
     const viewBox = svg.match(/viewBox="([^"]+)"/)?.[1];
     if (!viewBox) throw new Error(`Missing viewBox: ${fileURLToPath(path)}`);

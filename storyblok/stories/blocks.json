@@ -17,12 +17,21 @@
         "eyebrow__i18n__de": "Block-Bibliothek",
         "headline": "Every block on this site",
         "headline__i18n__de": "Jeder Block dieser Site",
-        "subheadline": "This page is assembled from the same blocks as the rest of the site. The label above each section is its Storyblok component name.",
-        "subheadline__i18n__de": "Diese Seite besteht aus denselben Blöcken wie der Rest der Site. Das Label über jedem Abschnitt ist sein Storyblok-Komponentenname.",
+        "subheadline": "The same blocks as the rest of the site. Each label is the Storyblok component name.",
+        "subheadline__i18n__de": "Dieselben Blöcke wie auf dem Rest der Site. Jedes Label ist der Storyblok-Komponentenname.",
         "cta_label": "How it works",
         "cta_label__i18n__de": "So funktioniert es",
         "cta_href": "/how-it-works",
         "cta_href__i18n__de": "/de/how-it-works"
+      },
+      {
+        "_uid": "blocks-anatomy",
+        "component": "app_widget",
+        "kind": "block_anatomy",
+        "heading": "Look inside a block",
+        "heading__i18n__de": "Ein Blick in einen Block",
+        "body": "Compare the fields and published English and German values of this page's blocks.",
+        "body__i18n__de": "Vergleiche Felder und veröffentlichte englische und deutsche Werte der Blöcke dieser Seite."
       },
       {
         "_uid": "blocks-grid",
@@ -73,7 +82,7 @@
             "title__i18n__de": "Eine Datei verlinken",
             "text": "A step can name the file that implements it.",
             "text__i18n__de": "Ein Schritt kann die Datei nennen, die ihn umsetzt.",
-            "file": "src/components/Steps.tsx"
+            "file": "src/components/blocks/Steps.tsx"
           }
         ]
       },
@@ -389,8 +398,8 @@
         "component": "comparison_table",
         "headline": "What changes in the CMS, what changes in code",
         "headline__i18n__de": "Was sich im CMS ändert und was im Code",
-        "intro": "Editors work with the blocks developers provide. The content model connects both sides.",
-        "intro__i18n__de": "Die Redaktion arbeitet mit den Blöcken, die die Entwicklung bereitstellt. Das Content-Modell verbindet beide Seiten.",
+        "intro": "Editors fill the blocks developers ship. The shared schema connects both sides.",
+        "intro__i18n__de": "Die Redaktion füllt die Blöcke, die die Entwicklung liefert. Das gemeinsame Schema verbindet beide Seiten.",
         "caption": "Content and component ownership",
         "caption__i18n__de": "Verantwortung für Inhalte und Komponenten",
         "table": {

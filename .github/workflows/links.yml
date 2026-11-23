@@ -27,7 +27,7 @@ jobs:
             --exclude '^https://(www\.)?linkedin\.com/'
             --exclude '^https://(www\.)?unsplash\.com/'
             --accept 200,206,429
-            README.md CONTRIBUTING.md SECURITY.md CHANGELOG.md
+            README.md CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md
             'docs/**/*.md' public/llms.txt 'storyblok/stories/*.json'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

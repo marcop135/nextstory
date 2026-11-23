@@ -2,7 +2,8 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, it, vi } from "vitest";
 import { readFileSync } from "node:fs";
-import Hero from "@/components/Hero";
+import { StoryblokStory } from "@storyblok/react/rsc";
+import Hero from "@/components/blocks/Hero";
 import type { HeroBlok } from "@/components/types";
 
 import StoryRenderer from "@/components/StoryRenderer";
@@ -10,6 +11,10 @@ import { mockHomeStory, mockPageSlugs, mockStoryForSlug } from "@/lib/mock-story
 
 const { usePathname } = vi.hoisted(() => ({ usePathname: vi.fn(() => "/") }));
 vi.mock("next/navigation", () => ({ usePathname }));
+vi.mock("@storyblok/react/rsc", async (importOriginal) => ({
+  ...await importOriginal<typeof import("@storyblok/react/rsc")>(),
+  StoryblokStory: vi.fn(() => null),
+}));
 
 function render(slug: string, language?: string) {
   usePathname.mockReturnValue(`${language === "de" ? "/de" : ""}/${slug === "home" ? "" : slug}`);
@@ -27,8 +32,8 @@ it("renders CMS blocks on the server without a client provider or delivery token
   }));
   expect(html).toContain("<h1>Ship every market from one content model</h1>");
   expect(html).toContain("Editors own the page");
-  expect(html).toContain("Follow a campaign from page to lead");
-  expect(html).toContain('href="/campaign-workshop"');
+  expect(html).toContain("See how a page gets published");
+  expect(html).toContain('href="/how-it-works"');
   expect(html).toContain('class="wrap hero__layout"');
   expect(html).toContain('class="publishing-visual"');
   expect(html).not.toContain("Domenico Loia / Unsplash");
@@ -47,7 +52,7 @@ it.each(mockPageSlugs)("renders the %s seed story in both languages", (slug) => 
   expect(de).not.toContain("__i18n__");
   expect(en).toContain('class="publishing-visual"');
   expect(de).toContain('class="publishing-visual"');
-  if (slug !== "home") {
+  if (!["home", "how-it-works", "blocks", "campaign-workshop"].includes(slug)) {
     expect(en).toContain(`nextstory / ${slug}`);
     expect(de).not.toContain("An edit becomes a preview");
   }
@@ -83,7 +88,7 @@ it("renders new block content, image alternatives, and native accordion controls
 it("serves German copy and German links from field-level translations", () => {
   const html = render("home", "de");
   expect(html).toContain("Jeden Markt aus einem Content-Modell bedienen");
-  expect(html).toContain("Modellieren");
+  expect(html).toContain("Wähle einen Block");
   expect(html).toContain("Veröffentlichen");
   expect(html).toContain("Texte und Übersetzungen");
   expect(html).toContain('alt="Aquarellierte Website-Skizzen mit wiederverwendbaren Seitenabschnitten"');
@@ -112,21 +117,23 @@ it("shows translated table cells and code linked to a real source excerpt", () =
   expect(readFileSync(example.source_path, "utf8").replaceAll("\r\n", "\n")).toContain(example.code);
 });
 
-it("does not consume another editor's bridge cache when rendering a public story", () => {
+it("keeps live-editing content out of public renders", () => {
   const editorStory = structuredClone(mockHomeStory);
   editorStory.content.body[0].headline = "Unpublished editor headline";
-  const cache = (globalThis as typeof globalThis & {
-    storyCache: Map<string, typeof mockHomeStory>;
-  }).storyCache;
-  cache.set(mockHomeStory.uuid, editorStory);
-  try {
-    const html = renderToStaticMarkup(createElement(StoryRenderer, {
-      story: mockHomeStory,
-      source: "storyblok",
-    }));
-    expect(html).toContain("Ship every market from one content model");
-    expect(html).not.toContain("Unpublished editor headline");
-  } finally {
-    cache.delete(mockHomeStory.uuid);
-  }
+  renderToStaticMarkup(createElement(StoryRenderer, {
+    story: editorStory,
+    source: "storyblok",
+    preview: true,
+  }));
+  expect(StoryblokStory).toHaveBeenCalledOnce();
+  expect(vi.mocked(StoryblokStory).mock.calls[0][0].story).toBe(editorStory);
+  vi.mocked(StoryblokStory).mockClear();
+
+  const html = renderToStaticMarkup(createElement(StoryRenderer, {
+    story: mockHomeStory,
+    source: "storyblok",
+  }));
+  expect(StoryblokStory).not.toHaveBeenCalled();
+  expect(html).toContain("Ship every market from one content model");
+  expect(html).not.toContain("Unpublished editor headline");
 });

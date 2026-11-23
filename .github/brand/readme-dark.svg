@@ -20,10 +20,10 @@
     .mono { font-family: 'Roboto Mono', monospace; font-weight: 400; }
   </style>
   <rect width="1280" height="640" fill="url(#ground)"/>
-  <text class="eyebrow" x="88" y="196" font-size="26">NEXT.JS + STORYBLOK</text>
-  <text class="title" x="88" y="292" font-size="96" data-fit-w="580">Next <tspan fill="#5EC6EC">Story</tspan></text>
-  <text class="tag" x="88" y="372" font-size="38" data-fit-w="560">Editors own the content.</text>
-  <text class="tag" x="88" y="421" font-size="38" data-fit-w="560">Developers own the components.</text>
+  <text class="eyebrow" x="88" y="210" font-size="26">NEXT.JS + STORYBLOK CMS DEMO</text>
+  <text class="title" x="82" y="324" font-size="112" data-fit-w="580">Next <tspan fill="#5EC6EC">Story</tspan></text>
+  <text class="tag" x="88" y="386" font-size="38" data-fit-w="560">Editors own the content.</text>
+  <text class="tag" x="88" y="435" font-size="38" data-fit-w="560">Developers own the components.</text>
   <g filter="url(#shadow)">
     <rect x="714" y="124" width="470" height="120" rx="14" fill="#141E28" stroke="#293442" stroke-width="2"/>
     <rect x="714" y="288" width="470" height="120" rx="14" fill="#141E28" stroke="#293442" stroke-width="2"/>

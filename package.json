@@ -1,6 +1,6 @@
 {
   "name": "nextstory",
-  "version": "0.16.1",
+  "version": "0.17.0",
   "private": false,
   "description": "Next.js App Router + Storyblok headless CMS demo",
   "scripts": {
@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "changelog:lint": "node scripts/changelog-lint.mjs",
     "brand:render": "node .github/brand/render.mjs",
     "brand:check": "node .github/brand/render.mjs --check",
@@ -27,6 +28,8 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
     "@types/node": "^26.6.6",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",

@@ -1,4 +1,4 @@
-import CampaignDraftPage, { campaignDraftMetadata } from "@/components/CampaignDraftPage";
+import CampaignDraftPage, { campaignDraftMetadata } from "@/components/campaign/CampaignDraftPage";
 
 export const metadata = campaignDraftMetadata("en");
 

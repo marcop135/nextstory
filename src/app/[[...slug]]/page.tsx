@@ -3,7 +3,7 @@ import { cookies, draftMode } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import JsonLd from "@/components/JsonLd";
+import JsonLd from "@/components/seo/JsonLd";
 import StoryRenderer from "@/components/StoryRenderer";
 import type { PageBlok } from "@/components/types";
 import { CAMPAIGN_DRAFT_COOKIE, CAMPAIGN_DRAFT_SLUG, campaignDraftSecret, readCampaignDraft } from "@/lib/campaign-draft";

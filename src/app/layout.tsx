@@ -3,10 +3,10 @@ import { Source_Sans_3 } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 
-import MatomoRouteTracker from "@/components/MatomoRouteTracker";
-import AgentTools from "@/components/AgentTools";
-import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/SiteChrome";
-import StoryblokProvider from "@/components/StoryblokProvider";
+import MatomoRouteTracker from "@/components/layout/MatomoRouteTracker";
+import AgentTools from "@/components/agents/AgentTools";
+import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/layout/SiteChrome";
+import StoryblokProvider from "@/components/layout/StoryblokProvider";
 import {
   OG_IMAGE,
   REPO_URL,
@@ -19,7 +19,7 @@ import {
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
 import { fetchSiteConfig, requestLocale } from "@/lib/site-config";
 
-import "./globals.css";
+import "@/styles/globals.css";
 
 const sans = Source_Sans_3({
   subsets: ["latin"],
@@ -50,6 +50,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
+  // Light header surface (oklch surface token), a single value for the browser chrome.
+  themeColor: "#f9fcfe",
 };
 
 const fallbackNav = [
@@ -60,7 +62,7 @@ const fallbackNav = [
 
 const fallbackFooterNav = [
   { _uid: "footer-source", label: "View the source", de: "Quellcode ansehen", href: REPO_URL },
-  { _uid: "footer-docs", label: "Documentation", de: "Dokumentation", href: `${REPO_URL}/tree/main/docs` },
+  { _uid: "footer-docs", label: "Documentation", de: "Dokumentation", href: `${REPO_URL}/blob/main/docs/README.md` },
   { _uid: "footer-license", label: "MIT license", de: "MIT-Lizenz", href: `${REPO_URL}/blob/main/LICENSE` },
   { _uid: "footer-privacy", label: "Privacy", de: "Datenschutz", href: "/privacy" },
   { _uid: "footer-agents", label: "For agents", de: "Für Agents", href: "/for-agents" },

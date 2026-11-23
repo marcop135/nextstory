@@ -65,3 +65,9 @@ it("fences code safely, escapes table pipes, and omits unsafe links", () => {
   expect(blockMarkdown({ component: "cta_band", headline: "Example", cta_label: "Bad", cta_href: "javascript:alert(1)" })).not.toContain("javascript");
   expect(() => storyMarkdown({ component: "config" }, "/", "mock")).toThrow("Only page stories");
 });
+
+it("keeps widget Markdown fallbacks German when optional copy is absent", () => {
+  const md = storyMarkdown({ component: "page", body: [{ component: "app_widget", kind: "draft_publish", heading: "Entwurf" }] }, "/de/how-it-works", "mock");
+  expect(md).toContain("Sortiere Blöcke in einer Live-Vorschau");
+  expect(md).not.toContain("Reorder blocks in a live preview");
+});

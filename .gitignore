@@ -31,3 +31,5 @@ next-env.d.ts
 
 # audit reports
 .audit/
+/test-results/
+/playwright-report/

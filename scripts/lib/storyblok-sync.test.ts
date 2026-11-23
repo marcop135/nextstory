@@ -1,3 +1,6 @@
+/** Check CMS selection, drift protection, and publication ordering.
+ * Run: npm test. Vitest exits 0 on success, 1 on assertion failure.
+ */
 import { describe, expect, it, vi } from "vitest";
 import { syncSpace } from "./storyblok-sync.mjs";
 

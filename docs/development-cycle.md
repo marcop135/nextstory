@@ -1,4 +1,6 @@
-# Development and release cycle
+# Development cycle
+
+Ship a reviewed increment: local gates, a feature PR into `develop`, production promotion on `main`, then tags and coordinated CMS publication.
 
 Next Story is a public learning project: each increment pairs a working example with its schema, implementation, explanation, and verification. `develop` integrates changes; `main` is the Vercel production branch. Local commits do not publish the site.
 
@@ -51,3 +53,5 @@ The existing `v0.7.0` tag is annotated, points to the production promotion commi
 Code deployment and CMS publication are separate operations. Before a live write, snapshot the current schema/stories and compare with the reviewed baseline. Apply backward-compatible schema extensions, save reviewed story changes as drafts, deploy supporting code, then publish only the reviewed stories. Recheck concurrent edits before writing.
 
 `storyblok:push` requires repeatable `--only-component`/`--only-story` selectors or explicit `--bootstrap`. It saves drafts unless `--publish` is supplied. Export selected remote content with `--snapshot <new-file>`, review it, and pass it through `--baseline <file>` before replacing an existing story. Drift aborts content replacement. Keep local snapshots outside version control. Apply schema changes separately, deploy supporting components, preview drafts, then explicitly publish reviewed stories. Verify English/German HTML and Markdown after webhook invalidation. Local seeds verify the implementation only.
+
+[Documentation index](README.md)
