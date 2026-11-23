@@ -21,6 +21,6 @@ node scripts/round-readme-images.mjs
 
 `npm run brand:check` checks fonts, layout, dimensions, size limits, and stale
 output without writing files. Source Sans 3 (wordmark, tagline) and Roboto Mono
-(block names) are embedded under SIL OFL 1.1 (licenses in `fonts/`).
+(stack label) are embedded under SIL OFL 1.1 (licenses in `fonts/`).
 `render.mjs` and `embed-fonts.mjs` are vendored from the marcopontili.com
 repo-brand kit; do not edit them here.
