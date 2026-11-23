@@ -7,53 +7,38 @@
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-11-23
+
+### Added
+
+- Publishing: Reorder blocks in a live preview and publish the order locally ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Blocks: Inspect required fields and English/German values in an interactive block view ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Campaign: Inspect attribution values locally before submitting a lead ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Cache: Compare the last five HEAD requests per page and inspect response headers ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Site: Reveal headings, leads, cards, steps, and code examples on scroll, except For agents and Privacy ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
+- Site: Serve 192 and 512 PNG icons plus a maskable 512 for saved shortcuts, with a light theme color ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
+- Checks: Test localized pages, widget states, and campaign flows with Playwright and axe in CI ([#163](https://github.com/marcop135/nextstory/pull/163)) ([#152](https://github.com/marcop135/nextstory/issues/152)).
+- Checks: Add CodeQL, Scorecard, and weekly production smoke checks ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
+- Docs: Index guides by task, align titles, tighten scaffolding, and add block/campaign how-tos ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
+- Docs: Add README features and shared agent skills with layout and usage guides.
+- Community: Add a code of conduct and code ownership ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
+
 ### Changed
 
-- Demos: Give each page an interactive preview with responsive controls ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Demos: Add interactive previews to Home, How it works, Blocks, and Campaign ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 
 - Docs: Clarify setup and contributor paths with updated art and diagrams ([#165](https://github.com/marcop135/nextstory/pull/165)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
+- Site: Make whole feature cards with a link clickable, with hover lift and a focus ring on the card ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
+- Home: Highlight page sections when selecting their blocks ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
+- Privacy: Lead with site, controller, and contact, and move Last updated to the end ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
+- Docs: Align the README, public workflows, and header art with the marketing-site story ([#157](https://github.com/marcop135/nextstory/pull/157)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
 
 ### Fixed
 
 - Publishing: Keep both block lists and keyboard focus in sync when reordering ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
 - Accessibility: Announce demo changes and respect reduced motion ([#166](https://github.com/marcop135/nextstory/pull/166)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
-
-## [0.17.0] - 2026-11-23
-
-### Added
-
-- Checks: Test localized pages, widget states, and campaign flows with Playwright and axe in CI ([#163](https://github.com/marcop135/nextstory/pull/163)) ([#152](https://github.com/marcop135/nextstory/issues/152)).
-
-- Community: Add a code of conduct and code ownership ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
-- Docs: Index guides by task and add block and campaign how-tos ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
-- Checks: Add CodeQL, Scorecard, and weekly production smoke checks ([#156](https://github.com/marcop135/nextstory/pull/156)) ([#154](https://github.com/marcop135/nextstory/issues/154)).
-
-- Blocks: Inspect required fields and English/German values in an interactive block view ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
-- Cache: Compare the last five HEAD requests per page and inspect response headers ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
-- Campaign: Inspect attribution values locally before submitting a lead ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
-- Publishing: Reorder a draft and publish it to a local preview ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
-
-- Docs: Add a Features section, in-repo agent skills, and agent-skills docs to the README.
-- Site: Reveal headings, leads, cards, steps, and code examples on scroll, except For agents and Privacy ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
-- Site: Serve 192 and 512 PNG icons plus a maskable 512 for saved shortcuts, with a light theme color ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
-
-### Changed
-
-- Docs: Align the README, public workflows, and header art with the marketing-site story ([#157](https://github.com/marcop135/nextstory/pull/157)) ([#151](https://github.com/marcop135/nextstory/issues/151)).
-
-- Home: Simplify the publishing illustration and limit its headings to two lines ([#155](https://github.com/marcop135/nextstory/pull/155)) ([#153](https://github.com/marcop135/nextstory/issues/153)).
-
-- Docs: Align guide titles with the docs index, tighten scaffolding, and clarify agent-skills layout.
-- Docs: Restructure the README tech stack table by layer.
-- Site: Make whole feature cards with a link clickable, with hover lift and a focus ring on the card ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
-- Site: Point the footer Documentation link at `docs/README.md`.
-- Privacy: Lead with site, controller, and contact, and move Last updated to the end ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
-
-### Fixed
-
 - Accessibility: Make long block-field values focusable and scrollable by keyboard ([#162](https://github.com/marcop135/nextstory/pull/162)) ([#161](https://github.com/marcop135/nextstory/issues/161)).
 - Accessibility: Put visible language codes first in language-switch names ([#160](https://github.com/marcop135/nextstory/pull/160)) ([#159](https://github.com/marcop135/nextstory/issues/159)).
-
 - Site: Play the hero intro once per visit, not again on every client navigation ([#149](https://github.com/marcop135/nextstory/pull/149)) ([#148](https://github.com/marcop135/nextstory/issues/148)).
 
 ## [0.16.1] - 2026-11-19
