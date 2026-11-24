@@ -4,7 +4,8 @@ import { readFileSync } from "node:fs";
 import { runInNewContext } from "node:vm";
 
 import {
-  matomoTrackingUrl,
+  matomoTrackingBody,
+  reportAiAssistant,
   shouldSkipPath,
   uaIsAiAssistant,
   UA_NEEDLES,
@@ -78,13 +79,10 @@ describe("shouldSkipPath", () => {
   });
 });
 
-describe("matomoTrackingUrl", () => {
+describe("matomoTrackingBody", () => {
   it("builds the recMode=1 tracking request", () => {
-    const url = new URL(
-      matomoTrackingUrl("https://nextstory.marcopontili.com/blocks?a=1", "ChatGPT-User/1.0"),
-    );
-    expect(url.origin + url.pathname).toBe("https://mt.marcopontili.com/m/matomo.php");
-    expect(Object.fromEntries(url.searchParams)).toEqual({
+    const body = matomoTrackingBody("https://nextstory.marcopontili.com/blocks?a=1", "ChatGPT-User/1.0");
+    expect(Object.fromEntries(body)).toEqual({
       idsite: "5",
       rec: "1",
       recMode: "1",
@@ -117,8 +115,8 @@ describe("proxy", () => {
     expect(result.status).toBe(200);
     expect(waitUntil).toHaveBeenCalledOnce();
     expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("https://mt.marcopontili.com/m/matomo.php?idsite=5"),
-      { method: "GET" },
+      "https://mt.marcopontili.com/m/",
+      expect.objectContaining({ method: "POST", body: expect.any(URLSearchParams) }),
     );
   });
 
@@ -158,5 +156,17 @@ describe("proxy", () => {
     const asset = await run("ChatGPT-User/1.0", "/og.png");
     expect(asset.waitUntil).not.toHaveBeenCalled();
     expect(asset.fetchMock).not.toHaveBeenCalled();
+  });
+});
+
+describe("tracker failures", () => {
+  it("reports HTTP failures without logging request data or rejecting", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 404 })));
+    await expect(reportAiAssistant("https://example.test/?private=value", "ChatGPT-User/1.0")).resolves.toBeUndefined();
+    expect(warn).toHaveBeenCalledWith("Matomo AI tracking failed", 404);
+    expect(JSON.stringify(warn.mock.calls)).not.toContain("private");
+    warn.mockRestore();
+    vi.unstubAllGlobals();
   });
 });

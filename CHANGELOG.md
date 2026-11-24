@@ -7,6 +7,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Analytics: Send AI-assistant requests to the working POST endpoint and report delivery failures.
+
 ## [0.17.0] - 2026-11-23
 
 ### Added
