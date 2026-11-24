@@ -1,7 +1,7 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 
 import {
-  matomoTrackingUrl,
+  reportAiAssistant,
   shouldSkipPath,
   uaIsAiAssistant,
 } from "@/lib/ai-assistant";
@@ -21,11 +21,7 @@ import { preferredRepresentation } from "@/lib/negotiate";
 export function proxy(request: NextRequest, event: NextFetchEvent) {
   const ua = request.headers.get("user-agent") ?? "";
   if (uaIsAiAssistant(ua) && !shouldSkipPath(request.nextUrl.pathname)) {
-    event.waitUntil(
-      fetch(matomoTrackingUrl(request.url, ua), { method: "GET" }).catch(
-        () => {},
-      ),
-    );
+    event.waitUntil(reportAiAssistant(request.url, ua));
   }
 
   const requestHeaders = new Headers(request.headers);
