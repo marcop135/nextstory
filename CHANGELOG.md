@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [0.17.1] - 2026-11-24
+
+### Fixed
+
+- Analytics: Send AI-assistant requests to the working POST endpoint and report delivery failures ([#169](https://github.com/marcop135/nextstory/pull/169)) ([#168](https://github.com/marcop135/nextstory/issues/168)).
+
 ## [0.17.0] - 2026-11-23
 
 ### Added

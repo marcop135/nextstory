@@ -12,7 +12,7 @@ export const UA_NEEDLES = [
   "Google-NotebookLM",
 ] as const;
 
-export const MATOMO_TRACKER_URL = "https://mt.marcopontili.com/m/matomo.php";
+export const MATOMO_TRACKER_URL = "https://mt.marcopontili.com/m/";
 export const MATOMO_SITE_ID = "5";
 export const TRACKING_SOURCE = "vercel-middleware";
 
@@ -33,8 +33,8 @@ export function shouldSkipPath(path: string): boolean {
   return STATIC_ASSET.test(pathOnly);
 }
 
-export function matomoTrackingUrl(url: string, ua: string): string {
-  const params = new URLSearchParams({
+export function matomoTrackingBody(url: string, ua: string): URLSearchParams {
+  return new URLSearchParams({
     idsite: MATOMO_SITE_ID,
     rec: "1",
     recMode: "1",
@@ -42,5 +42,17 @@ export function matomoTrackingUrl(url: string, ua: string): string {
     ua,
     source: TRACKING_SOURCE,
   });
-  return `${MATOMO_TRACKER_URL}?${params}`;
+}
+
+export async function reportAiAssistant(url: string, ua: string): Promise<void> {
+  try {
+    const response = await fetch(MATOMO_TRACKER_URL, {
+      method: "POST",
+      body: matomoTrackingBody(url, ua),
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) console.warn("Matomo AI tracking failed", response.status);
+  } catch {
+    console.warn("Matomo AI tracking failed: network or timeout");
+  }
 }
