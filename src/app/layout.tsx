@@ -9,6 +9,7 @@ import { SiteFooter, SiteHeader, type ChromeCopy } from "@/components/layout/Sit
 import StoryblokProvider from "@/components/layout/StoryblokProvider";
 import {
   OG_IMAGE,
+  NEXTFOLD_URL,
   REPO_URL,
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -64,6 +65,7 @@ const fallbackFooterNav = [
   { _uid: "footer-source", label: "View the source", de: "Quellcode ansehen", href: REPO_URL },
   { _uid: "footer-docs", label: "Documentation", de: "Dokumentation", href: `${REPO_URL}/blob/main/docs/README.md` },
   { _uid: "footer-license", label: "MIT license", de: "MIT-Lizenz", href: `${REPO_URL}/blob/main/LICENSE` },
+  { _uid: "footer-nextfold", label: "Next Fold, Sanity demo", de: "Next Fold, Sanity demo", href: NEXTFOLD_URL },
   { _uid: "footer-privacy", label: "Privacy", de: "Datenschutz", href: "/privacy" },
   { _uid: "footer-agents", label: "For agents", de: "Für Agents", href: "/for-agents" },
   { _uid: "footer-llms", label: "llms.txt", de: "llms.txt", href: "/llms.txt" },

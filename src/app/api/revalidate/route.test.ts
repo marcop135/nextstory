@@ -98,3 +98,14 @@ it("refreshes the sitemap when a story is published", async () => {
   await POST(request({ action: "published", story_id: 9, full_slug: "how-it-works" }));
   expect(revalidatePath).toHaveBeenCalledWith("/sitemap.xml");
 });
+
+it("accepts a valid webhook-signature and rejects a tampered body", async () => {
+  const { createHmac } = await import("node:crypto");
+  const body = JSON.stringify({ action: "published", story_id: 1, full_slug: "blocks" });
+  const sign = (value: string) => createHmac("sha1", "webhook-secret").update(value).digest("hex");
+  const signed = (payload: string, signature: string) => new NextRequest("https://northline.test/api/revalidate", {
+    method: "POST", headers: { "webhook-signature": signature }, body: payload,
+  });
+  expect((await POST(signed(body, sign(body)))).status).toBe(200);
+  expect((await POST(signed(body.replace("blocks", "home"), sign(body)))).status).toBe(401);
+});
