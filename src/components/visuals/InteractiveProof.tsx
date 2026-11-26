@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { usePathname } from "next/navigation";
+import Arrow from "@/components/ui/Arrow";
 
 const en = {
   edit: "Try a content change, then publish the demo.", headline: "Try another headline", initial: "Build your next campaign",
@@ -76,15 +77,15 @@ export default function InteractiveProof({ resource }: { resource: string }) {
       <div className="proof__publish-track" key={revision} data-saved={!dirty} aria-hidden="true"><span /></div>
     </div>
     <div className="proof__publishing-actions publishing-visual__stage publishing-visual__stage--1">
-      <div className="proof__carousel-controls"><button type="button" className="proof__change" onClick={() => { const next = (headlineIndex + 1) % headlines.length; setHeadlineIndex(next); setHeadline(headlines[next]); setStatus(`${copy.updates} ${headlines[next]}`); }}>{copy.headline} <span aria-hidden="true">↻</span></button><span className="proof__count" aria-label={german ? "Beispiel" : "Example"}>{headlineIndex + 1} / {headlines.length}</span></div>
-      <div className="proof__publish-actions"><button type="button" className="proof__publish" aria-disabled={!dirty} onClick={() => { if (dirty) { setSaved(headline); setRevision((value) => value + 1); setStatus(copy.published); } }}>{copy.publish}<span aria-hidden="true">↑</span></button><button type="button" className="proof__reset" onClick={reset}>{copy.reset}</button></div>
+      <div className="proof__carousel-controls"><button type="button" className="proof__change" onClick={() => { const next = (headlineIndex + 1) % headlines.length; setHeadlineIndex(next); setHeadline(headlines[next]); setStatus(`${copy.updates} ${headlines[next]}`); }}>{copy.headline} <Arrow name="refresh" /></button><span className="proof__count" aria-label={german ? "Beispiel" : "Example"}>{headlineIndex + 1} / {headlines.length}</span></div>
+      <div className="proof__publish-actions"><button type="button" className="proof__publish" aria-disabled={!dirty} onClick={() => { if (dirty) { setSaved(headline); setRevision((value) => value + 1); setStatus(copy.published); } }}>{copy.publish}<Arrow name="up" /></button><button type="button" className="proof__reset" onClick={reset}>{copy.reset}</button></div>
     </div>
     <p className="proof__footer">{copy.local}</p><p className="visually-hidden" role="status">{status}</p>
   </div>;
   if (resource === "home") return <div className="proof proof--home" data-proof={resource}>
     <p className="proof__hint">{german ? "Wähle einen Block. Entdecke seinen Platz auf der Seite." : "Pick a block. See where it belongs on the page."}</p>
     <div className="proof__home-layout"><div className="proof__home-picker publishing-visual__stage publishing-visual__stage--0" role="group" aria-label={copy.included}>
-      {allBlocks.map((block, index) => <button type="button" key={block} aria-pressed={selected === block} onClick={() => { setSelected(block); setStatus(`${copy.updates} ${copy[block]}`); }}><span className="proof__block-icon" aria-hidden="true">{index === 0 ? "H" : index === 1 ? "▦" : "↗"}</span>{copy[block]}<span className="proof__connector" aria-hidden="true" /></button>)}
+      {allBlocks.map((block, index) => <button type="button" key={block} aria-pressed={selected === block} onClick={() => { setSelected(block); setStatus(`${copy.updates} ${copy[block]}`); }}><span className="proof__block-icon" aria-hidden="true">{index === 0 ? "H" : <Arrow name={index === 1 ? "grid" : "up-right"} />}</span>{copy[block]}<span className="proof__connector" aria-hidden="true" /></button>)}
     </div>
     <div className="proof__home-canvas publishing-visual__stage publishing-visual__stage--1" data-selected={selected}>
       <div className="proof__home-block" data-active={selected === "hero"}><span className="proof__badge">hero</span><strong>{copy.initial}</strong></div>

@@ -55,6 +55,13 @@
         "href": "https://github.com/marcop135/nextstory/blob/main/LICENSE"
       },
       {
+        "_uid": "footer-nextfold",
+        "component": "nav_link",
+        "label": "Next Fold, Sanity demo",
+        "label__i18n__de": "Next Fold, Sanity demo",
+        "href": "https://github.com/marcop135/nextfold"
+      },
+      {
         "_uid": "footer-privacy",
         "component": "nav_link",
         "label": "Privacy",

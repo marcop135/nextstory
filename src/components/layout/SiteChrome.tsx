@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Arrow from "@/components/ui/Arrow";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import LanguageSwitch from "@/components/layout/LanguageSwitch";
 import { ScrollReveal } from "@/components/layout/ScrollReveal";
 import { defaultLocale, localeForPathname, type Locale } from "@/lib/i18n";
-import { AUTHOR, REPO_URL } from "@/lib/site";
+import { AUTHOR, NEXTFOLD_URL, REPO_URL } from "@/lib/site";
 import { version } from "../../../package.json";
 
 export type ChromeCopy = {
@@ -127,6 +128,7 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
             <h2 className="footer-nav__heading" id="footer-explore">
               {locale === "de" ? "Entdecken" : "Explore"}
             </h2>
+            <Link href={locale === "de" ? "/de" : "/"}>{locale === "de" ? "Startseite" : "Home"}</Link>
             {copy[locale].nav.map((link) => (
               <Link key={link._uid} href={link.href}>{link.label}</Link>
             ))}
@@ -143,6 +145,10 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
                   </svg>
                   {link.label}
                   <span className="visually-hidden">{locale === "de" ? " (öffnet in neuem Tab)" : " (opens in a new tab)"}</span>
+                </a>
+              ) : link.href === NEXTFOLD_URL ? (
+                <a key={link._uid} href={link.href} title={locale === "de" ? "Next Fold: die Sanity-Variante dieser Next.js-Demo" : "Next Fold: the Sanity version of this Next.js demo"}>
+                  <span className="footer-nav__glyph"><Arrow name="up-right" /></span>{link.label}
                 </a>
               ) : (
                 <Link key={link._uid} href={link.href}>{link.label}</Link>
