@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.18.0] - 2026-11-26
+
 ### Added
 
 - Site: Link Next Fold in the footer and README, and add a Home link to the footer Explore column ([#175](https://github.com/marcop135/nextstory/pull/175)) ([#171](https://github.com/marcop135/nextstory/issues/171))
