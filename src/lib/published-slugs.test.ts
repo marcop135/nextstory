@@ -56,3 +56,11 @@ it("keeps each page's Storyblok publication date for the sitemap", async () => {
   const [url] = vi.mocked(fetch).mock.calls[0];
   expect(new URL(String(url)).searchParams.get("include_dates")).toBe("1");
 });
+
+it("pages through the Links API until the total header is covered", async () => {
+  const link = (slug: string) => ({ slug, is_folder: false, published: true });
+  const page = (slug: string) => new Response(JSON.stringify({ links: { [slug]: link(slug) } }), { headers: { total: "1001" } });
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(page("home")).mockResolvedValueOnce(page("blocks")));
+  expect(await publishedPageSlugs()).toEqual(["home", "blocks"]);
+  expect(vi.mocked(fetch).mock.calls.map(([url]) => new URL(String(url)).searchParams.get("page"))).toEqual(["1", "2"]);
+});
