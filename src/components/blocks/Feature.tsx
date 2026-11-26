@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Arrow from "@/components/ui/Arrow";
 import { storyblokEditable } from "@storyblok/react/rsc";
 
 import type { FeatureBlok } from "@/components/types";
@@ -16,8 +17,7 @@ export default function Feature({ blok }: { blok: FeatureBlok }) {
             <Link href={blok.link_href}>
               {title}
               <span className="feature__arrow" aria-hidden="true">
-                {" "}
-                →
+                <Arrow name="right" />
               </span>
             </Link>
           ) : (

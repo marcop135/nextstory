@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Arrow from "@/components/ui/Arrow";
 import { storyblokEditable } from "@storyblok/react/rsc";
 import type { RelatedContentBlok } from "@/components/types";
 import type { RelatedNote } from "@/lib/related-content";
@@ -31,8 +32,7 @@ export default function RelatedContent({ blok }: Props) {
                 <Link href={note.href}>
                   {note.title}
                   <span className="feature__arrow" aria-hidden="true">
-                    {" "}
-                    →
+                    <Arrow name="right" />
                   </span>
                 </Link>
               </h3>

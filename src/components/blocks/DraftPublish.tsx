@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import Arrow from "@/components/ui/Arrow";
 import type { WidgetCopy } from "@/lib/messages";
 
 const initial = ["hero", "features", "action"] as const;
@@ -39,8 +40,8 @@ export default function DraftPublish({ copy }: { copy: WidgetCopy }) {
     <div ref={order} className="app-widget__columns draft-playground" data-dirty={dirty}>
       <div><h3>{copy.draft}</h3><ol className="app-widget__order">{draft.map((block, index) =>
         <li key={block} data-block={block} data-view="draft"><span>{copy[block]}</span><div>
-          <button aria-label={`${copy.up}: ${copy[block]}`} aria-disabled={index === 0} onClick={() => move(index, -1)}>↑</button>
-          <button aria-label={`${copy.down}: ${copy[block]}`} aria-disabled={index === draft.length - 1} onClick={() => move(index, 1)}>↓</button>
+          <button aria-label={`${copy.up}: ${copy[block]}`} aria-disabled={index === 0} onClick={() => move(index, -1)}><Arrow name="up" /></button>
+          <button aria-label={`${copy.down}: ${copy[block]}`} aria-disabled={index === draft.length - 1} onClick={() => move(index, 1)}><Arrow name="down" /></button>
         </div></li>)}</ol></div>
       <div><h3>{copy.published}</h3>
         <ol className="app-widget__preview" aria-hidden="true">{draft.map((block) => <li key={`${revision}-${block}`} data-block={block} data-view="preview"><b>{copy[block]}</b>

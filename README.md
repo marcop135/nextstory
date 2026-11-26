@@ -115,6 +115,10 @@ Create a space, enable German (`de`), then follow [own-space setup](docs/command
 | `STORYBLOK_REVALIDATE_SECRET` | Publish webhooks | Authenticates `/api/revalidate` |
 | `STORYBLOK_PERSONAL_ACCESS_TOKEN`, `STORYBLOK_SPACE_ID` | Schema/story import | Management API credentials for `storyblok:push` only |
 
+## Next Fold
+
+Next Fold is the Sanity counterpart of this Storyblok demo: same Next.js App Router approach with a different headless CMS. See [Next Fold](https://github.com/marcop135/nextfold).
+
 ## Contributing
 
 Report bugs or propose features through [Issues](https://github.com/marcop135/nextstory/issues/new/choose). For code or documentation changes, follow the [contributing guide](CONTRIBUTING.md) for local setup, checks, and pull requests.
