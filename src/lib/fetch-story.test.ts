@@ -124,7 +124,7 @@ describe("content delivery", () => {
   it("distinguishes an absent story from a CMS outage", async () => {
     vi.mocked(fetch).mockResolvedValueOnce(new Response(null, { status: 404 }));
     expect(await fetchStory("missing")).toBeNull();
-    vi.mocked(fetch).mockResolvedValueOnce(new Response("upstream failure", { status: 503 }));
+    vi.mocked(fetch).mockImplementation(async () => new Response("upstream failure", { status: 503 }));
     await expect(fetchStory("home")).rejects.toThrow("503");
   });
 
@@ -137,5 +137,19 @@ describe("content delivery", () => {
   it("rejects malformed delivery responses", async () => {
     vi.mocked(fetch).mockResolvedValueOnce(Response.json({ story: null }));
     await expect(fetchStory("home")).rejects.toThrow("Invalid Storyblok response");
+  });
+});
+
+describe("transient failures", () => {
+  it.each([429, 502])("retries once after a %i and returns the story", async (status) => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response(null, { status, headers: { "retry-after": "0" } }));
+    expect((await fetchStory("home", undefined, { version: "published" }))?.story.full_slug).toBe(mockHomeStory.full_slug);
+    expect(fetch).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not retry a 404", async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(null, { status: 404 }));
+    expect(await fetchStory("missing", undefined, { version: "published" })).toBeNull();
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 });
