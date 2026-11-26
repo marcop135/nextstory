@@ -27,6 +27,22 @@ export function cdnBaseUrl(): string {
   return `https://${host}/v2`;
 }
 
+/** One retry for network errors, 429, and 5xx, honoring `Retry-After` up to two seconds. A 404 is never retried. */
+async function fetchWithRetry(url: string, init: RequestInit & { next?: unknown }): Promise<Response> {
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  let res: Response;
+  try {
+    res = await fetch(url, init);
+  } catch {
+    await wait(250 + Math.random() * 250);
+    return fetch(url, init);
+  }
+  if (res.status !== 429 && res.status < 500) return res;
+  const retryAfter = Number(res.headers.get("retry-after"));
+  await wait(Number.isFinite(retryAfter) && retryAfter > 0 ? Math.min(retryAfter * 1000, 2000) : 250 + Math.random() * 250);
+  return fetch(url, init);
+}
+
 export async function fetchStory(
   slug: string,
   language?: string,
@@ -55,7 +71,7 @@ export async function fetchStory(
 
   let res: Response;
   try {
-    res = await fetch(url, {
+    res = await fetchWithRetry(url, {
       headers: { Accept: "application/json" },
       // Draft preview must stay fresh; published can be cached via revalidate route.
       cache: version === "draft" ? "no-store" : "force-cache",
