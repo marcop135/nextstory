@@ -16,6 +16,9 @@
 - Webhooks: Verify the Storyblok webhook signature on revalidation ([#176](https://github.com/marcop135/nextstory/pull/176)) ([#172](https://github.com/marcop135/nextstory/issues/172))
 - Widgets: Polish illustrations and interactive widgets with window chrome, pill controls, and softer depth ([#175](https://github.com/marcop135/nextstory/pull/175)) ([#171](https://github.com/marcop135/nextstory/issues/171))
 - Site: Render arrows as SVG ([#175](https://github.com/marcop135/nextstory/pull/175)) ([#171](https://github.com/marcop135/nextstory/issues/171))
+### Fixed
+
+- Sitemap: List published pages beyond the first 1000 Storyblok links ([#177](https://github.com/marcop135/nextstory/pull/177)) ([#173](https://github.com/marcop135/nextstory/issues/173))
 
 ## [0.17.1] - 2026-11-24
 
