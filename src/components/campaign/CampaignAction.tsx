@@ -111,6 +111,7 @@ export default function CampaignAction({ blok }: { blok: CampaignActionBlok }) {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "submitting") return;
     const form = event.currentTarget;
     const data = new FormData(form);
     const email = String(data.get("email") ?? "").trim();
@@ -246,7 +247,7 @@ export default function CampaignAction({ blok }: { blok: CampaignActionBlok }) {
               <label>Website<input name="website" type="text" tabIndex={-1} autoComplete="off" /></label>
             </div>
             <div ref={container} className="campaign-action__verification" />
-            <button className="btn" type="submit" disabled={submitting}>
+            <button className="btn" type="submit" aria-disabled={submitting}>
               {submitting ? <><span className="campaign-action__spinner" aria-hidden="true" />{copy.sending}</> : blok.button_label}
             </button>
             <p id={statusId} className="campaign-action__status" role="status" data-tone={status === "error" && message ? "error" : undefined}>{message}</p>
