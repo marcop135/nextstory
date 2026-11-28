@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [0.18.1] - 2026-11-28
+
 ### Changed
 
 - SEO: Fall back to the locale site description in meta, Open Graph, and JSON-LD ([#183](https://github.com/marcop135/nextstory/pull/183)) ([#181](https://github.com/marcop135/nextstory/issues/181))
