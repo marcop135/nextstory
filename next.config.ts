@@ -70,6 +70,11 @@ const nextConfig: NextConfig = {
         source: "/matomo.js",
         headers: [{ key: "Cache-Control", value: "public, max-age=86400" }],
       },
+      {
+        // Unhashed images in public/: cache for a day, then serve stale while revalidating.
+        source: "/:file(icon-192|icon-512|icon-maskable-512|og).:ext(png|jpg)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
     ];
   },
 };
