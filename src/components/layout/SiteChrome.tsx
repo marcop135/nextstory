@@ -146,8 +146,8 @@ export function SiteFooter({ copy }: { copy: Record<Locale, ChromeCopy> }) {
                   {link.label}
                   <span className="visually-hidden">{locale === "de" ? " (öffnet in neuem Tab)" : " (opens in a new tab)"}</span>
                 </a>
-              ) : link.href === NEXTFOLD_URL ? (
-                <a key={link._uid} href={link.href} title={locale === "de" ? "Next Fold: die Sanity-Variante dieser Next.js-Demo" : "Next Fold: the Sanity version of this Next.js demo"}>
+              ) : link._uid === "footer-nextfold" ? (
+                <a key={link._uid} href={NEXTFOLD_URL} title={locale === "de" ? "Next Fold: die Sanity-Variante dieser Next.js-Demo" : "Next Fold: the Sanity version of this Next.js demo"}>
                   <span className="footer-nav__glyph"><Arrow name="up-right" /></span>{link.label}
                 </a>
               ) : (

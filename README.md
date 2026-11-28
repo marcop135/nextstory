@@ -117,7 +117,7 @@ Create a space, enable German (`de`), then follow [own-space setup](docs/command
 
 ## Next Fold
 
-Next Fold is the Sanity counterpart of this Storyblok demo: same Next.js App Router approach with a different headless CMS. See [Next Fold](https://github.com/marcop135/nextfold).
+Next Fold is the Sanity counterpart of this Storyblok demo: same Next.js App Router approach with a different headless CMS. See [Next Fold](https://nextfold.marcopontili.com).
 
 ## Contributing
 

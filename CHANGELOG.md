@@ -7,6 +7,20 @@
 
 ## [Unreleased]
 
+## [0.18.1] - 2026-11-28
+
+### Changed
+
+- SEO: Fall back to the locale site description in meta, Open Graph, and JSON-LD ([#183](https://github.com/marcop135/nextstory/pull/183)) ([#181](https://github.com/marcop135/nextstory/issues/181))
+- Performance: Cache the unhashed icon and Open Graph images for a day with stale-while-revalidate ([#183](https://github.com/marcop135/nextstory/pull/183)) ([#181](https://github.com/marcop135/nextstory/issues/181))
+- Performance: Drop the blur from the headline animation to cut paint cost ([#183](https://github.com/marcop135/nextstory/pull/183)) ([#181](https://github.com/marcop135/nextstory/issues/181))
+
+### Fixed
+
+- Accessibility: Keep the campaign submit button focusable while sending and ignore repeat submissions ([#183](https://github.com/marcop135/nextstory/pull/183)) ([#181](https://github.com/marcop135/nextstory/issues/181))
+- Accessibility: Hide the decorative error marker from screen readers and enlarge the consent label target ([#183](https://github.com/marcop135/nextstory/pull/183)) ([#181](https://github.com/marcop135/nextstory/issues/181))
+- Accessibility: Set the language on the English and German block field values ([#183](https://github.com/marcop135/nextstory/pull/183)) ([#181](https://github.com/marcop135/nextstory/issues/181))
+
 ## [0.18.0] - 2026-11-26
 
 ### Added

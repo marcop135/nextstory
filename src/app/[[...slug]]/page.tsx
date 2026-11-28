@@ -9,7 +9,7 @@ import type { PageBlok } from "@/components/types";
 import { CAMPAIGN_DRAFT_COOKIE, CAMPAIGN_DRAFT_SLUG, campaignDraftSecret, readCampaignDraft } from "@/lib/campaign-draft";
 import { fetchStory } from "@/lib/fetch-story";
 import { hreflangAlternates, storyblokLanguage } from "@/lib/i18n";
-import { INDEX_ROBOTS, SITE_NAME, notFoundTitle, ogImageFor, pageJsonLd } from "@/lib/site";
+import { INDEX_ROBOTS, SITE_NAME, notFoundTitle, ogImageFor, pageJsonLd, siteDescription } from "@/lib/site";
 import { isPageSlug, parseStorySegments } from "@/lib/story-path";
 import { markdownPathForPage } from "@/lib/agent-paths";
 
@@ -33,7 +33,8 @@ export async function generateMetadata({
   const content = result.story.content as PageBlok;
   const title =
     content.seo_title || result.story.name || "Next Story";
-  const description = content.seo_description || undefined;
+  // A page without its own description keeps the locale's site description in meta and Open Graph.
+  const description = content.seo_description || siteDescription(locale);
 
   const canonical = pathname ? `/${pathname}` : "/";
 
@@ -96,7 +97,7 @@ export default async function StoryPage({ params, searchParams }: PageProps) {
         data={pageJsonLd({
           path: pathname ? `/${pathname}` : "/",
           name: content.seo_title || result.story.name || SITE_NAME,
-          description: content.seo_description || undefined,
+          description: content.seo_description || siteDescription(locale),
           locale,
         })}
       />
