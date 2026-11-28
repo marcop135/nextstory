@@ -1,7 +1,7 @@
 export const SITE_URL = "https://nextstory.marcopontili.com";
 export const SITE_NAME = "Next Story";
 export const REPO_URL = "https://github.com/marcop135/nextstory";
-export const NEXTFOLD_URL = "https://github.com/marcop135/nextfold";
+export const NEXTFOLD_URL = "https://nextfold.marcopontili.com";
 /** Shown on the privacy page and sent as its sitemap lastmod. */
 export const PRIVACY_UPDATED = "2026-11-22";
 
